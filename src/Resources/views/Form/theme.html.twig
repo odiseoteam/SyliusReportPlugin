@@ -1,0 +1,19 @@
+{% extends 'SyliusUiBundle:Form:theme.html.twig' %}
+
+{% block date_widget %}
+    {% spaceless %}
+        {% if widget == 'single_text' %}
+            {{ block('form_widget_simple') }}
+        {% else %}
+            {{ '{{ year }} / {{ month }} / {{ day }}'|replace({
+                '{{ year }}':  form_widget(form.year, {'attr': {'style': 'display: inline; width: 100px;'}}),
+                '{{ month }}': form_widget(form.month, {'attr': {'style': 'display: inline; width: 100px;'}}),
+                '{{ day }}':   form_widget(form.day, {'attr': {'style': 'display: inline; width: 100px;'}}),
+            })|raw }}
+        {% endif %}
+    {% endspaceless %}
+{% endblock date_widget %}
+
+{% block sylius_taxon_autocomplete_choice_row %}
+    {{ form_row(form, {'remote_url': path('sylius_admin_ajax_taxon_root_nodes'), 'load_edit_url': path('sylius_admin_ajax_taxon_by_code')}) }}
+{% endblock %}

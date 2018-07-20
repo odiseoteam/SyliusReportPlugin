@@ -1,0 +1,93 @@
+parameters:
+services:
+    #REGISTRY
+    odiseo_sylius_report.registry.data_fetcher:
+        class: Sylius\Component\Registry\ServiceRegistry
+        arguments: ['Sylius\Component\Report\DataFetcher\DataFetcherInterface', 'data fetcher']
+
+    odiseo_sylius_report.registry.renderer:
+        class: Sylius\Component\Registry\ServiceRegistry
+        arguments: ['Sylius\Component\Report\Renderer\RendererInterface', 'renderer']
+
+    odiseo_sylius_report.data_fetcher:
+        class: Odiseo\SyliusReportPlugin\DataFetcher\DelegatingDataFetcher
+        arguments: ['@odiseo_sylius_report.registry.data_fetcher']
+
+    odiseo_sylius_report.renderer:
+        class: Odiseo\SyliusReportPlugin\Renderer\DelegatingRenderer
+        arguments: ['@odiseo_sylius_report.registry.renderer']
+
+    #FORM TYPES
+    odiseo_sylius_report.form.type.data_fetcher_choice:
+        class: Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\DataFetcherChoiceType
+        arguments: ['%odiseo_sylius_report.data_fetchers%']
+        tags:
+            - { name: form.type, alias: odiseo_sylius_report_data_fetcher_choice }
+
+    odiseo_sylius_report.form.type.renderer_choice:
+        class: Odiseo\SyliusReportPlugin\Form\Type\Renderer\RendererChoiceType
+        arguments: ['%odiseo_sylius_report.renderers%']
+        tags:
+            - { name: form.type, alias: odiseo_sylius_report_renderer_choice }
+
+    odiseo_sylius_report.form.type.report:
+        class: Odiseo\SyliusReportPlugin\Form\Type\ReportType
+        arguments: ['%odiseo_sylius_report.model.report.class%', []]
+        tags:
+            - { name: form.type, alias: odiseo_sylius_report }
+
+    #REPORT RENDERERS
+    odiseo_sylius_report.renderer.chart:
+        class: Odiseo\SyliusReportPlugin\Renderer\ChartRenderer
+        arguments: ['@templating']
+        tags:
+            - { name: odiseo_sylius_report.renderer, renderer: odiseo_sylius_report_renderer_chart, label: "odiseo_sylius_report.renderer.chart" }
+
+    odiseo_sylius_report.renderer.table:
+        class: Odiseo\SyliusReportPlugin\Renderer\TableRenderer
+        arguments: ['@templating']
+        tags:
+            - { name: odiseo_sylius_report.renderer, renderer: odiseo_sylius_report_renderer_table, label: "odiseo_sylius_report.renderer.table" }
+
+    #REPORT DATA FETCHERS
+    odiseo_sylius_report.data_fetcher.user_registration:
+        class: Odiseo\SyliusReportPlugin\DataFetcher\Default\UserRegistrationDataFetcher
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: odiseo_sylius_report.data_fetcher, renderer: odiseo_sylius_report_data_fetcher_user_registration, label: "odiseo_sylius_report.data_fetcher.user_registration" }
+
+    odiseo_sylius_report.data_fetcher.sales_total:
+        class: Odiseo\SyliusReportPlugin\DataFetcher\Default\SalesTotalDataFetcher
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: odiseo_sylius_report.data_fetcher, renderer: odiseo_sylius_report_data_fetcher_sales_total, label: "odiseo_sylius_report.data_fetcher.sales_total" }
+
+    odiseo_sylius_report.data_fetcher.number_of_orders:
+        class: Odiseo\SyliusReportPlugin\DataFetcher\Default\NumberOfOrdersDataFetcher
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: odiseo_sylius_report.data_fetcher, renderer: odiseo_sylius_report_data_fetcher_number_of_orders, label: "odiseo_sylius_report.data_fetcher.number_of_orders" }
+
+    #REPORT RENDERER CONFIGURATION TYPES
+    odiseo_sylius_report.form.type.renderer.configuration.chart:
+        class: Odiseo\SyliusReportPlugin\Form\Type\Renderer\ChartConfigurationType
+        tags:
+            - { name: form.type, alias: odiseo_sylius_report_renderer_chart }
+
+    odiseo_sylius_report.form.type.renderer.configuration.table:
+        class: Odiseo\SyliusReportPlugin\Form\Type\Renderer\TableConfigurationType
+        tags:
+            - { name: form.type, alias: odiseo_sylius_report_renderer_table }
+
+    #REPORT DATA FETCHER CONFIGURATION TYPES
+    #odiseo_sylius_report.form.type.data_fetcher.configuration.user_registration:
+    #    class: Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\UserRegistrationConfigurationType
+    #    arguments: ['@doctrine.orm.entity_manager']
+    #    tags:
+    #        - { name: form.type, alias: odiseo_sylius_report_renderer_chart }
+
+    #LISTENERS
+    odiseo_sylius_report.listener.admin.menu_builder:
+        class: Odiseo\SyliusReportPlugin\Menu\AdminMenuListener
+        tags:
+            - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addAdminMenuItems }

@@ -1,0 +1,58 @@
+sylius_grid:
+    grids:
+        odiseo_sylius_report_admin_report:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: "%odiseo_sylius_report.model.report.class%"
+            sorting:
+                id: asc
+            fields:
+                id:
+                    type: string
+                    label: sylius.ui.id
+                    sortable: ~
+                code:
+                    type: string
+                    label: sylius.ui.code
+                    sortable: ~
+                name:
+                    type: twig
+                    label: sylius.ui.name
+                    path: .
+                    options:
+                        template: "@SyliusUi/Grid/Field/nameAndDescription.html.twig"
+                createdAt:
+                    type: datetime
+                    label: sylius.ui.creation_date
+                    sortable: ~
+                    options:
+                        format: d-m-Y
+                renderer:
+                    type: twig
+                    label: sylius.form.report.renderer.label
+                    options:
+                        template: "@OdiseoSyliusReport/Grid/Field/renderer.html.twig"
+                dataFetcher:
+                    type: twig
+                    label: sylius.form.report.data_fetcher
+                    options:
+                        template: "@OdiseoSyliusReport/Grid/Field/renderer.html.twig"
+            filters:
+                code:
+                    type: string
+                    label: sylius.ui.code
+                enabled:
+                    type: boolean
+                    label: sylius.ui.enabled
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    show:
+                        type: show
+                    update:
+                        type: update
+                    delete:
+                        type: delete

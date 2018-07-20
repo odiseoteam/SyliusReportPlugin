@@ -1,0 +1,26 @@
+{% if configurationForm.timePeriod is defined %}
+<div class="two fields">
+{% for field in configurationForm.timePeriod %}
+    {{ form_row(field) }}
+    {% if loop.index is divisible by(2) %}
+</div>
+<div class="two fields">
+    {% endif %}
+{% endfor %}
+</div>
+<hr>
+{% endif %}
+
+{% set index = 1 %}
+<div class="two fields">
+{% for field in configurationForm %}
+    {% if field.vars.name != 'timePeriod' %}
+    {{ form_row(field) }}
+    {% if index is divisible by(2) %}
+</div>
+<div class="two fields">
+    {% endif %}
+    {% set index = index+1 %}
+    {% endif %}
+{% endfor %}
+</div>

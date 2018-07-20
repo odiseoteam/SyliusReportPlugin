@@ -1,0 +1,41 @@
+{% form_theme form 'SyliusReportBundle:Form:theme.html.twig' %}
+
+<div class="ui one column stackable grid">
+    {{ form_errors(form) }}
+    <div class="column">
+        <div class="ui segment">
+            <h4 class="ui dividing header">{{ 'sylius.ui.general_info'|trans }}</h4>
+            <div class="two fields">
+                {{ form_row(form.code) }}
+                {{ form_row(form.name) }}
+            </div>
+            {{ form_row(form.description) }}
+        </div>
+    </div>
+    <div class="prototypes">
+        {% for name, rendererConfigurationPrototype in form.vars.prototypes.renderers %}
+            <div id="{{ form.renderer.vars.id }}_{{ name }}" data-container="#renderer.configuration" data-prototype="{{ include('SyliusReportBundle::_rendererConfiguration.html.twig', { 'configurationForm': rendererConfigurationPrototype })|e }}"></div>
+        {% endfor %}
+        {% for name, dataFetcherConfigurationPrototype in form.vars.prototypes.dataFetchers %}
+            <div id="{{ form.dataFetcher.vars.id }}_{{ name }}" data-container="#data_fetcher.configuration" data-prototype="{{ include('SyliusReportBundle::_dataFetcherConfiguration.html.twig', { 'configurationForm': dataFetcherConfigurationPrototype })|e }}"></div>
+        {% endfor %}
+    </div>
+    <div class="column">
+        <div class="ui segment">
+            <h4 class="ui dividing header">{{ 'sylius.ui.renderers'|trans }}</h4>
+            {{ form_row(form.renderer) }}
+            <div class="ui divider"></div>
+            <div class="two fields" id="sylius_report_renderer_configuration">
+                {{ include('SyliusReportBundle::_rendererConfiguration.html.twig', { 'configurationForm': form.rendererConfiguration }) }}
+            </div>
+        </div>
+        <div class="ui segment">
+            <h4 class="ui dividing header">{{ 'sylius.ui.data_fetchers'|trans }}</h4>
+            {{ form_row(form.dataFetcher) }}
+            <div class="ui divider"></div>
+            <div class="field" id="sylius_report_dataFetcher_configuration">
+                {{ include('SyliusReportBundle::_dataFetcherConfiguration.html.twig', { 'configurationForm': form.dataFetcherConfiguration }) }}
+            </div>
+        </div>
+    </div>
+</div>

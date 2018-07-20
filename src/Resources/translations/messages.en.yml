@@ -1,0 +1,36 @@
+odiseo_sylius_report:
+    ui:
+        manage_reports: Manage reports
+        renderers: Renderers
+        data_fetchers: Data Fetchers
+        no_data: No data
+        new_report: New report
+        show_report: Show report
+    form:
+        report:
+            name: Name
+            description: Description
+            data_fetcher: Data Fetcher
+            renderer:
+                label:  Renderer
+                template: Template
+            chart:
+                type: Type
+            user_registration:
+                start: Start date
+                end: End date
+                period: Time period
+                empty_records: Print empty records?
+    renderer:
+        chart: Chart renderer
+        table: Table renderer
+    data_fetcher:
+        user_registration: User registration
+        sales_total: Sales Total
+        number_of_orders: Number of orders
+
+odiseo_sylius_report_renderer_table: Table renderer
+odiseo_sylius_report_renderer_chart: Chart renderer
+odiseo_sylius_report_data_fetcher_user_registration: User Registration
+odiseo_sylius_report_data_fetcher_sales_total: Sales Total
+odiseo_sylius_report_number_of_orders: Number of orders
