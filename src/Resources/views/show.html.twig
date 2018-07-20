@@ -1,11 +1,11 @@
-{% extends 'SyliusAdminBundle::layout.html.twig' %}
+{% extends '@OdiseoSyliusReportPlugin/layout.html.twig' %}
 
-{% import 'SyliusUiBundle:Macro:headers.html.twig' as headers %}
+{% import '@SyliusUi/Macro/headers.html.twig' as headers %}
 {% import '@SyliusAdmin/Macro/breadcrumb.html.twig' as breadcrumb %}
 
 {% set breadcrumbs = [
     { label: 'sylius.ui.administration'|trans, url: path('sylius_admin_dashboard') },
-    { label: (metadata.applicationName~'.ui.'~metadata.pluralName)|trans, url: path('sylius_admin_report_index', configuration.vars.route.parameters|default({})) },
+    { label: (metadata.applicationName~'.ui.'~metadata.pluralName)|trans, url: path('odiseo_sylius_report_admin_report_index', configuration.vars.route.parameters|default({})) },
     { label: resource.name }
 ]
 %}
@@ -30,7 +30,7 @@
 
     {{ sonata_block_render_event(event_prefix ~ '.after_header', {'resource': resource}) }}
 
-    {{ render(controller('sylius.controller.report:embedAction', {'report': report, 'configuration' : configurationForm})) }}
+    {{ render(controller('odiseo_sylius_report.controller.report:embedAction', {'report': report, 'configuration' : configurationForm})) }}
 
     {{ sonata_block_render_event(event_prefix ~ '.after_content', {'resource': resource}) }}
 {% endblock %}
@@ -43,6 +43,8 @@
 
 {% block javascripts %}
     {{ parent() }}
+
+    {% include 'SyliusUiBundle::_javascripts.html.twig' with {'path': 'bundles/odiseosyliusreportplugin/js/Chart.min.js'} %}
 
     {{ sonata_block_render_event(event_prefix ~ '.javascripts') }}
 {% endblock %}

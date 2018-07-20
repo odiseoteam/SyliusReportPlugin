@@ -25,18 +25,28 @@ class DelegatingRenderer implements DelegatingRendererInterface
 
     /**
      * {@inheritdoc}
+     */
+    public function render(ReportInterface $report, Data $data)
+    {
+        $renderer = $this->getRenderer($report);
+
+        return $renderer->render($report, $data);
+    }
+
+    /**
+     * {@inheritdoc}
      *
      * @throws \InvalidArgumentException If the report subject does not have a renderer.
      */
-    public function render(ReportInterface $subject, Data $data)
+    public function getRenderer(ReportInterface $report)
     {
-        if (null === $type = $subject->getRenderer()) {
+        if (null === $type = $report->getRenderer()) {
             throw new \InvalidArgumentException('Cannot render data for ReportInterface instance without renderer defined.');
         }
 
         /** @var RendererInterface $renderer */
         $renderer = $this->registry->get($type);
 
-        return $renderer->render($subject, $data);
+        return $renderer;
     }
 }

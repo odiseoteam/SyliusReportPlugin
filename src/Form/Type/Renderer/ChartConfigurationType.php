@@ -19,13 +19,13 @@ class ChartConfigurationType extends AbstractType
     {
         $builder
             ->add('type', ChoiceType::class, [
-                'label' => 'sylius.form.report.chart.type',
+                'label' => 'odiseo_sylius_report.form.renderer.chart.type',
                 'choices' => ChartRenderer::getChartTypes(),
             ])
             ->add('template', ChoiceType::class, [
-                'label' => 'sylius.form.report.renderer.template',
+                'label' => 'odiseo_sylius_report.form.renderer.template',
                 'choices' => [
-                    'Default' => 'SyliusReportBundle:Chart:default.html.twig',
+                    'Default' => '@OdiseoSyliusReportPlugin/Chart/default.html.twig',
                 ],
             ])
         ;

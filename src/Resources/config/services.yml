@@ -3,18 +3,20 @@ services:
     #REGISTRY
     odiseo_sylius_report.registry.data_fetcher:
         class: Sylius\Component\Registry\ServiceRegistry
-        arguments: ['Sylius\Component\Report\DataFetcher\DataFetcherInterface', 'data fetcher']
+        arguments: ['Odiseo\SyliusReportPlugin\DataFetcher\DataFetcherInterface', 'data fetcher']
 
     odiseo_sylius_report.registry.renderer:
         class: Sylius\Component\Registry\ServiceRegistry
-        arguments: ['Sylius\Component\Report\Renderer\RendererInterface', 'renderer']
+        arguments: ['Odiseo\SyliusReportPlugin\Renderer\RendererInterface', 'renderer']
 
     odiseo_sylius_report.data_fetcher:
         class: Odiseo\SyliusReportPlugin\DataFetcher\DelegatingDataFetcher
+        public: true
         arguments: ['@odiseo_sylius_report.registry.data_fetcher']
 
     odiseo_sylius_report.renderer:
         class: Odiseo\SyliusReportPlugin\Renderer\DelegatingRenderer
+        public: true
         arguments: ['@odiseo_sylius_report.registry.renderer']
 
     #FORM TYPES
@@ -51,22 +53,22 @@ services:
 
     #REPORT DATA FETCHERS
     odiseo_sylius_report.data_fetcher.user_registration:
-        class: Odiseo\SyliusReportPlugin\DataFetcher\Default\UserRegistrationDataFetcher
+        class: Odiseo\SyliusReportPlugin\DataFetcher\UserRegistrationDataFetcher
         arguments: ['@doctrine.orm.entity_manager']
         tags:
-            - { name: odiseo_sylius_report.data_fetcher, renderer: odiseo_sylius_report_data_fetcher_user_registration, label: "odiseo_sylius_report.data_fetcher.user_registration" }
+            - { name: odiseo_sylius_report.data_fetcher, fetcher: odiseo_sylius_report_data_fetcher_user_registration, label: "odiseo_sylius_report.data_fetcher.user_registration" }
 
     odiseo_sylius_report.data_fetcher.sales_total:
-        class: Odiseo\SyliusReportPlugin\DataFetcher\Default\SalesTotalDataFetcher
+        class: Odiseo\SyliusReportPlugin\DataFetcher\SalesTotalDataFetcher
         arguments: ['@doctrine.orm.entity_manager']
         tags:
-            - { name: odiseo_sylius_report.data_fetcher, renderer: odiseo_sylius_report_data_fetcher_sales_total, label: "odiseo_sylius_report.data_fetcher.sales_total" }
+            - { name: odiseo_sylius_report.data_fetcher, fetcher: odiseo_sylius_report_data_fetcher_sales_total, label: "odiseo_sylius_report.data_fetcher.sales_total" }
 
     odiseo_sylius_report.data_fetcher.number_of_orders:
-        class: Odiseo\SyliusReportPlugin\DataFetcher\Default\NumberOfOrdersDataFetcher
+        class: Odiseo\SyliusReportPlugin\DataFetcher\NumberOfOrdersDataFetcher
         arguments: ['@doctrine.orm.entity_manager']
         tags:
-            - { name: odiseo_sylius_report.data_fetcher, renderer: odiseo_sylius_report_data_fetcher_number_of_orders, label: "odiseo_sylius_report.data_fetcher.number_of_orders" }
+            - { name: odiseo_sylius_report.data_fetcher, fetcher: odiseo_sylius_report_data_fetcher_number_of_orders, label: "odiseo_sylius_report.data_fetcher.number_of_orders" }
 
     #REPORT RENDERER CONFIGURATION TYPES
     odiseo_sylius_report.form.type.renderer.configuration.chart:

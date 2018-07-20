@@ -1,6 +1,6 @@
 <?php
 
-namespace Sylius\Bundle\ReportBundle\DataFetcher;
+namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
 use Odiseo\SyliusReportPlugin\DataFetcher\TimePeriod;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\SalesTotalType;

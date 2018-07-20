@@ -65,10 +65,10 @@ class ReportType extends AbstractResourceType
                 'required' => true,
             ])
             ->add('dataFetcher', DataFetcherChoiceType::class, [
-                'label' => 'odiseo_sylius_report.form.report.data_fetcher',
+                'label' => 'odiseo_sylius_report.form.data_fetcher',
             ])
             ->add('renderer', RendererChoiceType::class, [
-                'label' => 'odiseo_sylius_report.form.report.renderer.label',
+                'label' => 'odiseo_sylius_report.form.renderer.label',
             ])
         ;
 

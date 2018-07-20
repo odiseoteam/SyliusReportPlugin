@@ -20,7 +20,7 @@ class TableConfigurationType extends AbstractType
             ->add('template', ChoiceType::class, [
                 'label' => 'odiseo_sylius_report.form.renderer.template',
                 'choices' => [
-                    'Default' => 'OdiseoSyliusReportPlugin:Table:default.html.twig',
+                    'Default' => '@OdiseoSyliusReportPlugin/Table/default.html.twig',
                 ],
             ])
         ;

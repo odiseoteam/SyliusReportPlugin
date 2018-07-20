@@ -1,25 +1,28 @@
 odiseo_sylius_report:
     ui:
+        reports: Reportes
         manage_reports: Administrar reportes
         renderers: Renderizadores
         data_fetchers: Obtención de datos
         no_data: No data
         new_report: Nuevo reporte
+        show_report: Ver reporte
+        edit_report: Editar reporte
     form:
         report:
             name: Nombre
             description: Descripción
-            data_fetcher: Obtención de datos
-            renderer:
-                label: Renderizador
-                template: Plantilla
+        data_fetcher: Data Fetcher
+        renderer:
+            label:  Renderer
+            template: Template
             chart:
                 type: Tipo
-            user_registration:
-                start: Fecha de inicio
-                end: Fecha fin
-                period: Periodo de tiempo
-                empty_records: ¿Imprimir registros vacíos?
+        time_period:
+            start: Start date
+            end: End date
+            period: Time period
+            empty_records: Print empty records?
     renderer:
         chart: Chart renderer
         table: Table renderer

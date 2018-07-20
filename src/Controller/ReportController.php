@@ -31,10 +31,8 @@ class ReportController extends ResourceController
         /** @var ReportInterface $report */
         $report = $this->findOr404($configuration);
 
-        /** @var ServiceRegistryInterface $serviceRegistry */
-        $serviceRegistry = $this->get('sylius.registry.report.data_fetcher');
         /** @var DataFetcherInterface $dataFetcher */
-        $dataFetcher = $serviceRegistry->get($report->getDataFetcher());
+        $dataFetcher = $this->getReportDataFetcher()->getDataFetcher($report);
         /** @var FormInterface $configurationForm */
         $configurationForm = $this->container->get('form.factory')->createNamed(
             'configuration',
@@ -85,7 +83,7 @@ class ReportController extends ResourceController
         }
 
         if (null === $report) {
-            return $this->container->get('templating')->renderResponse('SyliusReportBundle::noDataTemplate.html.twig');
+            return $this->container->get('templating')->renderResponse('@OdiseoSyliusReportPlugin/noDataTemplate.html.twig');
         }
 
         $configuration = ($request->query->has('configuration')) ? $request->query->get('configuration', $configuration) : $report->getDataFetcherConfiguration();
@@ -101,7 +99,7 @@ class ReportController extends ResourceController
      */
     private function getReportRenderer()
     {
-        return $this->container->get('odieo_sylius_report.renderer');
+        return $this->container->get('odiseo_sylius_report.renderer');
     }
 
     /**

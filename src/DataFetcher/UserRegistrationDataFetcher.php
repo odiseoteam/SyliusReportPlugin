@@ -1,6 +1,6 @@
 <?php
 
-namespace Sylius\Bundle\ReportBundle\DataFetcher;
+namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Odiseo\SyliusReportPlugin\DataFetcher\TimePeriod;

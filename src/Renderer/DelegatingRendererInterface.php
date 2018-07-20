@@ -8,10 +8,19 @@ use Odiseo\SyliusReportPlugin\Model\ReportInterface;
 interface DelegatingRendererInterface
 {
     /**
-     * @param ReportInterface $subject
+     * @param ReportInterface $report
      * @param Data            $data
      *
      * @return int
      */
-    public function render(ReportInterface $subject, Data $data);
+    public function render(ReportInterface $report, Data $data);
+
+    /**
+     * Return the RendererInterface of the ReportInterface given
+     *
+     * @param ReportInterface $report
+     *
+     * @return RendererInterface
+     */
+    public function getRenderer(ReportInterface $report);
 }

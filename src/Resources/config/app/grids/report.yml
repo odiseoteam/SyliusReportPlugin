@@ -22,29 +22,24 @@ sylius_grid:
                     path: .
                     options:
                         template: "@SyliusUi/Grid/Field/nameAndDescription.html.twig"
+                renderer:
+                    type: twig
+                    label: odiseo_sylius_report.form.renderer.label
+                    options:
+                        template: "@OdiseoSyliusReportPlugin/Grid/Field/dataTrans.html.twig"
+                dataFetcher:
+                    type: twig
+                    label: odiseo_sylius_report.form.data_fetcher
+                    options:
+                        template: "@OdiseoSyliusReportPlugin/Grid/Field/dataTrans.html.twig"
                 createdAt:
                     type: datetime
                     label: sylius.ui.creation_date
                     sortable: ~
-                    options:
-                        format: d-m-Y
-                renderer:
-                    type: twig
-                    label: sylius.form.report.renderer.label
-                    options:
-                        template: "@OdiseoSyliusReport/Grid/Field/renderer.html.twig"
-                dataFetcher:
-                    type: twig
-                    label: sylius.form.report.data_fetcher
-                    options:
-                        template: "@OdiseoSyliusReport/Grid/Field/renderer.html.twig"
             filters:
-                code:
+                name:
                     type: string
-                    label: sylius.ui.code
-                enabled:
-                    type: boolean
-                    label: sylius.ui.enabled
+                    label: sylius.ui.name
             actions:
                 main:
                     create:

@@ -43,7 +43,7 @@ class TableRenderer implements RendererInterface
             ]);
         }
 
-        return $this->templating->render('OdiseoSyliusReportPlugin::noDataTemplate.html.twig', [
+        return $this->templating->render('@OdiseoSyliusReportPlugin/noDataTemplate.html.twig', [
             'report' => $report,
         ]);
     }

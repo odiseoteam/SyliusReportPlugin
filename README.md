@@ -24,7 +24,7 @@
 
 ## Description
 
-This plugin add a report interface to the Sylius administration. Some reports comes with this bundle but you can create your custom reports.
+This plugin add a reports interface to the Sylius administration. Some reports comes with this bundle but you can create your custom reports.
 
 <img src="https://github.com/odiseoteam/SyliusReportPlugin/blob/master/screenshot_1.png" alt="Reports admin">
 
@@ -38,13 +38,11 @@ This plugin add a report interface to the Sylius administration. Some reports co
 public function registerBundles(): array
 {
     $preResourceBundles = [
-        new \Odiseo\SyliusVendorPlugin\OdiseoSyliusVendorPlugin(),
+        new \Odiseo\SyliusVendorPlugin\OdiseoSyliusReportPlugin(),
     ];
 
     $bundles = [
         ...
-        //This plugin use the vich uploader bundle
-        new \Vich\UploaderBundle\VichUploaderBundle(),
     ];
 
     return array_merge($preResourceBundles, parent::registerBundles(), $bundles);
@@ -54,30 +52,22 @@ public function registerBundles(): array
 3. Import the configurations on your config.yml:
  
 ```yml
-    - { resource: "@OdiseoSyliusVendorPlugin/Resources/config/app/config.yml" }
-    - { resource: "@OdiseoSyliusVendorPlugin/Resources/config/grids/vendor.yml" }
+    - { resource: "@OdiseoSyliusReportPlugin/Resources/config/app/config.yml" }
 ```
 
-5. Add the shop and admin routes:
+5. Add the admin routes:
 
 ```yml
-odiseo_sylius_admin_vendor:
-    resource: "@OdiseoSyliusVendorPlugin/Resources/config/routing/admin_vendor.yml"
+odiseo_sylius_admin_report:
+    resource: "@OdiseoSyliusReportPlugin/Resources/config/routing/admin_report.yml"
     prefix: /admin
-
-odiseo_sylius_shop_vendor:
-    resource: "@OdiseoSyliusVendorPlugin/Resources/config/routing/shop_vendor.yml"
-    prefix: /{_locale}/vendors
-    requirements:
-        _locale: ^[a-z]{2}(?:_[A-Z]{2})?$
 ```
 
-6. Add the vendor form attribute to the admin. So, you need to create "app/Resources/SyliusAdminBundle/views/Product/Tab/_details.html.twig"
-
-```twig
-{# ... #}
-{{ form_row(form.vendors) }}
-{# ... #}
+6. Finish the installation installing assets:
+   
+```
+bin/console assets:install
+bin/console sylius:theme:assets:install
 ```
 
 ## Credits
