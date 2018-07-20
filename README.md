@@ -38,7 +38,7 @@ This plugin add a reports interface to the Sylius administration. Some reports c
 public function registerBundles(): array
 {
     $preResourceBundles = [
-        new \Odiseo\SyliusVendorPlugin\OdiseoSyliusReportPlugin(),
+        new \Odiseo\SyliusReportPlugin\OdiseoSyliusReportPlugin(),
     ];
 
     $bundles = [
@@ -63,11 +63,12 @@ odiseo_sylius_admin_report:
     prefix: /admin
 ```
 
-6. Finish the installation installing assets:
+6. Finish the installation updatating the database schema and installing assets:
    
 ```
-bin/console assets:install
-bin/console sylius:theme:assets:install
+php bin/console doctrine:schema:update --force
+php bin/console assets:install
+php bin/console sylius:theme:assets:install
 ```
 
 ## Credits
