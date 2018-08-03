@@ -24,7 +24,16 @@
 
 ## Description
 
-This plugin add a reports interface to the Sylius administration. Some reports comes with this bundle but you can create your custom reports.
+This plugin add data reports to the Sylius administration interface.
+It is highly inspired on the past [SyliusReportBundle](https://github.com/Sylius/SyliusReportBundle) bundle and 
+[Report](https://github.com/Sylius/Report) component using its good architecture.
+
+### Architecture
+
+Basically you have a **DataFetcherInterface** and **RendererInterface** interfaces. The first one defines how to fetch the **Data**
+according on a configuration provided. And the second one uses the **Data** returned by the fetcher and returns a rendered view.
+
+Some DataFetchers and Renderers come with this plugin but you can create your own by implementing their interfaces.
 
 <img src="https://github.com/odiseoteam/SyliusReportPlugin/blob/master/screenshot_1.png" alt="Reports admin">
 
