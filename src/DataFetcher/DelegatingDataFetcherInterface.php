@@ -6,6 +6,9 @@ use Odiseo\SyliusReportPlugin\Model\ReportInterface;
 
 /**
  * Delegating data fetcher.
+ *
+ * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
+ * @author Diego D'amico <diego@odiseo.com.ar>
  */
 interface DelegatingDataFetcherInterface
 {

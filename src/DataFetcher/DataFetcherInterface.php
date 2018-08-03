@@ -2,6 +2,9 @@
 
 namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
+/**
+ * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
+ */
 interface DataFetcherInterface
 {
     /**

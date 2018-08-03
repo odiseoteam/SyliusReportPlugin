@@ -6,6 +6,10 @@ use Odiseo\SyliusReportPlugin\DataFetcher\Data;
 use Odiseo\SyliusReportPlugin\Model\ReportInterface;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 
+/**
+ * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
+ * @author Diego D'amico <diego@odiseo.com.ar>
+ */
 class DelegatingRenderer implements DelegatingRendererInterface
 {
     /**

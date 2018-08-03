@@ -4,6 +4,9 @@ namespace Odiseo\SyliusReportPlugin\Menu;
 
 use Sylius\Bundle\UiBundle\Menu\Event\MenuBuilderEvent;
 
+/**
+ * @author Diego D'amico <diego@odiseo.com.ar>
+ */
 final class AdminMenuListener
 {
     /**

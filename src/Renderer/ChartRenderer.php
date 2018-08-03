@@ -7,6 +7,11 @@ use Odiseo\SyliusReportPlugin\Form\Type\Renderer\ChartConfigurationType;
 use Odiseo\SyliusReportPlugin\Model\ReportInterface;
 use Symfony\Component\Templating\EngineInterface;
 
+/**
+ * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
+ * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
+ * @author Diego D'amico <diego@odiseo.com.ar>
+ */
 class ChartRenderer implements RendererInterface
 {
     const BAR_CHART = 'bar';

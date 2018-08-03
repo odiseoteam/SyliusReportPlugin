@@ -7,6 +7,9 @@ use Sylius\Component\Registry\ServiceRegistryInterface;
 
 /**
  * Data fetcher choice type
+ *
+ * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
+ * @author Diego D'amico <diego@odiseo.com.ar>
  */
 class DelegatingDataFetcher implements DelegatingDataFetcherInterface
 {

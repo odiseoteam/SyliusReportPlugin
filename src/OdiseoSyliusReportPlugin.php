@@ -12,6 +12,9 @@ use Sylius\Bundle\ResourceBundle\ResourceBundleInterface;
 use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/**
+ * @author Diego D'amico <diego@odiseo.com.ar>
+ */
 final class OdiseoSyliusReportPlugin extends AbstractResourceBundle
 {
     use SyliusPluginTrait;

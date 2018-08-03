@@ -7,6 +7,9 @@ use Doctrine\ORM\EntityManager;
 
 /**
  * Abstract class to provide time periods logic.
+ *
+ * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
+ * @author Diego D'amico <diego@odiseo.com.ar>
  */
 abstract class TimePeriod implements DataFetcherInterface
 {

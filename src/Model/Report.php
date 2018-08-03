@@ -6,6 +6,11 @@ use Odiseo\SyliusReportPlugin\DataFetcher\DefaultDataFetchers;
 use Odiseo\SyliusReportPlugin\Renderer\DefaultRenderers;
 use Sylius\Component\Resource\Model\TimestampableTrait;
 
+/**
+ * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
+ * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
+ * @author Diego D'amico <diego@odiseo.com.ar>
+ */
 class Report implements ReportInterface
 {
     use TimestampableTrait;

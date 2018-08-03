@@ -9,6 +9,9 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * @author Diego D'amico <diego@odiseo.com.ar>
+ */
 class TimePeriodType extends AbstractType
 {
     /**

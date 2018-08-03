@@ -15,6 +15,9 @@ use Symfony\Component\Form\FormInterface;
 /**
  * This listener adds configuration form to the report object
  * if selected data fetcher requires one.
+ *
+ * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
+ * @author Diego D'amico <diego@odiseo.com.ar>
  */
 class BuildReportDataFetcherFormSubscriber implements EventSubscriberInterface
 {

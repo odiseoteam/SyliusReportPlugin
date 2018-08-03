@@ -7,6 +7,10 @@ use Odiseo\SyliusReportPlugin\DataFetcher\TimePeriod;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\UserRegistrationType;
 use Sylius\Component\User\Model\UserInterface;
 
+/**
+ * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
+ * @author Diego D'amico <diego@odiseo.com.ar>
+ */
 class UserRegistrationDataFetcher extends TimePeriod
 {
     /**

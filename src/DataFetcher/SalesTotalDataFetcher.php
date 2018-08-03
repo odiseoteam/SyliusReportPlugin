@@ -6,6 +6,10 @@ use Odiseo\SyliusReportPlugin\DataFetcher\TimePeriod;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\SalesTotalType;
 use Sylius\Component\Order\Model\OrderInterface;
 
+/**
+ * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
+ * @author Diego D'amico <diego@odiseo.com.ar>
+ */
 class SalesTotalDataFetcher extends TimePeriod
 {
     /**

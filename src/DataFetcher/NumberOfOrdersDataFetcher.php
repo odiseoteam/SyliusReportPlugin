@@ -5,6 +5,10 @@ namespace Odiseo\SyliusReportPlugin\DataFetcher;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\NumberOfOrdersType;
 use Sylius\Component\Order\Model\OrderInterface;
 
+/**
+ * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
+ * @author Diego D'amico <diego@odiseo.com.ar>
+ */
 class NumberOfOrdersDataFetcher extends TimePeriod
 {
     /**

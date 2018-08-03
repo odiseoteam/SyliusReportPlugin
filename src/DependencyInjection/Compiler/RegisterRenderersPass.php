@@ -8,6 +8,10 @@ use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Registers all reports renderers in renderer registry service.
+ *
+ * @author Paweł Jędrzejewski <pawel@sylius.org>
+ * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
+ * @author Diego D'amico <diego@odiseo.com.ar>
  */
 class RegisterRenderersPass implements CompilerPassInterface
 {

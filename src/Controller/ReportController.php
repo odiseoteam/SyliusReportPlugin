@@ -15,6 +15,12 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
+ * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
+ * @author Fernando Caraballo Ortiz <caraballo.ortiz@gmail.com>
+ * @author Diego D'amico <diego@odiseo.com.ar>
+ */
 class ReportController extends ResourceController
 {
     /**

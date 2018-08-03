@@ -5,6 +5,10 @@ namespace Odiseo\SyliusReportPlugin\Renderer;
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;
 use Odiseo\SyliusReportPlugin\Model\ReportInterface;
 
+/**
+ * @author Mateusz Zalewski <zaleslaw@.gmail.com>
+ * @author Diego D'amico <diego@odiseo.com.ar>
+ */
 interface DelegatingRendererInterface
 {
     /**

@@ -8,6 +8,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Renderer choice type.
+ *
+ * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
+ * @author Diego D'amico <diego@odiseo.com.ar>
  */
 class RendererChoiceType extends AbstractType
 {

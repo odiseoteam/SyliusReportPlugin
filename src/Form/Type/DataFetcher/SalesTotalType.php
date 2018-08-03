@@ -4,6 +4,10 @@ namespace Odiseo\SyliusReportPlugin\Form\Type\DataFetcher;
 
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
+ * @author Diego D'amico <diego@odiseo.com.ar>
+ */
 class SalesTotalType extends TimePeriodType
 {
     /**
