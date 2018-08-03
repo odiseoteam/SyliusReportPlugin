@@ -47,7 +47,7 @@ class ReportController extends ResourceController
         );
 
         if ($request->query->has('configuration')) {
-            $configurationForm->submit($request);
+            $configurationForm->handleRequest($request);
         }
 
         $this->eventDispatcher->dispatch(ResourceActions::SHOW, $configuration, $report);
@@ -92,7 +92,7 @@ class ReportController extends ResourceController
             return $this->container->get('templating')->renderResponse('@OdiseoSyliusReportPlugin/noDataTemplate.html.twig');
         }
 
-        $configuration = ($request->query->has('configuration')) ? $request->query->get('configuration', $configuration) : $report->getDataFetcherConfiguration();
+        $configuration = (count($configuration) > 0) ? $configuration : $report->getDataFetcherConfiguration();
         $configuration['baseCurrency'] = $currencyContext->getCurrencyCode();
 
         $data = $this->getReportDataFetcher()->fetch($report, $configuration);

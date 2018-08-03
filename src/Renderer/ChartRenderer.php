@@ -54,7 +54,7 @@ class ChartRenderer implements RendererInterface
             ]);
         }
 
-        return $this->templating->render('SyliusReportBundle::noDataTemplate.html.twig', [
+        return $this->templating->render('@OdiseoSyliusReportPlugin/noDataTemplate.html.twig', [
             'report' => $report,
         ]);
     }

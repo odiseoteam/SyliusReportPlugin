@@ -1,14 +1,16 @@
-{% extends '@OdiseoSyliusReportPlugin/layout.html.twig' %}
+{% extends '@SyliusAdmin/layout.html.twig' %}
 
 {% import '@SyliusUi/Macro/headers.html.twig' as headers %}
+{% import '@SyliusUi/Macro/buttons.html.twig' as buttons %}
 {% import '@SyliusAdmin/Macro/breadcrumb.html.twig' as breadcrumb %}
+
+{% form_theme form '@OdiseoSyliusReportPlugin/Form/theme.html.twig' %}
 
 {% set breadcrumbs = [
     { label: 'sylius.ui.administration'|trans, url: path('sylius_admin_dashboard') },
     { label: (metadata.applicationName~'.ui.'~metadata.pluralName)|trans, url: path('odiseo_sylius_report_admin_report_index', configuration.vars.route.parameters|default({})) },
     { label: resource.name }
-]
-%}
+] %}
 
 {% set header = configuration.vars.header|default(metadata.applicationName~'.ui.show_'~metadata.name) %}
 {% set event_prefix = metadata.applicationName ~ '.admin.' ~ metadata.name ~ '.show' %}
@@ -20,31 +22,43 @@
 
     <div class="ui stackable two column grid">
         <div class="column">
-            {{ headers.default(header|trans~' "'~resource.name~'"', configuration.vars.icon|default('list'), configuration.vars.subheader|default(null)|trans) }}
+            {{ headers.default(header|trans~' "'~resource.name~'"', configuration.vars.icon|default('bar chart'), configuration.vars.subheader|default(null)|trans) }}
             {{ breadcrumb.crumble(breadcrumbs) }}
         </div>
         <div class="middle aligned column">
-            {% include configuration.vars.templates.toolbar|default('@SyliusAdmin/Crud/_toolbar.html.twig') ignore missing %}
+            <div class="ui right floated buttons">
+                {{ buttons.default(path('odiseo_sylius_report_admin_report_update', {'id': resource.id}), 'sylius.ui.edit', null, 'pencil',  'primary') }}
+            </div>
         </div>
     </div>
 
     {{ sonata_block_render_event(event_prefix ~ '.after_header', {'resource': resource}) }}
+
+    {% set path = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+
+    <div class="ui hidden divider"></div>
+    <div class="ui styled fluid accordion">
+        <div class="title active">
+            <i class="dropdown icon"></i>
+            {{ 'sylius.ui.filters'|trans }}
+        </div>
+        <div class="content active">
+            <form method="get" action="{{ path }}" class="ui loadable form">
+                {{ include('@OdiseoSyliusReportPlugin/_dataFetcherConfiguration.html.twig', { 'configurationForm': form }) }}
+
+                {{ buttons.filter() }}
+                {{ buttons.resetFilters(path) }}
+            </form>
+        </div>
+    </div>
 
     {{ render(controller('odiseo_sylius_report.controller.report:embedAction', {'report': report, 'configuration' : configurationForm})) }}
 
     {{ sonata_block_render_event(event_prefix ~ '.after_content', {'resource': resource}) }}
 {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-
-    {{ sonata_block_render_event(event_prefix ~ '.stylesheets') }}
-{% endblock %}
-
 {% block javascripts %}
     {{ parent() }}
 
-    {% include 'SyliusUiBundle::_javascripts.html.twig' with {'path': 'bundles/odiseosyliusreportplugin/js/Chart.min.js'} %}
-
-    {{ sonata_block_render_event(event_prefix ~ '.javascripts') }}
+    {{ include('@SyliusUi/_javascripts.html.twig', {'path': 'bundles/odiseosyliusreportplugin/js/Chart.min.js'}) }}
 {% endblock %}
