@@ -1,0 +1,2 @@
+odiseo_sylius_report_plugin_admin_report:
+    resource: "@OdiseoSyliusReportPlugin/Resources/config/routing/admin/report.yml"

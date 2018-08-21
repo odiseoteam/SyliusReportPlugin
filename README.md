@@ -37,6 +37,14 @@ Some DataFetchers and Renderers come with this plugin but you can create your ow
 
 <img src="https://github.com/odiseoteam/SyliusReportPlugin/blob/master/screenshot_1.png" alt="Reports admin">
 
+## Demo
+
+You can see this plugin in action in our Sylius Demo application.
+
+- Frontend: [sylius-demo.odiseo.com.ar](https://sylius-demo.odiseo.com.ar). 
+- Administration: [sylius-demo.odiseo.com.ar/admin](https://sylius-demo.odiseo.com.ar/admin) with `odiseo: odiseo` credentials.
+Next, you can enter to the [reports](https://sylius-demo.odiseo.com.ar/admin/reports/) page.
+
 ## Installation
 
 1. Run `composer require odiseoteam/sylius-report-plugin`.
@@ -67,8 +75,8 @@ public function registerBundles(): array
 5. Add the admin routes:
 
 ```yml
-odiseo_sylius_admin_report:
-    resource: "@OdiseoSyliusReportPlugin/Resources/config/routing/admin_report.yml"
+odiseo_sylius_report_plugin_admin:
+    resource: "@OdiseoSyliusReportPlugin/Resources/config/routing/admin.yml"
     prefix: /admin
 ```
 
@@ -80,6 +88,10 @@ php bin/console assets:install
 php bin/console sylius:theme:assets:install
 ```
 
+## Test the plugin
+
+You can follow the instructions to test this plugins in the proper documentation page: [Test the plugin](doc/tests.md).
+    
 ## Credits
 
 This plugin is maintained by <a href="https://odiseo.com.ar">Odiseo</a>, a team of senior developers. Contact us: <a href="mailto:team@odiseo.com.ar">team@odiseo.com.ar</a>.

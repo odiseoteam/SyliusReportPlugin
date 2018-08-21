@@ -12,15 +12,19 @@ final class AppKernel extends Kernel
      */
     public function registerBundles(): array
     {
-        return array_merge(parent::registerBundles(), [
+        $preResourceBundles = [
+            new \Odiseo\SyliusReportPlugin\OdiseoSyliusReportPlugin(),
+        ];
+
+        $bundles = [
             new \Sylius\Bundle\AdminBundle\SyliusAdminBundle(),
             new \Sylius\Bundle\ShopBundle\SyliusShopBundle(),
 
             new \FOS\OAuthServerBundle\FOSOAuthServerBundle(), // Required by SyliusApiBundle
             new \Sylius\Bundle\AdminApiBundle\SyliusAdminApiBundle(),
+        ];
 
-            new \Acme\SyliusExamplePlugin\OdiseoSyliusReportPlugin(),
-        ]);
+        return array_merge($preResourceBundles, parent::registerBundles(), $bundles);
     }
 
     /**

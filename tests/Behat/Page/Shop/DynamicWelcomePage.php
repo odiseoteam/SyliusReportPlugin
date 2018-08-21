@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Acme\SyliusExamplePlugin\Behat\Page\Shop;
+namespace Tests\Odiseo\SyliusReportPlugin\Behat\Page\Shop;
 
 use Sylius\Behat\Page\SymfonyPage;
 
