@@ -34,7 +34,7 @@ services:
 
     odiseo_sylius_report.form.type.report:
         class: Odiseo\SyliusReportPlugin\Form\Type\ReportType
-        arguments: ['%odiseo_sylius_report.model.report.class%', []]
+        arguments: ['%odiseo_sylius_report.model.report.class%', ['odiseo']]
         tags:
             - { name: form.type, alias: odiseo_sylius_report }
 

@@ -32,7 +32,7 @@ final class TableRendererSpec extends ObjectBehavior
         $this->shouldImplement(RendererInterface::class);
     }
 
-    function it_renders_data_with_given_configuration(ReportInterface $report, Data $reportData, $templating)
+    function it_renders_data_with_given_configuration(ReportInterface $report, Data $reportData, EngineInterface $templating)
     {
         $reportData->getLabels()->willReturn(['month', 'user_total']);
         $reportData->getData()->willReturn(['month1' => '50', 'month2' => '40']);
@@ -52,6 +52,20 @@ final class TableRendererSpec extends ObjectBehavior
         ])->willReturn('<div>Table Report</div>');
 
         $this->render($report, $reportData)->shouldReturn('<div>Table Report</div>');
+    }
+
+    function it_renders_a_no_data_with_given_configuration(ReportInterface $report, Data $reportData, EngineInterface $templating)
+    {
+        $reportData->getLabels()->willReturn(['month', 'user_total']);
+        $reportData->getData()->willReturn(null);
+
+        $report->getRendererConfiguration()->willReturn(['template' => '@OdiseoSyliusReportPlugin/noDataTemplate.html.twig']);
+
+        $templating->render('@OdiseoSyliusReportPlugin/noDataTemplate.html.twig', [
+            'report' => $report,
+        ])->willReturn('<div>No Data</div>');
+
+        $this->render($report, $reportData)->shouldReturn('<div>No Data</div>');
     }
 
     function it_is_a_table_type()

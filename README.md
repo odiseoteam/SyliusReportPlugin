@@ -69,7 +69,7 @@ public function registerBundles(): array
 3. Import the configurations on your config.yml:
  
 ```yml
-    - { resource: "@OdiseoSyliusReportPlugin/Resources/config/app/config.yml" }
+    - { resource: "@OdiseoSyliusReportPlugin/Resources/config/config.yml" }
 ```
 
 5. Add the admin routes:
