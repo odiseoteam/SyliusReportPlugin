@@ -2,6 +2,7 @@
 
 namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
+use Doctrine\DBAL\Statement;
 use Odiseo\SyliusReportPlugin\DataFetcher\TimePeriod;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\SalesTotalType;
 use Sylius\Component\Order\Model\OrderInterface;
@@ -37,10 +38,10 @@ class SalesTotalDataFetcher extends TimePeriod
             ->select('DATE(o.checkout_completed_at) as date', 'TRUNCATE(SUM(o.total)/ 100,2) as "total sum '.$baseCurrencyCode.'"')
         ;
 
-        return $queryBuilder
-            ->execute()
-            ->fetchAll()
-        ;
+        /** @var Statement $stmt */
+        $stmt = $queryBuilder->execute();
+
+        return $stmt->fetchAll();
     }
 
     /**

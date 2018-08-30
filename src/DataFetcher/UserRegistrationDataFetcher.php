@@ -3,6 +3,7 @@
 namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
 use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\DBAL\Statement;
 use Odiseo\SyliusReportPlugin\DataFetcher\TimePeriod;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\UserRegistrationType;
 use Sylius\Component\User\Model\UserInterface;
@@ -35,10 +36,10 @@ class UserRegistrationDataFetcher extends TimePeriod
             ->orderBy($groupBy)
         ;
 
-        return $queryBuilder
-            ->execute()
-            ->fetchAll()
-        ;
+        /** @var Statement $stmt */
+        $stmt = $queryBuilder->execute();
+
+        return $stmt->fetchAll();
     }
 
     /**

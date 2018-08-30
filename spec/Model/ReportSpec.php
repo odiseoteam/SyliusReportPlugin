@@ -7,6 +7,7 @@ use Odiseo\SyliusReportPlugin\Model\Report;
 use Odiseo\SyliusReportPlugin\Model\ReportInterface;
 use Odiseo\SyliusReportPlugin\Renderer\DefaultRenderers;
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 use Sylius\Component\Resource\Model\CodeAwareInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Resource\Model\TimestampableInterface;
@@ -73,12 +74,12 @@ class ReportSpec extends ObjectBehavior
 
     function it_has_a_default_renderer_configuration(): void
     {
-        $this->getRendererConfiguration()->shouldReturn([]);
+        $this->getRendererConfiguration()->shouldHaveCount(0);
     }
 
     function it_has_a_default_data_fetcher_configuration(): void
     {
-        $this->getDataFetcherConfiguration()->shouldReturn([]);
+        $this->getDataFetcherConfiguration()->shouldHaveCount(1);
     }
 
     function it_is_timestampable(): void

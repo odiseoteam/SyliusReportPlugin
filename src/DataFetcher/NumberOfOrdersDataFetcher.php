@@ -2,6 +2,7 @@
 
 namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
+use Doctrine\DBAL\Statement;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\NumberOfOrdersType;
 use Sylius\Component\Order\Model\OrderInterface;
 
@@ -31,10 +32,10 @@ class NumberOfOrdersDataFetcher extends TimePeriod
             ->orderBy($groupBy)
         ;
 
-        return $queryBuilder
-            ->execute()
-            ->fetchAll()
-        ;
+        /** @var Statement $stmt */
+        $stmt = $queryBuilder->execute();
+
+        return $stmt->fetchAll();
     }
 
     /**

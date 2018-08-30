@@ -15,7 +15,7 @@ interface DelegatingRendererInterface
      * @param ReportInterface $report
      * @param Data            $data
      *
-     * @return int
+     * @return string
      */
     public function render(ReportInterface $report, Data $data);
 
