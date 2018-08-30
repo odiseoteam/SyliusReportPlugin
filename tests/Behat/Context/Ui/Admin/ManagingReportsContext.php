@@ -6,7 +6,6 @@ namespace Tests\Odiseo\SyliusReportPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
 use Odiseo\SyliusReportPlugin\Model\ReportInterface;
-use Sylius\Behat\NotificationType;
 use Sylius\Behat\Page\SymfonyPageInterface;
 use Sylius\Behat\Service\NotificationCheckerInterface;
 use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
@@ -74,6 +73,7 @@ final class ManagingReportsContext implements Context
 
     /**
      * @When I fill the name with :reportName
+     * @When I rename it to :reportName
      * @param $reportName
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
@@ -123,6 +123,7 @@ final class ManagingReportsContext implements Context
 
     /**
      * @When I select :reportTimePeriod as time period
+     * @param $reportTimePeriod
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
     public function iSelectTheTimePeriod($reportTimePeriod)
@@ -137,6 +138,24 @@ final class ManagingReportsContext implements Context
     public function iAddIt()
     {
         $this->createPage->create();
+    }
+
+    /**
+     * @Given /^I want to modify the (report "([^"]+)")/
+     * @param ReportInterface $report
+     * @throws \Sylius\Behat\Page\UnexpectedPageException
+     */
+    public function iWantToModifyReport(ReportInterface $report)
+    {
+        $this->updatePage->open(['id' => $report->getId()]);
+    }
+
+    /**
+     * @When I save my changes
+     */
+    public function iSaveMyChanges()
+    {
+        $this->updatePage->saveChanges();
     }
 
     /**
