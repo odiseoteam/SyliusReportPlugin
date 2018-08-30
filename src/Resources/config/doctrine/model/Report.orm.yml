@@ -20,10 +20,13 @@ Odiseo\SyliusReportPlugin\Model\Report:
             type: string
         rendererConfiguration:
             type: array
+            column: renderer_configuration
         dataFetcher:
             type: string
+            column: data_fetcher
         dataFetcherConfiguration:
             type: array
+            column: data_fetcher_configuration
         createdAt:
             type: datetime
             column: created_at

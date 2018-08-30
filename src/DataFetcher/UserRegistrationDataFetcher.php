@@ -3,9 +3,8 @@
 namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Odiseo\SyliusReportPlugin\DataFetcher\TimePeriod;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\UserRegistrationType;
-use Sylius\Component\User\Model\UserInterface;
+use Sylius\Component\Core\Model\ShopUser;
 
 /**
  * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
@@ -22,7 +21,7 @@ class UserRegistrationDataFetcher extends TimePeriod
 
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $this->entityManager->getConnection()->createQueryBuilder();
-        $tableName = $this->entityManager->getClassMetadata(UserInterface::class)->getTableName();
+        $tableName = $this->entityManager->getClassMetadata(ShopUser::class)->getTableName();
 
         $queryBuilder
             ->select('DATE(u.created_at) as date', ' count(u.id) as user_total')

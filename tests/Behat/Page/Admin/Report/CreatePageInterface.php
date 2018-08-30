@@ -24,4 +24,28 @@ interface CreatePageInterface extends BaseCreatePageInterface, ContainsErrorInte
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
     public function fillDescription($description);
+
+    /**
+     * @param string $dataFetcher
+     * @throws \Behat\Mink\Exception\ElementNotFoundException
+     */
+    public function selectDataFetcher($dataFetcher);
+
+    /**
+     * @param \DateTime $startDate
+     * @throws \Behat\Mink\Exception\ElementNotFoundException
+     */
+    public function selectStartDate(\DateTime $startDate);
+
+    /**
+     * @param \DateTime $endDate
+     * @throws \Behat\Mink\Exception\ElementNotFoundException
+     */
+    public function selectEndDate(\DateTime $endDate);
+
+    /**
+     * @param string $timePeriod
+     * @throws \Behat\Mink\Exception\ElementNotFoundException
+     */
+    public function selectTimePeriod($timePeriod);
 }

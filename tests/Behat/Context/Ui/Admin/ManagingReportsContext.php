@@ -93,6 +93,44 @@ final class ManagingReportsContext implements Context
     }
 
     /**
+     * @When I select :reportDataFetcher as data fetcher
+     * @param $reportDataFetcher
+     * @throws \Behat\Mink\Exception\ElementNotFoundException
+     */
+    public function iSelectTheDataFetcher($reportDataFetcher)
+    {
+        $this->createPage->selectDataFetcher($reportDataFetcher);
+    }
+
+    /**
+     * @When I select :reportStartDate as start date
+     * @param $reportStartDate
+     * @throws \Behat\Mink\Exception\ElementNotFoundException
+     */
+    public function iSelectTheStartDate($reportStartDate)
+    {
+        $this->createPage->selectStartDate(new \DateTime($reportStartDate));
+    }
+
+    /**
+     * @When I select today as end date
+     * @throws \Behat\Mink\Exception\ElementNotFoundException
+     */
+    public function iSelectTheEndDate()
+    {
+        $this->createPage->selectEndDate(new \DateTime());
+    }
+
+    /**
+     * @When I select :reportTimePeriod as time period
+     * @throws \Behat\Mink\Exception\ElementNotFoundException
+     */
+    public function iSelectTheTimePeriod($reportTimePeriod)
+    {
+        $this->createPage->selectTimePeriod($reportTimePeriod);
+    }
+
+    /**
      * @When I add it
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
@@ -100,16 +138,6 @@ final class ManagingReportsContext implements Context
     {
         $this->createPage->create();
     }
-
-    /*Then I should be notified that the report has been successfully created
-
-    public function iShouldBeNotifiedThatTheReportHasBeenSuccessfullyCreated(): void
-    {
-        $this->notificationChecker->checkNotification(
-            'Report has been successfully created.',
-            NotificationType::success()
-        );
-    }*/
 
     /**
      * @Then /^the (report "([^"]+)") should appear in the admin/
