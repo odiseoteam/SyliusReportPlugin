@@ -73,24 +73,15 @@ class ReportController extends ResourceController
     }
 
     /**
-     * @param Request $request
-     * @param string  $report
+     * @param ReportInterface  $report
      * @param array   $configuration
      *
      * @return Response
      */
-    public function embedAction(Request $request, $report, array $configuration = [])
+    public function embedAction(ReportInterface $report, array $configuration = [])
     {
         /** @var CurrencyContextInterface $currencyContext */
         $currencyContext = $this->get('sylius.context.currency');
-
-        if (!$report instanceof ReportInterface) {
-            $report = $this->repository->findOneBy(['code' => $report]);
-        }
-
-        if (null === $report) {
-            return $this->container->get('templating')->renderResponse('@OdiseoSyliusReportPlugin/noDataTemplate.html.twig');
-        }
 
         $configuration = (count($configuration) > 0) ? $configuration : $report->getDataFetcherConfiguration();
         $configuration['baseCurrency'] = $currencyContext->getCurrencyCode();
@@ -101,18 +92,23 @@ class ReportController extends ResourceController
     }
 
     /**
-     * @return object|DelegatingRendererInterface
+     * @return DelegatingRendererInterface
      */
     private function getReportRenderer()
     {
-        return $this->container->get('odiseo_sylius_report.renderer');
+        /** @var DelegatingRendererInterface $renderer */
+        $renderer = $this->container->get('odiseo_sylius_report.renderer');
+
+        return $renderer;
     }
 
     /**
-     * @return object|DelegatingDataFetcherInterface
+     * @return DelegatingDataFetcherInterface
      */
     private function getReportDataFetcher()
     {
-        return $this->container->get('odiseo_sylius_report.data_fetcher');
+        /** @var DelegatingDataFetcherInterface $dataFetcher */
+        $dataFetcher = $this->container->get('odiseo_sylius_report.data_fetcher');
+        return $dataFetcher;
     }
 }

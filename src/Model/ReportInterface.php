@@ -34,7 +34,7 @@ interface ReportInterface extends CodeAwareInterface, ResourceInterface, Timesta
     public function setDescription($description);
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getRenderer();
 
@@ -54,7 +54,7 @@ interface ReportInterface extends CodeAwareInterface, ResourceInterface, Timesta
     public function setRendererConfiguration(array $rendererConfiguration);
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getDataFetcher();
 

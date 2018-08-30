@@ -21,7 +21,7 @@ class Report implements ReportInterface
     protected $id;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $code;
 
@@ -62,6 +62,7 @@ class Report implements ReportInterface
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->dataFetcherConfiguration = ['end' => new \DateTime()];
     }
 
     /**
