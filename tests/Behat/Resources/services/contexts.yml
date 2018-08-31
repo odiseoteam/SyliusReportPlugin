@@ -23,5 +23,6 @@ services:
             - '@odiseo_sylius_report.page.admin.report.index_page'
             - '@odiseo_sylius_report.page.admin.report.create_page'
             - '@odiseo_sylius_report.page.admin.report.update_page'
+            - '@odiseo_sylius_report.page.admin.report.show_page'
         tags:
             - { name: 'fob.context_service' }

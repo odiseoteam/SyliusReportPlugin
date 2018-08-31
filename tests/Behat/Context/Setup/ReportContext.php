@@ -43,6 +43,16 @@ final class ReportContext implements Context
     }
 
     /**
+     * @Given the store has( also) :firstReportCode and :secondReportCode reports
+     */
+    public function theStoreHasReports(...$reportsCodes)
+    {
+        foreach ($reportsCodes as $key => $reportCode) {
+            $this->saveReport($this->createReport($reportCode, 'Sales 200'.$key, 'Sales statistics for year 200'.$key));
+        }
+    }
+
+    /**
      * @param string $code
      * @param string $name
      * @param string $description

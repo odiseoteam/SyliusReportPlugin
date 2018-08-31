@@ -11,6 +11,7 @@ use Sylius\Behat\Service\NotificationCheckerInterface;
 use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
 use Tests\Odiseo\SyliusReportPlugin\Behat\Page\Admin\Report\CreatePageInterface;
 use Tests\Odiseo\SyliusReportPlugin\Behat\Page\Admin\Report\IndexPageInterface;
+use Tests\Odiseo\SyliusReportPlugin\Behat\Page\Admin\Report\ShowPageInterface;
 use Tests\Odiseo\SyliusReportPlugin\Behat\Page\Admin\Report\UpdatePageInterface;
 use Webmozart\Assert\Assert;
 
@@ -31,25 +32,31 @@ final class ManagingReportsContext implements Context
     /** @var UpdatePageInterface */
     private $updatePage;
 
+    /** @var ShowPageInterface */
+    private $showPage;
+
     /**
      * @param CurrentPageResolverInterface $currentPageResolver
      * @param NotificationCheckerInterface $notificationChecker
      * @param IndexPageInterface $indexPage
      * @param CreatePageInterface $createPage
      * @param UpdatePageInterface $updatePage
+     * @param ShowPageInterface $showPage
      */
     public function __construct(
         CurrentPageResolverInterface $currentPageResolver,
         NotificationCheckerInterface $notificationChecker,
         IndexPageInterface $indexPage,
         CreatePageInterface $createPage,
-        UpdatePageInterface $updatePage
+        UpdatePageInterface $updatePage,
+        ShowPageInterface $showPage
     ) {
         $this->currentPageResolver = $currentPageResolver;
         $this->notificationChecker = $notificationChecker;
         $this->indexPage = $indexPage;
         $this->createPage = $createPage;
         $this->updatePage = $updatePage;
+        $this->showPage = $showPage;
     }
 
     /**
@@ -159,6 +166,61 @@ final class ManagingReportsContext implements Context
     }
 
     /**
+     * @When I want to browse reports
+     * @throws \Sylius\Behat\Page\UnexpectedPageException
+     */
+    public function iWantToBrowseReports()
+    {
+        $this->indexPage->open();
+    }
+
+    /**
+     * @Then I should see :numberOfReports reports in the list
+     * @param $numberOfReports
+     */
+    public function iShouldSeeReportsInTheList(int $numberOfReports = 1): void
+    {
+        Assert::same($this->indexPage->countItems(), (int) $numberOfReports);
+    }
+
+    /**
+     * @When /^I view details of the (report "([^"]+)")/
+     * @param ReportInterface $report
+     * @throws \Sylius\Behat\Page\UnexpectedPageException
+     */
+    public function iViewDetailsOfTheReport(ReportInterface $report)
+    {
+        $this->showPage->open(['id' => $report->getId()]);
+    }
+
+    /**
+     * @Then his code should be :code
+     * @throws \Behat\Mink\Exception\ElementNotFoundException
+     */
+    public function hisCodeShouldBe($code)
+    {
+        Assert::same($this->showPage->getReportCode(), $code);
+    }
+
+    /**
+     * @Then his name should be :name
+     * @throws \Behat\Mink\Exception\ElementNotFoundException
+     */
+    public function hisNameShouldBe($name)
+    {
+        Assert::same($this->showPage->getReportName(), $name);
+    }
+
+    /**
+     * @Then his description should be :description
+     * @throws \Behat\Mink\Exception\ElementNotFoundException
+     */
+    public function hisDescriptionShouldBe($description)
+    {
+        Assert::same($this->showPage->getReportDescription(), $description);
+    }
+
+    /**
      * @Then /^the (report "([^"]+)") should appear in the admin/
      * @param ReportInterface $report
      * @throws \Sylius\Behat\Page\UnexpectedPageException
@@ -204,6 +266,7 @@ final class ManagingReportsContext implements Context
             $this->indexPage,
             $this->createPage,
             $this->updatePage,
+            $this->showPage,
         ]);
     }
 }

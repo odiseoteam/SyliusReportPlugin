@@ -19,3 +19,10 @@ services:
         public: false
         arguments:
             - 'odiseo_sylius_report_admin_report_update'
+
+    odiseo_sylius_report.page.admin.report.show_page:
+        class: Tests\Odiseo\SyliusReportPlugin\Behat\Page\Admin\Report\ShowPage
+        parent: sylius.behat.symfony_page
+        public: false
+        arguments:
+            - 'odiseo_sylius_report_admin_report_show'
