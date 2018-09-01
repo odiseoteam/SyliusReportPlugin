@@ -70,6 +70,12 @@ services:
         tags:
             - { name: odiseo_sylius_report.data_fetcher, fetcher: odiseo_sylius_report_data_fetcher_number_of_orders, label: "odiseo_sylius_report.data_fetcher.number_of_orders" }
 
+    odiseo_sylius_report.data_fetcher.payment_state_orders:
+        class: Odiseo\SyliusReportPlugin\DataFetcher\PaymentStateOrdersDataFetcher
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: odiseo_sylius_report.data_fetcher, fetcher: odiseo_sylius_report_data_fetcher_payment_state_orders, label: "odiseo_sylius_report.data_fetcher.payment_state_orders" }
+
     #REPORT RENDERER CONFIGURATION TYPES
     odiseo_sylius_report.form.type.renderer.configuration.chart:
         class: Odiseo\SyliusReportPlugin\Form\Type\Renderer\ChartConfigurationType
@@ -80,13 +86,6 @@ services:
         class: Odiseo\SyliusReportPlugin\Form\Type\Renderer\TableConfigurationType
         tags:
             - { name: form.type, alias: odiseo_sylius_report_renderer_table }
-
-    #REPORT DATA FETCHER CONFIGURATION TYPES
-    #odiseo_sylius_report.form.type.data_fetcher.configuration.user_registration:
-    #    class: Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\UserRegistrationConfigurationType
-    #    arguments: ['@doctrine.orm.entity_manager']
-    #    tags:
-    #        - { name: form.type, alias: odiseo_sylius_report_renderer_chart }
 
     #LISTENERS
     odiseo_sylius_report.listener.admin.menu_builder:

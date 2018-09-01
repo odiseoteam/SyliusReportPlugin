@@ -12,6 +12,4 @@ Feature: Seeing reports details
     @ui
     Scenario: Seeing reports basic information
         When I view details of the report "2018_sales"
-        Then his code should be "2018_sales"
-        And his name should be "Sales 2018"
-        And his description should be "Sales statistics for year 2018"
+        Then I should see the "Show report "Sales 2018"" header title

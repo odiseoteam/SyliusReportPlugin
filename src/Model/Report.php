@@ -3,6 +3,7 @@
 namespace Odiseo\SyliusReportPlugin\Model;
 
 use Odiseo\SyliusReportPlugin\DataFetcher\DefaultDataFetchers;
+use Odiseo\SyliusReportPlugin\DataFetcher\TimePeriod;
 use Odiseo\SyliusReportPlugin\Renderer\DefaultRenderers;
 use Sylius\Component\Resource\Model\TimestampableTrait;
 
@@ -62,7 +63,11 @@ class Report implements ReportInterface
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-        $this->dataFetcherConfiguration = ['end' => new \DateTime()];
+        $this->dataFetcherConfiguration = [
+            'start' => new \DateTime('10 years'),
+            'end' => new \DateTime(),
+            'period' => TimePeriod::PERIOD_MONTH
+        ];
     }
 
     /**
@@ -132,7 +137,7 @@ class Report implements ReportInterface
     /**
      * {@inheritdoc}
      */
-    public function setDataFetcher($dataFetcher)
+    public function setDataFetcher(string $dataFetcher)
     {
         $this->dataFetcher = $dataFetcher;
     }
@@ -148,7 +153,7 @@ class Report implements ReportInterface
     /**
      * {@inheritdoc}
      */
-    public function setRenderer($renderer)
+    public function setRenderer(string $renderer)
     {
         $this->renderer = $renderer;
     }

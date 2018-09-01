@@ -20,25 +20,9 @@ class ShowPage extends SymfonyPage implements ShowPageInterface
     /**
      * {@inheritdoc}
      */
-    public function getReportCode()
+    public function getHeaderTitle()
     {
-        return $this->getElement('code')->getText();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getReportName()
-    {
-        return $this->getElement('name')->getText();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getReportDescription()
-    {
-        return $this->getElement('description')->getText();
+        return $this->getElement('header_title')->getText();
     }
 
     /**
@@ -55,9 +39,7 @@ class ShowPage extends SymfonyPage implements ShowPageInterface
     protected function getDefinedElements()
     {
         return array_merge(parent::getDefinedElements(), [
-            'code' => '#odiseo_sylius_report_code',
-            'name' => '#odiseo_sylius_report_name',
-            'description' => '#odiseo_sylius_report_description'
+            'header_title' => '#wrapper .header .content',
         ]);
     }
 }

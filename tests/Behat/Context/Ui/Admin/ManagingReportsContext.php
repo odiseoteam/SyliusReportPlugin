@@ -194,30 +194,12 @@ final class ManagingReportsContext implements Context
     }
 
     /**
-     * @Then his code should be :code
+     * @Then I should see the "Show report :reportName" header title
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function hisCodeShouldBe($code)
+    public function iShouldSeeTheShowReportHeaderTitle($reportName)
     {
-        Assert::same($this->showPage->getReportCode(), $code);
-    }
-
-    /**
-     * @Then his name should be :name
-     * @throws \Behat\Mink\Exception\ElementNotFoundException
-     */
-    public function hisNameShouldBe($name)
-    {
-        Assert::same($this->showPage->getReportName(), $name);
-    }
-
-    /**
-     * @Then his description should be :description
-     * @throws \Behat\Mink\Exception\ElementNotFoundException
-     */
-    public function hisDescriptionShouldBe($description)
-    {
-        Assert::same($this->showPage->getReportDescription(), $description);
+        Assert::contains($this->showPage->getHeaderTitle(), $reportName);
     }
 
     /**

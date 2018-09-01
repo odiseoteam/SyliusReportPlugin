@@ -31,9 +31,11 @@ odiseo_sylius_report:
         user_registration: User registration
         sales_total: Sales Total
         number_of_orders: Number of orders
+        payment_state_orders: Payment state orders
 
 odiseo_sylius_report_renderer_table: Table renderer
 odiseo_sylius_report_renderer_chart: Chart renderer
 odiseo_sylius_report_data_fetcher_user_registration: User Registration
 odiseo_sylius_report_data_fetcher_sales_total: Sales Total
-odiseo_sylius_report_number_of_orders: Number of orders
+odiseo_sylius_report_data_fetcher_number_of_orders: Number of orders
+odiseo_sylius_report_data_fetcher_payment_state_orders: Payment state orders

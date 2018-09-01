@@ -1,5 +1,3 @@
-<div class="ui warning message">
-    <div class="header">
-        {{ 'sylius.ui.no_data'|trans }}
-    </div>
-</div>
+{% import '@SyliusUi/Macro/messages.html.twig' as messages %}
+
+{{ messages.info('odiseo_sylius_report.ui.there_are_no_reports_results') }}

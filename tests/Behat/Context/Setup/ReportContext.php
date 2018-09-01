@@ -6,6 +6,7 @@ namespace Tests\Odiseo\SyliusReportPlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
 use Doctrine\ORM\EntityManagerInterface;
+use Odiseo\SyliusReportPlugin\DataFetcher\DefaultDataFetchers;
 use Odiseo\SyliusReportPlugin\Doctrine\ORM\ReportRepositoryInterface;
 use Odiseo\SyliusReportPlugin\Model\ReportInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
@@ -67,6 +68,8 @@ final class ReportContext implements Context
         $report->setCode($code);
         $report->setName($name);
         $report->setDescription($description);
+        $report->setDataFetcher(DefaultDataFetchers::PAYMENT_STATE_ORDERS);
+        $report->setDataFetcherConfiguration([]);
 
         return $report;
     }

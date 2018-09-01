@@ -21,17 +21,5 @@ interface ShowPageInterface extends PageInterface
      * @return string
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function getReportCode();
-
-    /**
-     * @return string
-     * @throws \Behat\Mink\Exception\ElementNotFoundException
-     */
-    public function getReportName();
-
-    /**
-     * @return string
-     * @throws \Behat\Mink\Exception\ElementNotFoundException
-     */
-    public function getReportDescription();
+    public function getHeaderTitle();
 }

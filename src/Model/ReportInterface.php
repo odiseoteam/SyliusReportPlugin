@@ -41,7 +41,7 @@ interface ReportInterface extends CodeAwareInterface, ResourceInterface, Timesta
     /**
      * @param string $renderer
      */
-    public function setRenderer($renderer);
+    public function setRenderer(string $renderer);
 
     /**
      * @return array
@@ -61,7 +61,7 @@ interface ReportInterface extends CodeAwareInterface, ResourceInterface, Timesta
     /**
      * @param string $dataFetcher
      */
-    public function setDataFetcher($dataFetcher);
+    public function setDataFetcher(string $dataFetcher);
 
     /**
      * @return array
