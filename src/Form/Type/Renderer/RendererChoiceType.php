@@ -15,7 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class RendererChoiceType extends AbstractType
 {
     /**
-     * @var array
+     * @var array|false
      */
     protected $renderers;
 

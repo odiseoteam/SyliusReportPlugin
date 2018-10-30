@@ -13,7 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class DataFetcherChoiceType extends AbstractType
 {
     /**
-     * @var array
+     * @var array|false
      */
     protected $dataFetchers;
 
