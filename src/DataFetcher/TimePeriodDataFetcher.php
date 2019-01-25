@@ -61,10 +61,8 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
 
         $labelsAux = array_keys($rawData[0]);
         $labels = [];
-        foreach ($labelsAux as $label)
-        {
-            if(!in_array($label, ['MonthDate', 'YearDate', 'DateDate']))
-            {
+        foreach ($labelsAux as $label) {
+            if (!in_array($label, ['MonthDate', 'YearDate', 'DateDate'])) {
                 $labels[] = $label;
             }
         }
@@ -83,10 +81,8 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
         $data->setData($fetched);
 
         $labels = [];
-        foreach ($labelsAux as $label)
-        {
-            if(!in_array($label, ['MonthDate', 'YearDate', 'DateDate']))
-            {
+        foreach ($labelsAux as $label) {
+            if (!in_array($label, ['MonthDate', 'YearDate', 'DateDate'])) {
                 $labels[] = preg_replace('/(?!^)[A-Z]{2,}(?=[A-Z][a-z])|[A-Z][a-z]/', ' $0', $label);
             }
         }
@@ -158,8 +154,7 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
         }
         $labels = array_keys($datas[0]);
         $datesMedia = [];
-        foreach($datas as $data)
-        {
+        foreach ($datas as $data) {
             $date = new \DateTime($data[$labels[0]]);
             $dateFormated = $date->format($configuration['timePeriod']['presentationFormat']);
             $currentDateMedia = isset($datesMedia[$dateFormated])?$datesMedia[$dateFormated]:array('quantity' => 0, 'media' => 0);
@@ -168,8 +163,7 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
             $datesMedia[$dateFormated] = $currentDateMedia;
         }
         $fetched = [];
-        foreach($datesMedia as $date => $dateMedia)
-        {
+        foreach ($datesMedia as $date => $dateMedia) {
             $fetched[] = [
                 $labels[0] => $date,
                 $labels[1] => round($dateMedia['media']/$dateMedia['quantity'], 1)

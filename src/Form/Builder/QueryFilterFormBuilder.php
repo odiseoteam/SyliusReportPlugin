@@ -52,8 +52,7 @@ class QueryFilterFormBuilder
         OrderRepositoryInterface $orderRepository,
         ChannelRepositoryInterface $channelRepository,
         UrlGeneratorInterface $generator
-    )
-    {
+    ) {
         $this->addressRepository = $addressRepository;
         $this->provinceRepository = $provinceRepository;
         $this->taxonRepository = $taxonRepository;
@@ -243,8 +242,7 @@ class QueryFilterFormBuilder
         $products = $this->productRepository->findAll();
 
         /** @var ProductInterface $product */
-        foreach ($products as $product)
-        {
+        foreach ($products as $product) {
             $choices[$product->getName()] = $product->getId();
         }
 
@@ -261,8 +259,7 @@ class QueryFilterFormBuilder
 
         /** @var ChannelInterface $channel */
         $choices['odiseo_sylius_report.form.all_channels'] = 0;
-        foreach ($channels as $channel)
-        {
+        foreach ($channels as $channel) {
             $choices[$channel->getName()] = $channel->getId();
         }
 
@@ -275,8 +272,7 @@ class QueryFilterFormBuilder
         $categories = $this->taxonRepository->findChildren('category');
 
         /** @var TaxonInterface $category */
-        foreach ($categories as $category)
-        {
+        foreach ($categories as $category) {
             $choices = $this->addCategoryToChoices($choices, $category);
         }
 
@@ -288,8 +284,7 @@ class QueryFilterFormBuilder
         $choices[$category->getName()] = $category->getId();
 
         /** @var TaxonInterface $subcategory */
-        foreach ($category->getChildren() as $subcategory)
-        {
+        foreach ($category->getChildren() as $subcategory) {
             $choices = $this->addCategoryToChoices($choices, $subcategory);
         }
 
@@ -302,12 +297,10 @@ class QueryFilterFormBuilder
         $addresses = $this->addressRepository->findAll();
 
         /** @var AddressInterface $address */
-        foreach ($addresses as $address)
-        {
+        foreach ($addresses as $address) {
             $cityLabel = ucfirst(strtolower($address->getCity())).', '.$address->getCountryCode();
 
-            if(!in_array($cityLabel, $choices))
-            {
+            if (!in_array($cityLabel, $choices)) {
                 $choices[$cityLabel] = $address->getCity();
             }
         }
@@ -324,18 +317,16 @@ class QueryFilterFormBuilder
 
         /** @var ProvinceInterface $province */
         foreach ($provinces as $province) {
-            if(!isset($provincesLabel[$province->getCode()])) {
+            if (!isset($provincesLabel[$province->getCode()])) {
                 $provincesLabel[$province->getCode()] = $province->getName();
             }
         }
 
         /** @var AddressInterface $address */
-        foreach ($addresses as $address)
-        {
+        foreach ($addresses as $address) {
             $provinceLabel = isset($provincesLabel[$address->getProvinceCode()])?ucfirst(strtolower($provincesLabel[$address->getProvinceCode()])).', '.$address->getCountryCode():null;
 
-            if($provinceLabel && !in_array($provinceLabel, $choices))
-            {
+            if ($provinceLabel && !in_array($provinceLabel, $choices)) {
                 $choices[$provinceLabel] = $address->getProvinceCode();
             }
         }
@@ -349,12 +340,10 @@ class QueryFilterFormBuilder
         $addresses = $this->addressRepository->findAll();
 
         /** @var AddressInterface $address */
-        foreach ($addresses as $address)
-        {
+        foreach ($addresses as $address) {
             $postcode = $address->getPostcode();
 
-            if(!in_array($postcode, $choices))
-            {
+            if (!in_array($postcode, $choices)) {
                 $choices[$postcode] = $postcode;
             }
         }

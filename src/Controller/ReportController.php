@@ -92,8 +92,7 @@ class ReportController extends ResourceController
         $configuration = $request->get('configuration');
         $currencyProvider = $this->get('sylius.currency_provider');
 
-        if(isset($configuration['timePeriod']))
-        {
+        if (isset($configuration['timePeriod'])) {
             $configuration['timePeriod']['start'] = new \DateTime($configuration['timePeriod']['start']['date'], new \DateTimeZone($configuration['timePeriod']['start']['timezone']));
             $configuration['timePeriod']['end'] = new \DateTime($configuration['timePeriod']['end']['date'], new \DateTimeZone($configuration['timePeriod']['end']['timezone']));
         }
@@ -103,8 +102,7 @@ class ReportController extends ResourceController
         $data = $this->getReportDataFetcher()->fetch($report, $configuration);
 
         $response = null;
-        switch ($type)
-        {
+        switch ($type) {
             case 'json':
                 $response = $this->createJsonResponse($data);
                 break;
@@ -165,8 +163,7 @@ class ReportController extends ResourceController
     protected function createJsonResponse($data)
     {
         $responseData = [];
-        foreach ($data->getData() as $key => $value)
-        {
+        foreach ($data->getData() as $key => $value) {
             $responseData[] = [$key, $value];
         }
 
@@ -189,15 +186,12 @@ class ReportController extends ResourceController
     protected function createCsvResponse($data)
     {
         $responseData = [];
-        foreach ($data->getData() as $key => $value)
-        {
-            if(is_array($value))
-            {
-                foreach ($value as $k => $v)
-                {
+        foreach ($data->getData() as $key => $value) {
+            if (is_array($value)) {
+                foreach ($value as $k => $v) {
                     $responseData[] = [$k, $v];
                 }
-            }else {
+            } else {
                 $responseData[] = [$key, $value];
             }
         }

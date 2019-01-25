@@ -69,7 +69,7 @@ class QueryFilter
         $selectPeriod = '';
         $selectGroupBy = '';
         foreach ($configuration['groupBy'] as $groupByElement) {
-            if(strlen($selectPeriod) > 0) {
+            if (strlen($selectPeriod) > 0) {
                 $selectPeriod .= ', ';
                 $selectGroupBy .= ',';
             }
@@ -90,7 +90,7 @@ class QueryFilter
      */
     public function addLeftJoin($join, $alias): string
     {
-        if(!isset($this->joins[$join])) {
+        if (!isset($this->joins[$join])) {
             $this->joins[$join] = $alias;
 
             $this->qb->leftJoin($join, $alias);
@@ -136,19 +136,20 @@ class QueryFilter
      */
     public function addChannel(array $configuration = [], $field = null): void
     {
-        if(isset($configuration['channel']) && $configuration['channel'] != null) {
+        if (isset($configuration['channel']) && $configuration['channel'] != null) {
             $storeIds = [];
 
-            if($configuration['channel'] instanceof ChannelInterface) {
+            if ($configuration['channel'] instanceof ChannelInterface) {
                 $storeIds[] = $configuration['channel']->getId();
-            }else if(is_array($configuration['channel']) && !in_array(0, $configuration['channel'])) {
+            } elseif (is_array($configuration['channel']) && !in_array(0, $configuration['channel'])) {
                 $storeIds = $configuration['channel'];
             }
 
-            if(!(count($storeIds) > 0))
+            if (!(count($storeIds) > 0)) {
                 return;
+            }
 
-            if(!$field) {
+            if (!$field) {
                 $alias = $this->qb->getRootAliases()[0];
                 $field = $alias.'.channel';
             }
@@ -164,11 +165,12 @@ class QueryFilter
      */
     public function addUserGender(array $configuration = []): void
     {
-        if(isset($configuration['userGender']) && $configuration['userGender'] != null) {
+        if (isset($configuration['userGender']) && $configuration['userGender'] != null) {
             $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
 
-            if(!$this->hasRootEntity(Customer::class))
+            if (!$this->hasRootEntity(Customer::class)) {
                 $cAlias = $this->addLeftJoin($rootAlias.'.customer', 'c');
+            }
 
             $this->qb
                 ->andWhere($this->qb->expr()->in($cAlias.'.gender', $configuration['userGender']))
@@ -181,20 +183,21 @@ class QueryFilter
      */
     public function addUserBuyer(array $configuration = []): void
     {
-        if(isset($configuration['userBuyer']) && $configuration['userBuyer'] != null && $configuration['userBuyer'] != 'both') {
+        if (isset($configuration['userBuyer']) && $configuration['userBuyer'] != null && $configuration['userBuyer'] != 'both') {
             $rootAlias = $this->qb->getRootAliases()[0];
 
-            if(!$this->hasRootEntity(Customer::class))
+            if (!$this->hasRootEntity(Customer::class)) {
                 $this->addLeftJoin($rootAlias.'.customer', 'c');
+            }
 
             $oAlias = $this->addLeftJoin('c.orders', 'o');
 
-            if($configuration['userBuyer'] == 'yes') {
+            if ($configuration['userBuyer'] == 'yes') {
                 $this->qb
                     ->andWhere($this->qb->expr()->isNotNull($oAlias.'.checkoutCompletedAt'))
                     ->andWhere($oAlias.'.itemsTotal > 0')
                 ;
-            }else {
+            } else {
                 $this->qb
                     ->andWhere($this->qb->expr()->isNull($oAlias.'.checkoutCompletedAt'))
                 ;
@@ -209,11 +212,12 @@ class QueryFilter
     public function addUserCountry(array $configuration = [], string $addressType = 'shipping'): void
     {
         $type = 'user'.ucfirst($addressType).'Country';
-        if(isset($configuration[$type]) && $configuration[$type] != null) {
+        if (isset($configuration[$type]) && $configuration[$type] != null) {
             $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
 
-            if(!$this->hasRootEntity(Customer::class))
+            if (!$this->hasRootEntity(Customer::class)) {
                 $cAlias = $this->addLeftJoin($rootAlias.'.customer', 'c');
+            }
 
             $caAlias = $this->addLeftJoin($cAlias.'.addresses', 'c'.substr($addressType, 0, 1).'a');
 
@@ -230,11 +234,12 @@ class QueryFilter
     public function addUserProvince(array $configuration = [], string $addressType = 'shipping'): void
     {
         $type = 'user'.ucfirst($addressType).'Province';
-        if(isset($configuration[$type]) && $configuration[$type] != null) {
+        if (isset($configuration[$type]) && $configuration[$type] != null) {
             $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
 
-            if(!$this->hasRootEntity(Customer::class))
+            if (!$this->hasRootEntity(Customer::class)) {
                 $cAlias = $this->addLeftJoin($rootAlias.'.customer', 'c');
+            }
 
             $caAlias = $this->addLeftJoin($cAlias.'.addresses', 'c'.substr($addressType, 0, 1).'a');
 
@@ -251,11 +256,12 @@ class QueryFilter
     public function addUserCity(array $configuration = [], string $addressType = 'shipping'): void
     {
         $type = 'user'.ucfirst($addressType).'City';
-        if(isset($configuration[$type]) && $configuration[$type] != null) {
+        if (isset($configuration[$type]) && $configuration[$type] != null) {
             $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
 
-            if(!$this->hasRootEntity(Customer::class))
+            if (!$this->hasRootEntity(Customer::class)) {
                 $cAlias = $this->addLeftJoin($rootAlias.'.customer', 'c');
+            }
 
             $caAlias = $this->addLeftJoin($cAlias.'.addresses', 'c'.substr($addressType, 0, 1).'a');
 
@@ -272,11 +278,12 @@ class QueryFilter
     public function addUserPostcode(array $configuration = [], string $addressType = 'shipping'): void
     {
         $type = 'user'.ucfirst($addressType).'Postcode';
-        if(isset($configuration[$type]) && $configuration[$type] != null) {
+        if (isset($configuration[$type]) && $configuration[$type] != null) {
             $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
 
-            if(!$this->hasRootEntity(Customer::class))
+            if (!$this->hasRootEntity(Customer::class)) {
                 $cAlias = $this->addLeftJoin($rootAlias.'.customer', 'c');
+            }
 
             $caAlias = $this->addLeftJoin($cAlias.'.addresses', 'c'.substr($addressType, 0, 1).'2a');
 
@@ -292,7 +299,7 @@ class QueryFilter
      */
     public function addProduct(array $configuration = [], string $field = 'p.id'): void
     {
-        if(isset($configuration['product']) && $configuration['product'] != null) {
+        if (isset($configuration['product']) && $configuration['product'] != null) {
             $this->qb
                 ->andWhere($this->qb->expr()->in($field, $configuration['product']))
             ;
@@ -305,7 +312,7 @@ class QueryFilter
      */
     public function addProductBrand(array $configuration = [], string $field = 'p.vendor'): void
     {
-        if(isset($configuration['productBrand']) && $configuration['productBrand'] != null) {
+        if (isset($configuration['productBrand']) && $configuration['productBrand'] != null) {
             $this->qb
                 ->andWhere($this->qb->expr()->in($field, $configuration['productBrand']))
             ;
@@ -318,7 +325,7 @@ class QueryFilter
      */
     public function addProductCategory(array $configuration = [], string $field = 'pt.id'): void
     {
-        if(isset($configuration['productCategory']) && $configuration['productCategory'] != null) {
+        if (isset($configuration['productCategory']) && $configuration['productCategory'] != null) {
             $this->qb
                 ->andWhere($this->qb->expr()->in($field, $configuration['productCategory']))
             ;
@@ -331,7 +338,7 @@ class QueryFilter
      */
     public function addOrderNumbers(array $configuration = [], string $field = 'o.id'): void
     {
-        if(isset($configuration['orderNumbers']) && $configuration['orderNumbers'] != null) {
+        if (isset($configuration['orderNumbers']) && $configuration['orderNumbers'] != null) {
             $this->qb
                 ->andWhere($this->qb->expr()->in($field, $configuration['orderNumbers']))
             ;
