@@ -2,7 +2,7 @@
 
 namespace Odiseo\SyliusReportPlugin\Form\Type\DataFetcher;
 
-use Odiseo\SyliusReportPlugin\DataFetcher\TimePeriod;
+use Odiseo\SyliusReportPlugin\DataFetcher\TimePeriodDataFetcher;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -29,7 +29,7 @@ class TimePeriodType extends AbstractType
                 'years' => range((new \DateTime('-100 years'))->format('Y'), (new \DateTime())->format('Y')),
             ])
             ->add('period', ChoiceType::class, [
-                'choices' => TimePeriod::getPeriodChoices(),
+                'choices' => TimePeriodDataFetcher::getPeriodChoices(),
                 'multiple' => false,
                 'label' => 'odiseo_sylius_report.form.time_period.period',
             ])

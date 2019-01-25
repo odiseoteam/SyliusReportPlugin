@@ -1,0 +1,5 @@
+services:
+    odiseo_sylius_report.repository.order:
+        class: Odiseo\SyliusReportPlugin\Repository\OrderRepository
+        parent: sylius.repository.order
+

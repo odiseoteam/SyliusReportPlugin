@@ -12,10 +12,10 @@ interface DataFetcherInterface
      *
      * @return Data $data
      */
-    public function fetch(array $configuration);
+    public function fetch(array $configuration): Data;
 
     /**
      * @return string
      */
-    public function getType();
+    public function getType(): string;
 }

@@ -2,46 +2,57 @@
 
 namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
-use Doctrine\DBAL\Statement;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\NumberOfOrdersType;
-use Sylius\Component\Order\Model\OrderInterface;
+use Sylius\Component\Core\OrderPaymentStates;
+use Sylius\Component\Order\Model\Order;
 
 /**
  * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
  * @author Diego D'amico <diego@odiseo.com.ar>
  */
-class NumberOfOrdersDataFetcher extends TimePeriod
+class NumberOfOrdersDataFetcher extends TimePeriodDataFetcher
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function getData(array $configuration = [])
+    protected function setupQueryFilter(array $configuration = []): void
     {
-        $groupBy = $this->getGroupBy($configuration);
+        $qb = $this->queryFilter->getQueryBuilder();
 
-        $queryBuilder = $this->entityManager->getConnection()->createQueryBuilder();
+        $qb
+            ->select('DATE(payment.updatedAt) as date', 'COUNT(o.id) as NumberOfOrders')
+            ->from(Order::class, 'o')
+        ;
+        $this->queryFilter->addLeftJoin('o.items', 'oi');
+        $this->queryFilter->addLeftJoin('oi.variant', 'v');
+        $this->queryFilter->addLeftJoin('v.product', 'p');
+        $this->queryFilter->addLeftJoin('p.productTaxons', 'pt');
+        $this->queryFilter->addLeftJoin('o.customer', 'c');
+        $this->queryFilter->addLeftJoin('c.user', 'user');
+        $this->queryFilter->addLeftJoin('o.payments', 'payment');
 
-        $queryBuilder
-            ->select('DATE(o.checkout_completed_at) as date', 'COUNT(o.id) as "Number of orders"')
-            ->from($this->entityManager->getClassMetadata(OrderInterface::class)->getTableName(), 'o')
-            ->where($queryBuilder->expr()->gte('o.checkout_completed_at', ':from'))
-            ->andWhere($queryBuilder->expr()->lte('o.checkout_completed_at', ':to'))
-            ->setParameter('from', $configuration['start']->format('Y-m-d H:i:s'))
-            ->setParameter('to', $configuration['end']->format('Y-m-d H:i:s'))
-            ->groupBy($groupBy)
-            ->orderBy($groupBy)
+        $qb
+            ->where($qb->expr()->eq('o.payment_state', OrderPaymentStates::STATE_PAID))
         ;
 
-        /** @var Statement $stmt */
-        $stmt = $queryBuilder->execute();
-
-        return $stmt->fetchAll();
+        $this->queryFilter->addTimePeriod($configuration);
+        $this->queryFilter->addChannel($configuration, 'o.channel');
+        $this->queryFilter->addUserGender($configuration);
+        $this->queryFilter->addUserCountry($configuration, 'shipping');
+        $this->queryFilter->addUserCity($configuration, 'shipping');
+        $this->queryFilter->addUserProvince($configuration, 'shipping');
+        $this->queryFilter->addUserPostcode($configuration, 'shipping');
+        $this->queryFilter->addUserCountry($configuration, 'billing');
+        $this->queryFilter->addUserCity($configuration, 'billing');
+        $this->queryFilter->addUserProvince($configuration, 'billing');
+        $this->queryFilter->addUserPostcode($configuration, 'billing');
+        $this->queryFilter->addProduct($configuration);
+        $this->queryFilter->addProductBrand($configuration);
+        $this->queryFilter->addProductCategory($configuration);
+        $this->queryFilter->addOrderNumbers($configuration);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getType()
+    public function getType(): string
     {
         return NumberOfOrdersType::class;
     }

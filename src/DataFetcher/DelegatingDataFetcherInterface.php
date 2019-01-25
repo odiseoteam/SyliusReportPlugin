@@ -20,7 +20,7 @@ interface DelegatingDataFetcherInterface
      *
      * @return Data
      */
-    public function fetch(ReportInterface $report, array $configuration = []);
+    public function fetch(ReportInterface $report, array $configuration = []): Data;
 
     /**
      * Return the DataFetcherInterface of the ReportInterface given
@@ -29,5 +29,5 @@ interface DelegatingDataFetcherInterface
      *
      * @return DataFetcherInterface
      */
-    public function getDataFetcher(ReportInterface $report);
+    public function getDataFetcher(ReportInterface $report): DataFetcherInterface;
 }

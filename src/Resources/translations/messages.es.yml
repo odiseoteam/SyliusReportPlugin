@@ -24,6 +24,18 @@ odiseo_sylius_report:
             end: End date
             period: Time period
             empty_records: Print empty records?
+        user_gender: Genero del usuario
+        shipping_country: País de envío
+        shipping_city: Ciudad de envío
+        shipping_province: Provincia de envío
+        shipping_postcode: Código postal de envío
+        billing_country: País de facturación
+        billing_city: Ciudad de facturación
+        billing_province: Provincia de facturación
+        billing_postcode: Código postal de facturación
+        orders: Ordenes
+        all_channels: Todos los canales
+        category: Categoría
     renderer:
         chart: Chart renderer
         table: Table renderer

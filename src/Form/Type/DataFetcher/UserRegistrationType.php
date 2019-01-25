@@ -8,7 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
  * @author Diego D'amico <diego@odiseo.com.ar>
  */
-class UserRegistrationType extends TimePeriodType
+class UserRegistrationType extends TimePeriodChannelType
 {
     /**
      * {@inheritdoc}
@@ -16,6 +16,8 @@ class UserRegistrationType extends TimePeriodType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
+
+        $this->queryFilterFormBuilder->addUserGender($builder);
     }
 
     /**

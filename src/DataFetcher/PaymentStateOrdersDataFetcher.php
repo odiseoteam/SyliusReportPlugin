@@ -45,11 +45,9 @@ class PaymentStateOrdersDataFetcher implements DataFetcherInterface
     }
 
     /**
-     * @param array $configuration
-     *
-     * @return Data $data
+     * {@inheritdoc}
      */
-    public function fetch(array $configuration)
+    public function fetch(array $configuration): Data
     {
         $data = new Data();
 
@@ -75,7 +73,7 @@ class PaymentStateOrdersDataFetcher implements DataFetcherInterface
     /**
      * {@inheritdoc}
      */
-    public function getType()
+    public function getType(): string
     {
         return PaymentStateOrdersType::class;
     }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Odiseo\SyliusReportPlugin\DependencyInjection;
 
 use Odiseo\SyliusReportPlugin\Controller\ReportController;
-use Odiseo\SyliusReportPlugin\Doctrine\ORM\ReportRepository;
+use Odiseo\SyliusReportPlugin\Repository\ReportRepository;
 use Odiseo\SyliusReportPlugin\Form\Type\ReportType;
 use Odiseo\SyliusReportPlugin\Model\Report;
 use Odiseo\SyliusReportPlugin\Model\ReportInterface;

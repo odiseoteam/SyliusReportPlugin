@@ -105,11 +105,7 @@ class ReportType extends AbstractResourceType
                 continue;
             }
 
-            try {
-                $prototypes['dataFetchers'][$type] = $builder->create('dataFetcherConfiguration', $formType)->getForm();
-            } catch (\InvalidArgumentException $e) {
-                continue;
-            }
+            $prototypes['dataFetchers'][$type] = $builder->create('dataFetcherConfiguration', $formType)->getForm();
         }
 
         $builder->setAttribute('prototypes', $prototypes);

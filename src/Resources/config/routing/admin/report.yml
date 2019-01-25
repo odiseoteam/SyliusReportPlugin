@@ -25,3 +25,11 @@ odiseo_sylius_report_admin_report_show:
             template: '@OdiseoSyliusReportPlugin/show.html.twig'
     requirements:
         id: '\d+'
+
+odiseo_sylius_report_admin_report_export:
+    path: /reports/{id}/export
+    methods: [GET]
+    defaults:
+        _controller: odiseo_sylius_report.controller.report:exportAction
+    requirements:
+        id: '\d+'

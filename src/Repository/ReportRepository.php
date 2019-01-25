@@ -1,6 +1,6 @@
 <?php
 
-namespace Odiseo\SyliusReportPlugin\Doctrine\ORM;
+namespace Odiseo\SyliusReportPlugin\Repository;
 
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 

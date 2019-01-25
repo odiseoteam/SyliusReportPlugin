@@ -1,2 +1,9 @@
 odiseo_sylius_report_plugin_admin_report:
     resource: "@OdiseoSyliusReportPlugin/Resources/config/routing/admin/report.yml"
+
+odiseo_sylius_report_plugin_admin_ajax_order_by_number:
+    path: /ajax/orders/search
+    methods: [GET]
+    defaults:
+        _format: json
+        _controller: odiseo_sylius_report.controller.action.order_search

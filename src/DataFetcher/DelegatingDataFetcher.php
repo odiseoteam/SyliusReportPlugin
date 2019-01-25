@@ -31,7 +31,7 @@ class DelegatingDataFetcher implements DelegatingDataFetcherInterface
     /**
      * {@inheritdoc}
      */
-    public function fetch(ReportInterface $report, array $configuration = [])
+    public function fetch(ReportInterface $report, array $configuration = []): Data
     {
         $dataFetcher = $this->getDataFetcher($report);
         $configuration = empty($configuration) ? $report->getDataFetcherConfiguration() : $configuration;
@@ -44,7 +44,7 @@ class DelegatingDataFetcher implements DelegatingDataFetcherInterface
      *
      * @throws \InvalidArgumentException If the report does not have a data fetcher.
      */
-    public function getDataFetcher(ReportInterface $report)
+    public function getDataFetcher(ReportInterface $report): DataFetcherInterface
     {
         if (null === $type = $report->getDataFetcher()) {
             throw new \InvalidArgumentException('Cannot fetch data for ReportInterface instance without DataFetcher defined.');

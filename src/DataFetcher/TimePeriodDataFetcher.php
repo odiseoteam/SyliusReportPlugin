@@ -2,33 +2,17 @@
 
 namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
-use Doctrine\DBAL\Query\QueryBuilder;
-use Doctrine\ORM\EntityManager;
-
 /**
  * Abstract class to provide time periods logic.
  *
  * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
  * @author Diego D'amico <diego@odiseo.com.ar>
  */
-abstract class TimePeriod implements DataFetcherInterface
+abstract class TimePeriodDataFetcher extends BaseDataFetcher
 {
     const PERIOD_DAY = 'day';
     const PERIOD_MONTH = 'month';
     const PERIOD_YEAR = 'year';
-
-    /**
-     * @var EntityManager
-     */
-    protected $entityManager;
-
-    /**
-     * @param EntityManager $entityManager
-     */
-    public function __construct(EntityManager $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
 
     /**
      * @return array
@@ -45,15 +29,17 @@ abstract class TimePeriod implements DataFetcherInterface
     /**
      * {@inheritdoc}
      */
-    public function fetch(array $configuration)
+    public function fetch(array $configuration): Data
     {
         $data = new Data();
 
-        //There is added 23 hours 59 minutes 59 seconds to the end date to provide records for whole end date
-        $configuration['end'] = $configuration['end']->add(new \DateInterval('PT23H59M59S'));
-        //This should be removed after implementation hourly periods
+        /** @var \DateTime $endDate */
+        $endDate = $configuration['timePeriod']['end'];
 
-        switch ($configuration['period']) {
+        //There is added 23 hours 59 minutes 59 seconds to the end date to provide records for whole end date
+        $configuration['timePeriod']['end'] = $endDate->add(new \DateInterval('PT23H59M59S'));
+
+        switch ($configuration['timePeriod']['period']) {
             case self::PERIOD_DAY:
                 $this->setExtraConfiguration($configuration, 'P1D', '%a', 'Y-m-d', ['date']);
                 break;
@@ -73,7 +59,15 @@ abstract class TimePeriod implements DataFetcherInterface
             return $data;
         }
 
-        $labels = array_keys($rawData[0]);
+        $labelsAux = array_keys($rawData[0]);
+        $labels = [];
+        foreach ($labelsAux as $label)
+        {
+            if(!in_array($label, ['MonthDate', 'YearDate', 'DateDate']))
+            {
+                $labels[] = $label;
+            }
+        }
         $data->setLabels($labels);
 
         $fetched = [];
@@ -83,58 +77,23 @@ abstract class TimePeriod implements DataFetcherInterface
         }
         foreach ($rawData as $row) {
             $date = new \DateTime($row[$labels[0]]);
-            $fetched[$date->format($configuration['presentationFormat'])] = $row[$labels[1]];
+            $fetched[$date->format($configuration['timePeriod']['presentationFormat'])] = $row[$labels[1]];
         }
 
         $data->setData($fetched);
 
+        $labels = [];
+        foreach ($labelsAux as $label)
+        {
+            if(!in_array($label, ['MonthDate', 'YearDate', 'DateDate']))
+            {
+                $labels[] = preg_replace('/(?!^)[A-Z]{2,}(?=[A-Z][a-z])|[A-Z][a-z]/', ' $0', $label);
+            }
+        }
+        $data->setLabels($labels);
+
         return $data;
     }
-
-    protected function addTimePeriodQueryBuilder(QueryBuilder $queryBuilder, array $configuration = [], $dateField = 'o.completed_at')
-    {
-        $groupBy = $this->getGroupBy($configuration);
-        $queryBuilder
-            ->andWhere($queryBuilder->expr()->gte($dateField, ':from'))
-            ->andWhere($queryBuilder->expr()->lte($dateField, ':to'))
-            ->setParameter('from', $configuration['start']->format('Y-m-d H:i:s'))
-            ->setParameter('to', $configuration['end']->format('Y-m-d H:i:s'))
-            ->groupBy($groupBy)
-            ->orderBy($groupBy)
-        ;
-
-        return $queryBuilder;
-    }
-
-    /**
-     * Return a concadenated string of all groupBy given in $configuration
-     *
-     * @param array $configuration
-     * @return string
-     */
-    protected function getGroupBy(array $configuration = [])
-    {
-        $groupBy = '';
-
-        foreach ($configuration['groupBy'] as $groupByElement) {
-            $groupBy = $groupByElement.'(date)'.' '.$groupBy;
-        }
-
-        $groupBy = substr($groupBy, 0, -1);
-        $groupBy = str_replace(' ', ', ', $groupBy);
-
-        return $groupBy;
-    }
-
-    /**
-     * Responsible for providing raw data to fetch, from the configuration (ie: start date, end date, time period,
-     * empty records flag, interval, period format, presentation format, group by).
-     *
-     * @param array $configuration
-     *
-     * @return array
-     */
-    abstract protected function getData(array $configuration = []);
 
     /**
      * @param array  $configuration
@@ -143,17 +102,18 @@ abstract class TimePeriod implements DataFetcherInterface
      * @param string $presentationFormat
      * @param array  $groupBy
      */
-    private function setExtraConfiguration(
+    protected function setExtraConfiguration(
         array &$configuration,
         $interval,
         $periodFormat,
         $presentationFormat,
         array $groupBy
     ) {
-        $configuration['interval'] = $interval;
-        $configuration['periodFormat'] = $periodFormat;
-        $configuration['presentationFormat'] = $presentationFormat;
+        $configuration['timePeriod']['interval'] = $interval;
+        $configuration['timePeriod']['periodFormat'] = $periodFormat;
+        $configuration['timePeriod']['presentationFormat'] = $presentationFormat;
         $configuration['groupBy'] = $groupBy;
+        $configuration['empty_records'] = false;
     }
 
     /**
@@ -183,6 +143,38 @@ abstract class TimePeriod implements DataFetcherInterface
             $startDate = $startDate->add($dateInterval);
         }
 
+        return $fetched;
+    }
+
+    /**
+     * @param array $datas
+     * @param array $configuration
+     * @return array
+     */
+    protected function getMediaResults(array $datas = [], array $configuration = [])
+    {
+        if (empty($datas)) {
+            return [];
+        }
+        $labels = array_keys($datas[0]);
+        $datesMedia = [];
+        foreach($datas as $data)
+        {
+            $date = new \DateTime($data[$labels[0]]);
+            $dateFormated = $date->format($configuration['timePeriod']['presentationFormat']);
+            $currentDateMedia = isset($datesMedia[$dateFormated])?$datesMedia[$dateFormated]:array('quantity' => 0, 'media' => 0);
+            $currentDateMedia['quantity'] = $currentDateMedia['quantity']+1;
+            $currentDateMedia['media'] = $currentDateMedia['media']+$data[$labels[1]];
+            $datesMedia[$dateFormated] = $currentDateMedia;
+        }
+        $fetched = [];
+        foreach($datesMedia as $date => $dateMedia)
+        {
+            $fetched[] = [
+                $labels[0] => $date,
+                $labels[1] => round($dateMedia['media']/$dateMedia['quantity'], 1)
+            ];
+        }
         return $fetched;
     }
 }

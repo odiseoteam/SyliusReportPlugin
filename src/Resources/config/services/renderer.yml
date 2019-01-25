@@ -1,0 +1,12 @@
+services:
+    odiseo_sylius_report.renderer.chart:
+        class: Odiseo\SyliusReportPlugin\Renderer\ChartRenderer
+        arguments: ['@templating']
+        tags:
+            - { name: odiseo_sylius_report.renderer, renderer: odiseo_sylius_report_renderer_chart, label: "odiseo_sylius_report.renderer.chart" }
+
+    odiseo_sylius_report.renderer.table:
+        class: Odiseo\SyliusReportPlugin\Renderer\TableRenderer
+        arguments: ['@templating']
+        tags:
+            - { name: odiseo_sylius_report.renderer, renderer: odiseo_sylius_report_renderer_table, label: "odiseo_sylius_report.renderer.table" }

@@ -1,0 +1,7 @@
+services:
+    odiseo_sylius_report.controller.action.order_search:
+        class: Odiseo\SyliusReportPlugin\Controller\Action\OrderSearchAction
+        public: true
+        arguments:
+            - "@odiseo_sylius_report.repository.order"
+            - "@fos_rest.view_handler.default"

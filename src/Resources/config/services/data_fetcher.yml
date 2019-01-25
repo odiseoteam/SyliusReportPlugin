@@ -1,0 +1,25 @@
+services:
+    #REPORT DATA FETCHERS
+    odiseo_sylius_report.data_fetcher.user_registration:
+        class: Odiseo\SyliusReportPlugin\DataFetcher\UserRegistrationDataFetcher
+        arguments: ['@odiseo_sylius_report.filter.query_filter']
+        tags:
+            - { name: odiseo_sylius_report.data_fetcher, fetcher: odiseo_sylius_report_data_fetcher_user_registration, label: "odiseo_sylius_report.data_fetcher.user_registration" }
+
+    odiseo_sylius_report.data_fetcher.sales_total:
+        class: Odiseo\SyliusReportPlugin\DataFetcher\SalesTotalDataFetcher
+        arguments: ["@odiseo_sylius_report.filter.query_filter"]
+        tags:
+            - { name: odiseo_sylius_report.data_fetcher, fetcher: odiseo_sylius_report_data_fetcher_sales_total, label: "odiseo_sylius_report.data_fetcher.sales_total" }
+
+    odiseo_sylius_report.data_fetcher.number_of_orders:
+        class: Odiseo\SyliusReportPlugin\DataFetcher\NumberOfOrdersDataFetcher
+        arguments: ['@odiseo_sylius_report.filter.query_filter']
+        tags:
+            - { name: odiseo_sylius_report.data_fetcher, fetcher: odiseo_sylius_report_data_fetcher_number_of_orders, label: "odiseo_sylius_report.data_fetcher.number_of_orders" }
+
+    odiseo_sylius_report.data_fetcher.payment_state_orders:
+        class: Odiseo\SyliusReportPlugin\DataFetcher\PaymentStateOrdersDataFetcher
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: odiseo_sylius_report.data_fetcher, fetcher: odiseo_sylius_report_data_fetcher_payment_state_orders, label: "odiseo_sylius_report.data_fetcher.payment_state_orders" }
