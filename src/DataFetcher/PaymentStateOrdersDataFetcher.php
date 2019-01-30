@@ -5,7 +5,6 @@ namespace Odiseo\SyliusReportPlugin\DataFetcher;
 use Doctrine\DBAL\Statement;
 use Doctrine\ORM\EntityManager;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\PaymentStateOrdersType;
-use Sylius\Component\Order\Model\OrderInterface;
 
 /**
  * @author Diego D'amico <diego@odiseo.com.ar>
@@ -18,11 +17,18 @@ class PaymentStateOrdersDataFetcher implements DataFetcherInterface
     protected $entityManager;
 
     /**
-     * @param EntityManager $entityManager
+     * @var string
      */
-    public function __construct(EntityManager $entityManager)
+    protected $orderClass;
+
+    /**
+     * @param EntityManager $entityManager
+     * @param string $orderClass
+     */
+    public function __construct(EntityManager $entityManager, string $orderClass)
     {
         $this->entityManager = $entityManager;
+        $this->orderClass = $orderClass;
     }
 
     /**
@@ -34,7 +40,7 @@ class PaymentStateOrdersDataFetcher implements DataFetcherInterface
 
         $queryBuilder
             ->select('o.payment_state as "Payment State"', 'COUNT(o.id) as "Number of orders"')
-            ->from($this->entityManager->getClassMetadata(OrderInterface::class)->getTableName(), 'o')
+            ->from($this->entityManager->getClassMetadata($this->orderClass)->getTableName(), 'o')
             ->groupBy('payment_state')
         ;
 

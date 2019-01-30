@@ -3,8 +3,8 @@
 namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
 use Doctrine\DBAL\Statement;
+use Doctrine\ORM\EntityManager;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\NumberOfOrdersType;
-use Sylius\Component\Order\Model\OrderInterface;
 
 /**
  * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
@@ -12,6 +12,20 @@ use Sylius\Component\Order\Model\OrderInterface;
  */
 class NumberOfOrdersDataFetcher extends TimePeriod
 {
+    /** @var string */
+    protected $orderClass;
+
+    /**
+     * @param EntityManager $entityManager
+     * @param string $orderClass
+     */
+    public function __construct(EntityManager $entityManager, string $orderClass)
+    {
+        parent::__construct($entityManager);
+
+        $this->orderClass = $orderClass;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -23,7 +37,7 @@ class NumberOfOrdersDataFetcher extends TimePeriod
 
         $queryBuilder
             ->select('DATE(o.checkout_completed_at) as date', 'COUNT(o.id) as "Number of orders"')
-            ->from($this->entityManager->getClassMetadata(OrderInterface::class)->getTableName(), 'o')
+            ->from($this->entityManager->getClassMetadata($this->orderClass)->getTableName(), 'o')
             ->where($queryBuilder->expr()->gte('o.checkout_completed_at', ':from'))
             ->andWhere($queryBuilder->expr()->lte('o.checkout_completed_at', ':to'))
             ->setParameter('from', $configuration['start']->format('Y-m-d H:i:s'))
