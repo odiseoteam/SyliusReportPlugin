@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusReportPlugin\Controller\Action;
 
+use FOS\RestBundle\View\ConfigurableViewHandlerInterface;
 use FOS\RestBundle\View\View;
-use FOS\RestBundle\View\ViewHandler;
 use Odiseo\SyliusReportPlugin\Repository\OrderRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,12 +15,12 @@ final class OrderSearchAction
     /** @var OrderRepositoryInterface */
     private $orderRepository;
 
-    /** @var ViewHandler */
+    /** @var ConfigurableViewHandlerInterface */
     private $viewHandler;
 
-    public function __construct(OrderRepositoryInterface $productRepository, ViewHandler $viewHandler)
+    public function __construct(OrderRepositoryInterface $orderRepository, ConfigurableViewHandlerInterface $viewHandler)
     {
-        $this->orderRepository = $productRepository;
+        $this->orderRepository = $orderRepository;
         $this->viewHandler = $viewHandler;
     }
 

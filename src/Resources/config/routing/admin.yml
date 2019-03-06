@@ -7,3 +7,24 @@ odiseo_sylius_report_plugin_admin_ajax_order_by_number:
     defaults:
         _format: json
         _controller: odiseo_sylius_report.controller.action.order_search
+
+odiseo_sylius_report_plugin_admin_ajax_cities:
+    path: /ajax/cities
+    methods: [GET]
+    defaults:
+        _format: json
+        _controller: odiseo_sylius_report.controller.action.city_search
+
+odiseo_sylius_report_plugin_admin_ajax_provinces:
+    path: /ajax/provinces
+    methods: [GET]
+    defaults:
+        _format: json
+        _controller: odiseo_sylius_report.controller.action.province_search
+
+odiseo_sylius_report_plugin_admin_ajax_postcodes:
+    path: /ajax/postcodes
+    methods: [GET]
+    defaults:
+        _format: json
+        _controller: odiseo_sylius_report.controller.action.postcode_search

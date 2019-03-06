@@ -3,7 +3,6 @@ services:
         class: Odiseo\SyliusReportPlugin\Form\Builder\QueryFilterFormBuilder
         arguments:
             - "@sylius.repository.address"
-            - "@sylius.repository.province"
             - "@sylius.repository.taxon"
             - "@sylius.repository.product"
             - "@sylius.repository.order"

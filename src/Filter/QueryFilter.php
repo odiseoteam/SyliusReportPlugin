@@ -4,8 +4,10 @@ namespace Odiseo\SyliusReportPlugin\Filter;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
+use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\Customer;
+use Sylius\Component\Core\Model\OrderInterface;
 
 class QueryFilter
 {
@@ -117,7 +119,7 @@ class QueryFilter
         /** @var \DateTime $startDateTime */
         $startDateTime = $configuration['timePeriod']['start'];
         /** @var \DateTime $endDateTime */
-        $endDateTime = $configuration['timePeriod']['end'];
+        $endDateTime = $configuration['timePeriod']['end']?:new \DateTime();
 
         $this->qb
             ->addSelect($groupByParts[0])
@@ -256,7 +258,11 @@ class QueryFilter
     public function addUserCity(array $configuration = [], string $addressType = 'shipping'): void
     {
         $type = 'user'.ucfirst($addressType).'City';
-        if (isset($configuration[$type]) && $configuration[$type] != null) {
+
+        if (isset($configuration[$type]) && count($configuration[$type]) > 0) {
+            $cities = $configuration[$type]->map(function (AddressInterface $address) {
+                return $address->getCity();
+            })->toArray();
             $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
 
             if (!$this->hasRootEntity(Customer::class)) {
@@ -266,7 +272,7 @@ class QueryFilter
             $caAlias = $this->addLeftJoin($cAlias.'.addresses', 'c'.substr($addressType, 0, 1).'a');
 
             $this->qb
-                ->andWhere($this->qb->expr()->in($caAlias.'.city', $configuration[$type]))
+                ->andWhere($this->qb->expr()->in($caAlias.'.city', $cities))
             ;
         }
     }
@@ -338,9 +344,13 @@ class QueryFilter
      */
     public function addOrderNumbers(array $configuration = [], string $field = 'o.id'): void
     {
-        if (isset($configuration['orderNumbers']) && $configuration['orderNumbers'] != null) {
+        if (isset($configuration['orderNumbers']) && count($configuration['orderNumbers']) > 0) {
+            $orderIds = $configuration['orderNumbers']->map(function (OrderInterface $order) {
+                return $order->getId();
+            })->toArray();
+
             $this->qb
-                ->andWhere($this->qb->expr()->in($field, $configuration['orderNumbers']))
+                ->andWhere($this->qb->expr()->in($field, $orderIds))
             ;
         }
     }

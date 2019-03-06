@@ -14,11 +14,12 @@
         </tr>
         </thead>
         <tbody>
-        {% for key,value in values %}
+        {% for valueData in values %}
             <tr id="{{ loop.index }}">
                 <td>{{ loop.index }}</td>
-                <td>{{ key }}</td>
+                {% for value in valueData %}
                 <td>{{ value }}</td>
+                {% endfor %}
             </tr>
         {% endfor %}
         </tbody>

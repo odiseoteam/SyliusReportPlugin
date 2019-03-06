@@ -27,6 +27,7 @@ class TimePeriodType extends AbstractType
             ->add('end', DateType::class, [
                 'label' => 'odiseo_sylius_report.form.time_period.end',
                 'years' => range((new \DateTime('-100 years'))->format('Y'), (new \DateTime())->format('Y')),
+                'required' => false,
             ])
             ->add('period', ChoiceType::class, [
                 'choices' => TimePeriodDataFetcher::getPeriodChoices(),

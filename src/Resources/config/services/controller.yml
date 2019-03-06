@@ -5,3 +5,25 @@ services:
         arguments:
             - "@odiseo_sylius_report.repository.order"
             - "@fos_rest.view_handler.default"
+
+    odiseo_sylius_report.controller.action.city_search:
+        class: Odiseo\SyliusReportPlugin\Controller\Action\CitySearchAction
+        public: true
+        arguments:
+            - "@odiseo_sylius_report.repository.address"
+            - "@fos_rest.view_handler.default"
+
+    odiseo_sylius_report.controller.action.province_search:
+        class: Odiseo\SyliusReportPlugin\Controller\Action\ProvinceSearchAction
+        public: true
+        arguments:
+            - "@odiseo_sylius_report.repository.address"
+            - "@sylius.repository.province"
+            - "@fos_rest.view_handler.default"
+
+    odiseo_sylius_report.controller.action.postcode_search:
+        class: Odiseo\SyliusReportPlugin\Controller\Action\PostcodeSearchAction
+        public: true
+        arguments:
+            - "@odiseo_sylius_report.repository.address"
+            - "@fos_rest.view_handler.default"

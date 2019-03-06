@@ -27,6 +27,7 @@ class SalesTotalType extends TimePeriodChannelType
         $this->queryFilterFormBuilder->addUserProvince($builder, 'billing');
         $this->queryFilterFormBuilder->addUserPostcode($builder, 'billing');
         $this->queryFilterFormBuilder->addProduct($builder);
+        $this->queryFilterFormBuilder->addOrderNumbers($builder);
         //$this->queryFilterFormBuilder->addProductBrand($builder);
         $this->queryFilterFormBuilder->addProductCategory($builder);
     }

@@ -42,7 +42,7 @@
             <i class="dropdown icon"></i>
             {{ 'sylius.ui.filters'|trans }}
         </div>
-        <div class="content active">
+        <div class="content">
             <form method="get" action="{{ path }}" class="ui loadable form">
                 {{ include('@OdiseoSyliusReportPlugin/_dataFetcherConfiguration.html.twig', { 'configurationForm': form }) }}
 
@@ -61,4 +61,5 @@
     {{ parent() }}
 
     {{ include('@SyliusUi/_javascripts.html.twig', {'path': 'bundles/odiseosyliusreportplugin/js/Chart.min.js'}) }}
+    {{ include('@SyliusUi/_javascripts.html.twig', {'path': 'bundles/odiseosyliusreportplugin/js/report.js'}) }}
 {% endblock %}

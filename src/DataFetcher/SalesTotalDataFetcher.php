@@ -21,7 +21,7 @@ class SalesTotalDataFetcher extends TimePeriodDataFetcher
 
         $from = $qb->getEntityManager()->getClassMetadata(OrderInterface::class)->getName();
         $qb
-            ->select('DATE(payment.updatedAt) as date', 'ROUND(SUM(o.total/100), 2) as total_'.$configuration['baseCurrency'])
+            ->select('DATE(payment.updatedAt) as date', 'COUNT(DATE(payment.updatedAt)) as orders', 'ROUND(SUM(o.total/100), 2) as total_'.$configuration['baseCurrency'])
             ->from($from, 'o')
         ;
         $this->queryFilter->addLeftJoin('o.items', 'oi');

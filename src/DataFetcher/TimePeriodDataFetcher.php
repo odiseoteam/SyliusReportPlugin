@@ -37,7 +37,7 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
         $endDate = $configuration['timePeriod']['end'];
 
         //There is added 23 hours 59 minutes 59 seconds to the end date to provide records for whole end date
-        $configuration['timePeriod']['end'] = $endDate->add(new \DateInterval('PT23H59M59S'));
+        $configuration['timePeriod']['end'] = $endDate?$endDate->add(new \DateInterval('PT23H59M59S')):null;
 
         switch ($configuration['timePeriod']['period']) {
             case self::PERIOD_DAY:
@@ -74,8 +74,16 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
             $fetched = $this->fillEmptyRecords($fetched, $configuration);
         }
         foreach ($rawData as $row) {
-            $date = new \DateTime($row[$labels[0]]);
-            $fetched[$date->format($configuration['timePeriod']['presentationFormat'])] = $row[$labels[1]];
+            $rowFetched = [];
+            foreach ($labels as $i => $label) {
+                if ($i === 0) {
+                    $date = new \DateTime($row[$labels[0]]);
+                    $rowFetched[] = $date->format($configuration['timePeriod']['presentationFormat']);
+                } else {
+                    $rowFetched[] = $row[$labels[$i]];
+                }
+            }
+            $fetched[] = $rowFetched;
         }
 
         $data->setData($fetched);

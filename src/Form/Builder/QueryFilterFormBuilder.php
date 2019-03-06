@@ -2,14 +2,11 @@
 
 namespace Odiseo\SyliusReportPlugin\Form\Builder;
 
+use Odiseo\SyliusReportPlugin\Form\Type\AddressAutocompleteChoiceType;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\TimePeriodType;
 use Odiseo\SyliusReportPlugin\Form\Type\OrderAutocompleteChoiceType;
-use Sylius\Bundle\ResourceBundle\Form\Type\ResourceAutocompleteChoiceType;
-use Sylius\Component\Addressing\Model\ProvinceInterface;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
-use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
-use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
@@ -25,9 +22,6 @@ class QueryFilterFormBuilder
 {
     /** @var RepositoryInterface */
     protected $addressRepository;
-
-    /** @var RepositoryInterface */
-    protected $provinceRepository;
 
     /** @var TaxonRepositoryInterface */
     protected $taxonRepository;
@@ -46,7 +40,6 @@ class QueryFilterFormBuilder
 
     public function __construct(
         RepositoryInterface $addressRepository,
-        RepositoryInterface $provinceRepository,
         TaxonRepositoryInterface $taxonRepository,
         ProductRepositoryInterface $productRepository,
         OrderRepositoryInterface $orderRepository,
@@ -54,7 +47,6 @@ class QueryFilterFormBuilder
         UrlGeneratorInterface $generator
     ) {
         $this->addressRepository = $addressRepository;
-        $this->provinceRepository = $provinceRepository;
         $this->taxonRepository = $taxonRepository;
         $this->productRepository = $productRepository;
         $this->orderRepository = $orderRepository;
@@ -128,12 +120,12 @@ class QueryFilterFormBuilder
     {
         $builder
             ->add('user'.ucfirst($addressType).'Country', CountryType::class, [
+                'label' => 'odiseo_sylius_report.form.'.$addressType.'_country',
+                'multiple' => true,
                 'required' => false,
                 'attr' => [
                     'class' => 'fluid search selection'
                 ],
-                'multiple' => true,
-                'label' => 'odiseo_sylius_report.form.'.$addressType.'_country',
             ])
         ;
     }
@@ -141,14 +133,15 @@ class QueryFilterFormBuilder
     public function addUserCity(FormBuilderInterface $builder, $addressType = 'shipping')
     {
         $builder
-            ->add('user'.ucfirst($addressType).'City', ChoiceType::class, [
-                'required' => false,
-                'attr' => [
-                    'class' => 'fluid search selection'
-                ],
-                'multiple' => true,
+            ->add('user'.ucfirst($addressType).'City', AddressAutocompleteChoiceType::class, [
                 'label' => 'odiseo_sylius_report.form.'.$addressType.'_city',
-                //'choices' => $this->buildCityChoices()
+                'multiple' => true,
+                'required' => false,
+                'remote_url' => $this->generator->generate('odiseo_sylius_report_plugin_admin_ajax_cities'),
+                'choice_name' => 'city',
+                'attr' => [
+                    'class' => 'sylius-autocomplete',
+                ],
             ])
         ;
     }
@@ -156,14 +149,15 @@ class QueryFilterFormBuilder
     public function addUserProvince(FormBuilderInterface $builder, $addressType = 'shipping')
     {
         $builder
-            ->add('user'.ucfirst($addressType).'Province', ChoiceType::class, [
-                'required' => false,
-                'attr' => [
-                    'class' => 'fluid search selection'
-                ],
-                'multiple' => true,
+            ->add('user'.ucfirst($addressType).'Province', AddressAutocompleteChoiceType::class, [
                 'label' => 'odiseo_sylius_report.form.'.$addressType.'_province',
-                //'choices' => $this->buildProvinceChoices()
+                'multiple' => true,
+                'required' => false,
+                'remote_url' => $this->generator->generate('odiseo_sylius_report_plugin_admin_ajax_provinces'),
+                'choice_name' => 'province',
+                'attr' => [
+                    'class' => 'sylius-autocomplete',
+                ],
             ])
         ;
     }
@@ -171,14 +165,15 @@ class QueryFilterFormBuilder
     public function addUserPostcode(FormBuilderInterface $builder, $addressType = 'shipping')
     {
         $builder
-            ->add('user'.ucfirst($addressType).'Postcode', ChoiceType::class, [
-                'required' => false,
-                'attr' => [
-                    'class' => 'fluid search selection',
-                ],
-                'multiple' => true,
+            ->add('user'.ucfirst($addressType).'Postcode', AddressAutocompleteChoiceType::class, [
                 'label' => 'odiseo_sylius_report.form.'.$addressType.'_postcode',
-                //'choices' => $this->buildPostcodeChoices()
+                'multiple' => true,
+                'required' => false,
+                'remote_url' => $this->generator->generate('odiseo_sylius_report_plugin_admin_ajax_postcodes'),
+                'choice_name' => 'postcode',
+                'attr' => [
+                    'class' => 'sylius-autocomplete',
+                ],
             ])
         ;
     }
@@ -286,66 +281,6 @@ class QueryFilterFormBuilder
         /** @var TaxonInterface $subcategory */
         foreach ($category->getChildren() as $subcategory) {
             $choices = $this->addCategoryToChoices($choices, $subcategory);
-        }
-
-        return $choices;
-    }
-
-    protected function buildCityChoices()
-    {
-        $choices = [];
-        $addresses = $this->addressRepository->findAll();
-
-        /** @var AddressInterface $address */
-        foreach ($addresses as $address) {
-            $cityLabel = ucfirst(strtolower($address->getCity())).', '.$address->getCountryCode();
-
-            if (!in_array($cityLabel, $choices)) {
-                $choices[$cityLabel] = $address->getCity();
-            }
-        }
-
-        return $choices;
-    }
-
-    protected function buildProvinceChoices()
-    {
-        $choices = [];
-        $addresses = $this->addressRepository->findAll();
-        $provinces = $this->provinceRepository->findAll();
-        $provincesLabel = [];
-
-        /** @var ProvinceInterface $province */
-        foreach ($provinces as $province) {
-            if (!isset($provincesLabel[$province->getCode()])) {
-                $provincesLabel[$province->getCode()] = $province->getName();
-            }
-        }
-
-        /** @var AddressInterface $address */
-        foreach ($addresses as $address) {
-            $provinceLabel = isset($provincesLabel[$address->getProvinceCode()])?ucfirst(strtolower($provincesLabel[$address->getProvinceCode()])).', '.$address->getCountryCode():null;
-
-            if ($provinceLabel && !in_array($provinceLabel, $choices)) {
-                $choices[$provinceLabel] = $address->getProvinceCode();
-            }
-        }
-
-        return $choices;
-    }
-
-    protected function buildPostcodeChoices()
-    {
-        $choices = [];
-        $addresses = $this->addressRepository->findAll();
-
-        /** @var AddressInterface $address */
-        foreach ($addresses as $address) {
-            $postcode = $address->getPostcode();
-
-            if (!in_array($postcode, $choices)) {
-                $choices[$postcode] = $postcode;
-            }
         }
 
         return $choices;

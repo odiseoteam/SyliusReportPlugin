@@ -3,3 +3,6 @@ services:
         class: Odiseo\SyliusReportPlugin\Repository\OrderRepository
         parent: sylius.repository.order
 
+    odiseo_sylius_report.repository.address:
+        class: Odiseo\SyliusReportPlugin\Repository\AddressRepository
+        parent: sylius.repository.address

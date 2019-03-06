@@ -1,7 +1,20 @@
 {% if configurationForm.timePeriod is defined %}
 <div class="two fields">
 {% for field in configurationForm.timePeriod %}
-    {{ form_row(field) }}
+    {% if field.vars.name == 'end' %}
+    <div class="field">
+        {{ form_label(field) }}
+        {{ form_widget(field) }}
+
+        <div class="ui checkbox">
+            <input id="timePeriod_end_today" type="checkbox" tabindex="0" class="hidden" {{ field.vars.data is same as(null)?'checked':'' }}>
+            <label for="timePeriod_end_today">Today</label>
+        </div>
+    </div>
+    {% else %}
+        {{ form_row(field) }}
+    {% endif %}
+
     {% if loop.index is divisible by(2) %}
 </div>
 <div class="two fields">
