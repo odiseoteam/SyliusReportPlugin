@@ -9,6 +9,9 @@ odiseo_sylius_report:
         show_report: Afficher le rapport
         edit_report: Éditer le rapport
         there_are_no_reports_results: Il n'y a aucun résultat pour ce rapport.
+        daily: Journalier
+        monthly: Mensuel
+        yearly: Annuel
     form:
         report:
             name: Nom
