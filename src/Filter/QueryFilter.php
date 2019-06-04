@@ -138,7 +138,7 @@ class QueryFilter
      */
     public function addChannel(array $configuration = [], $field = null): void
     {
-        if (isset($configuration['channel']) && $configuration['channel'] != null) {
+        if (isset($configuration['channel']) && count($configuration['channel']) > 0) {
             $storeIds = [];
 
             if ($configuration['channel'] instanceof ChannelInterface) {
@@ -167,7 +167,7 @@ class QueryFilter
      */
     public function addUserGender(array $configuration = []): void
     {
-        if (isset($configuration['userGender']) && $configuration['userGender'] != null) {
+        if (isset($configuration['userGender']) && count($configuration['userGender']) > 0) {
             $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
 
             if (!$this->hasRootEntity(Customer::class)) {
@@ -182,39 +182,12 @@ class QueryFilter
 
     /**
      * @param array $configuration
-     */
-    public function addUserBuyer(array $configuration = []): void
-    {
-        if (isset($configuration['userBuyer']) && $configuration['userBuyer'] != null && $configuration['userBuyer'] != 'both') {
-            $rootAlias = $this->qb->getRootAliases()[0];
-
-            if (!$this->hasRootEntity(Customer::class)) {
-                $this->addLeftJoin($rootAlias.'.customer', 'c');
-            }
-
-            $oAlias = $this->addLeftJoin('c.orders', 'o');
-
-            if ($configuration['userBuyer'] == 'yes') {
-                $this->qb
-                    ->andWhere($this->qb->expr()->isNotNull($oAlias.'.checkoutCompletedAt'))
-                    ->andWhere($oAlias.'.itemsTotal > 0')
-                ;
-            } else {
-                $this->qb
-                    ->andWhere($this->qb->expr()->isNull($oAlias.'.checkoutCompletedAt'))
-                ;
-            }
-        }
-    }
-
-    /**
-     * @param array $configuration
      * @param string $addressType
      */
     public function addUserCountry(array $configuration = [], string $addressType = 'shipping'): void
     {
         $type = 'user'.ucfirst($addressType).'Country';
-        if (isset($configuration[$type]) && $configuration[$type] != null) {
+        if (isset($configuration[$type]) && count($configuration[$type]) > 0) {
             $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
 
             if (!$this->hasRootEntity(Customer::class)) {
@@ -236,7 +209,7 @@ class QueryFilter
     public function addUserProvince(array $configuration = [], string $addressType = 'shipping'): void
     {
         $type = 'user'.ucfirst($addressType).'Province';
-        if (isset($configuration[$type]) && $configuration[$type] != null) {
+        if (isset($configuration[$type]) && count($configuration[$type]) > 0) {
             $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
 
             if (!$this->hasRootEntity(Customer::class)) {
@@ -284,7 +257,7 @@ class QueryFilter
     public function addUserPostcode(array $configuration = [], string $addressType = 'shipping'): void
     {
         $type = 'user'.ucfirst($addressType).'Postcode';
-        if (isset($configuration[$type]) && $configuration[$type] != null) {
+        if (isset($configuration[$type]) && count($configuration[$type]) > 0) {
             $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
 
             if (!$this->hasRootEntity(Customer::class)) {
@@ -305,7 +278,7 @@ class QueryFilter
      */
     public function addProduct(array $configuration = [], string $field = 'p.id'): void
     {
-        if (isset($configuration['product']) && $configuration['product'] != null) {
+        if (isset($configuration['product']) && count($configuration['product']) > 0) {
             $this->qb
                 ->andWhere($this->qb->expr()->in($field, $configuration['product']))
             ;
@@ -318,7 +291,7 @@ class QueryFilter
      */
     public function addProductBrand(array $configuration = [], string $field = 'p.vendor'): void
     {
-        if (isset($configuration['productBrand']) && $configuration['productBrand'] != null) {
+        if (isset($configuration['productBrand']) && count($configuration['productBrand']) > 0) {
             $this->qb
                 ->andWhere($this->qb->expr()->in($field, $configuration['productBrand']))
             ;
@@ -331,7 +304,7 @@ class QueryFilter
      */
     public function addProductCategory(array $configuration = [], string $field = 'pt.id'): void
     {
-        if (isset($configuration['productCategory']) && $configuration['productCategory'] != null) {
+        if (isset($configuration['productCategory']) && count($configuration['productCategory']) > 0) {
             $this->qb
                 ->andWhere($this->qb->expr()->in($field, $configuration['productCategory']))
             ;
