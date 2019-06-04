@@ -4,7 +4,7 @@ odiseo_sylius_report_admin_report:
         section: admin
         templates: OdiseoSyliusReportPlugin:Crud
         except: ['show']
-        redirect: update
+        redirect: show
         grid: odiseo_sylius_report_admin_report
         permission: true
         vars:
