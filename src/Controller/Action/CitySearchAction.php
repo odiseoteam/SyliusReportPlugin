@@ -8,7 +8,9 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandler;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Odiseo\SyliusReportPlugin\Repository\AddressRepositoryInterface;
+use Sylius\Component\Addressing\Model\CountryInterface;
 use Sylius\Component\Core\Model\AddressInterface;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,15 +19,20 @@ final class CitySearchAction
     /** @var AddressRepositoryInterface */
     private $addressRepository;
 
+    /** @var RepositoryInterface */
+    private $countryRepository;
+
     /** @var ViewHandlerInterface */
     private $viewHandler;
 
     public function __construct(
         AddressRepositoryInterface $addressRepository,
+        RepositoryInterface $countryRepository,
         ViewHandler $viewHandler
     )
     {
         $this->addressRepository = $addressRepository;
+        $this->countryRepository = $countryRepository;
         $this->viewHandler = $viewHandler;
     }
 
@@ -47,7 +54,14 @@ final class CitySearchAction
 
         /** @var AddressInterface $address */
         foreach ($searchAddresses as $address) {
-            $cityLabel = ucfirst(strtolower($address->getCity())).', '.$address->getCountryCode();
+            /** @var CountryInterface $country */
+            $country = $this->countryRepository->findOneBy([
+                'code' => $address->getCountryCode()
+            ]);
+
+            $countryName = $country !== null ? $country->getName() : $address->getCountryCode();
+
+            $cityLabel = ucfirst(strtolower($address->getCity())).', '.$countryName;
             $isNew = count(array_filter($addresses, function ($address) use ($cityLabel) {
                 return $address['city'] === $cityLabel;
             })) === 0;

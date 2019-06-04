@@ -8,6 +8,7 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandler;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Odiseo\SyliusReportPlugin\Repository\AddressRepositoryInterface;
+use Sylius\Component\Addressing\Model\CountryInterface;
 use Sylius\Component\Addressing\Model\ProvinceInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
@@ -22,17 +23,22 @@ final class ProvinceSearchAction
     /** @var RepositoryInterface */
     private $provinceRepository;
 
+    /** @var RepositoryInterface */
+    private $countryRepository;
+
     /** @var ViewHandlerInterface */
     private $viewHandler;
 
     public function __construct(
         AddressRepositoryInterface $addressRepository,
         RepositoryInterface $provinceRepository,
+        RepositoryInterface $countryRepository,
         ViewHandler $viewHandler
     )
     {
         $this->addressRepository = $addressRepository;
         $this->provinceRepository = $provinceRepository;
+        $this->countryRepository = $countryRepository;
         $this->viewHandler = $viewHandler;
     }
 
@@ -54,8 +60,15 @@ final class ProvinceSearchAction
 
         /** @var AddressInterface $address */
         foreach ($searchAddresses as $address) {
+            /** @var CountryInterface $country */
+            $country = $this->countryRepository->findOneBy([
+                'code' => $address->getCountryCode()
+            ]);
+
+            $countryName = $country !== null ? $country->getName() : $address->getCountryCode();
+            
             $provinceName = $this->getProvinceName($address);
-            $provinceLabel = ucfirst(strtolower($provinceName)).', '.$address->getCountryCode();
+            $provinceLabel = ucfirst(strtolower($provinceName)).', '.$countryName;
             $isNew = count(array_filter($addresses, function ($address) use ($provinceLabel) {
                 return $address['province'] === $provinceLabel;
             })) === 0;

@@ -11,6 +11,7 @@ services:
         public: true
         arguments:
             - "@odiseo_sylius_report.repository.address"
+            - "@sylius.repository.country"
             - "@fos_rest.view_handler.default"
 
     odiseo_sylius_report.controller.action.province_search:
@@ -19,6 +20,7 @@ services:
         arguments:
             - "@odiseo_sylius_report.repository.address"
             - "@sylius.repository.province"
+            - "@sylius.repository.country"
             - "@fos_rest.view_handler.default"
 
     odiseo_sylius_report.controller.action.postcode_search:
@@ -26,4 +28,5 @@ services:
         public: true
         arguments:
             - "@odiseo_sylius_report.repository.address"
+            - "@sylius.repository.country"
             - "@fos_rest.view_handler.default"
