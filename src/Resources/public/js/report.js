@@ -2,6 +2,14 @@ var handleTimePeriodEndTodayCheckboxChange = function () {
     var $timePeriodEndToday = $('#timePeriod_end_today');
     var isChecked = $timePeriodEndToday.get(0).checked;
 
+    if (!isChecked) {
+        var now = new Date();
+
+        $('#odiseo_sylius_report_dataFetcherConfiguration_timePeriod_end_year').val(now.getFullYear());
+        $('#odiseo_sylius_report_dataFetcherConfiguration_timePeriod_end_month').val(now.getMonth() + 1);
+        $('#odiseo_sylius_report_dataFetcherConfiguration_timePeriod_end_day').val(now.getDate());
+    }
+
     $timePeriodEndToday.closest('.field').find('select').prop('disabled', isChecked);
 };
 
