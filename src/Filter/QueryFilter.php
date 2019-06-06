@@ -187,6 +187,7 @@ class QueryFilter
     public function addUserCountry(array $configuration = [], string $addressType = 'shipping'): void
     {
         $type = 'user'.ucfirst($addressType).'Country';
+
         if (isset($configuration[$type]) && count($configuration[$type]) > 0) {
             $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
 
@@ -209,7 +210,11 @@ class QueryFilter
     public function addUserProvince(array $configuration = [], string $addressType = 'shipping'): void
     {
         $type = 'user'.ucfirst($addressType).'Province';
+
         if (isset($configuration[$type]) && count($configuration[$type]) > 0) {
+            $provinces = $configuration[$type]->map(function (AddressInterface $address) {
+                return $address->getProvinceCode() ?: $address->getProvinceName();
+            })->toArray();
             $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
 
             if (!$this->hasRootEntity(Customer::class)) {
@@ -219,7 +224,10 @@ class QueryFilter
             $caAlias = $this->addLeftJoin($cAlias.'.addresses', 'c'.substr($addressType, 0, 1).'a');
 
             $this->qb
-                ->andWhere($this->qb->expr()->in($caAlias.'.provinceCode', $configuration[$type]))
+                ->andWhere($this->qb->expr()->orX(
+                    $this->qb->expr()->in($caAlias.'.provinceCode', $provinces),
+                    $this->qb->expr()->in($caAlias.'.provinceName', $provinces)
+                ))
             ;
         }
     }
@@ -257,7 +265,11 @@ class QueryFilter
     public function addUserPostcode(array $configuration = [], string $addressType = 'shipping'): void
     {
         $type = 'user'.ucfirst($addressType).'Postcode';
+
         if (isset($configuration[$type]) && count($configuration[$type]) > 0) {
+            $codes = $configuration[$type]->map(function (AddressInterface $address) {
+                return $address->getPostcode();
+            })->toArray();
             $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
 
             if (!$this->hasRootEntity(Customer::class)) {
@@ -267,7 +279,7 @@ class QueryFilter
             $caAlias = $this->addLeftJoin($cAlias.'.addresses', 'c'.substr($addressType, 0, 1).'2a');
 
             $this->qb
-                ->andWhere($this->qb->expr()->in($caAlias.'.postcode', $configuration[$type]))
+                ->andWhere($this->qb->expr()->in($caAlias.'.postcode', $codes))
             ;
         }
     }
