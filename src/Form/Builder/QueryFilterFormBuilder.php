@@ -4,12 +4,10 @@ namespace Odiseo\SyliusReportPlugin\Form\Builder;
 
 use Odiseo\SyliusReportPlugin\Form\Type\AddressAutocompleteChoiceType;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\TimePeriodType;
-use Odiseo\SyliusReportPlugin\Form\Type\OrderAutocompleteChoiceType;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
-use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
@@ -29,9 +27,6 @@ class QueryFilterFormBuilder
     /** @var ProductRepositoryInterface */
     protected $productRepository;
 
-    /** @var OrderRepositoryInterface */
-    protected $orderRepository;
-
     /** @var ChannelRepositoryInterface */
     protected $channelRepository;
 
@@ -42,14 +37,12 @@ class QueryFilterFormBuilder
         RepositoryInterface $addressRepository,
         TaxonRepositoryInterface $taxonRepository,
         ProductRepositoryInterface $productRepository,
-        OrderRepositoryInterface $orderRepository,
         ChannelRepositoryInterface $channelRepository,
         UrlGeneratorInterface $generator
     ) {
         $this->addressRepository = $addressRepository;
         $this->taxonRepository = $taxonRepository;
         $this->productRepository = $productRepository;
-        $this->orderRepository = $orderRepository;
         $this->channelRepository = $channelRepository;
         $this->generator = $generator;
     }
@@ -66,52 +59,6 @@ class QueryFilterFormBuilder
                 'expanded' => true,
                 'required' => false,
                 'label' => 'odiseo_sylius_report.form.user_gender',
-            ])
-        ;
-    }
-
-    public function addUserInfo(FormBuilderInterface &$builder)
-    {
-        $builder
-            ->add('userInfo', ChoiceType::class, [
-                'choices'  => [
-                    'odiseo_sylius_report.form.user.name' => 'name',
-                    'odiseo_sylius_report.form.user.email' => 'email',
-                    'odiseo_sylius_report.form.user.phone' => 'phone',
-                    'odiseo_sylius_report.form.user.shipping_address' => 'shipping_address',
-                    'odiseo_sylius_report.form.user.billing_address' => 'billing_address',
-                ],
-                'multiple' => true,
-                'expanded' => true,
-                'required' => true,
-                'label' => 'odiseo_sylius_report.form.user_info',
-            ])
-        ;
-    }
-
-    public function addUserBuyer(FormBuilderInterface &$builder)
-    {
-        $builder
-            ->add('userBuyer', ChoiceType::class, [
-                'choices'  => [
-                    'odiseo_sylius_report.form.both' => 'both',
-                    'odiseo_sylius_report.form.yes' => 'yes',
-                    'odiseo_sylius_report.form.no' => 'no',
-                ],
-                'multiple' => false,
-                'required' => true,
-                'label' => 'odiseo_sylius_report.form.buy',
-            ])
-        ;
-    }
-
-    public function addOrderNumbers(FormBuilderInterface &$builder)
-    {
-        $builder
-            ->add('orderNumbers', OrderAutocompleteChoiceType::class, [
-                'label' => 'odiseo_sylius_report.form.orders',
-                'multiple' => true,
-                'required' => false,
             ])
         ;
     }

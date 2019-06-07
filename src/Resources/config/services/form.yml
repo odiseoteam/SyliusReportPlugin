@@ -5,7 +5,6 @@ services:
             - "@sylius.repository.address"
             - "@sylius.repository.taxon"
             - "@sylius.repository.product"
-            - "@sylius.repository.order"
             - "@sylius.repository.channel"
             - "@router"
 

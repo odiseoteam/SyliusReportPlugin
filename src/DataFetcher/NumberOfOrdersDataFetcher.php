@@ -44,9 +44,7 @@ class NumberOfOrdersDataFetcher extends TimePeriodDataFetcher
         $this->queryFilter->addUserProvince($configuration, 'billing');
         $this->queryFilter->addUserPostcode($configuration, 'billing');
         $this->queryFilter->addProduct($configuration);
-        $this->queryFilter->addProductBrand($configuration);
         $this->queryFilter->addProductCategory($configuration);
-        $this->queryFilter->addOrderNumbers($configuration);
     }
 
     /**

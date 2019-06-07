@@ -13,7 +13,3 @@
         {% endif %}
     {% endspaceless %}
 {% endblock date_widget %}
-
-{% block odiseo_order_autocomplete_choice_row %}
-    {{ form_row(form, {'remote_url': path('odiseo_sylius_report_plugin_admin_ajax_order_by_number'), 'load_edit_url': path('odiseo_sylius_report_plugin_admin_ajax_order_by_number')}) }}
-{% endblock %}

@@ -7,7 +7,6 @@ use Doctrine\ORM\QueryBuilder;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\Customer;
-use Sylius\Component\Core\Model\OrderInterface;
 
 class QueryFilter
 {
@@ -301,41 +300,11 @@ class QueryFilter
      * @param array $configuration
      * @param string $field
      */
-    public function addProductBrand(array $configuration = [], string $field = 'p.vendor'): void
-    {
-        if (isset($configuration['productBrand']) && count($configuration['productBrand']) > 0) {
-            $this->qb
-                ->andWhere($this->qb->expr()->in($field, $configuration['productBrand']))
-            ;
-        }
-    }
-
-    /**
-     * @param array $configuration
-     * @param string $field
-     */
     public function addProductCategory(array $configuration = [], string $field = 'pt.id'): void
     {
         if (isset($configuration['productCategory']) && count($configuration['productCategory']) > 0) {
             $this->qb
                 ->andWhere($this->qb->expr()->in($field, $configuration['productCategory']))
-            ;
-        }
-    }
-
-    /**
-     * @param array $configuration
-     * @param string $field
-     */
-    public function addOrderNumbers(array $configuration = [], string $field = 'o.id'): void
-    {
-        if (isset($configuration['orderNumbers']) && count($configuration['orderNumbers']) > 0) {
-            $orderIds = $configuration['orderNumbers']->map(function (OrderInterface $order) {
-                return $order->getId();
-            })->toArray();
-
-            $this->qb
-                ->andWhere($this->qb->expr()->in($field, $orderIds))
             ;
         }
     }
