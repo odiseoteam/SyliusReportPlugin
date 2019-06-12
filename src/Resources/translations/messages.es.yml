@@ -9,6 +9,7 @@ odiseo_sylius_report:
         show_report: Ver reporte
         edit_report: Editar reporte
         there_are_no_reports_results: No se encontraron resultados para este reporte
+        export: Exportar
     form:
         report:
             name: Nombre

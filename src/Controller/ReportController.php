@@ -89,14 +89,12 @@ class ReportController extends ResourceController
         $report = $this->findOr404($configuration);
 
         $type = $request->get('type');
-        $configuration = $request->get('configuration');
-        $currencyProvider = $this->get('sylius.currency_provider');
+        $configuration = $report->getDataFetcherConfiguration();
 
-        if (isset($configuration['timePeriod'])) {
-            $configuration['timePeriod']['start'] = new \DateTime($configuration['timePeriod']['start']['date'], new \DateTimeZone($configuration['timePeriod']['start']['timezone']));
-            $configuration['timePeriod']['end'] = new \DateTime($configuration['timePeriod']['end']['date'], new \DateTimeZone($configuration['timePeriod']['end']['timezone']));
-        }
-        $configuration['baseCurrency'] = $currencyProvider->getBaseCurrency();
+        /** @var CurrencyContextInterface $currencyContext */
+        $currencyContext = $this->get('sylius.context.currency');
+
+        $configuration['baseCurrency'] = $currencyContext->getCurrencyCode();
 
         /** @var Data $data */
         $data = $this->getReportDataFetcher()->fetch($report, $configuration);
@@ -185,16 +183,9 @@ class ReportController extends ResourceController
      */
     protected function createCsvResponse($data)
     {
-        $responseData = [];
-        foreach ($data->getData() as $key => $value) {
-            if (is_array($value)) {
-                foreach ($value as $k => $v) {
-                    $responseData[] = [$k, $v];
-                }
-            } else {
-                $responseData[] = [$key, $value];
-            }
-        }
+        $labels = [$data->getLabels()];
+
+        $responseData = array_merge($labels, $data->getData());
 
         return new CsvResponse($responseData);
     }

@@ -51,3 +51,15 @@ sylius_grid:
                         type: update
                     delete:
                         type: delete
+                    export:
+                        type: export
+                        label: odiseo_sylius_report.ui.export
+                        options:
+                            link:
+                                route: odiseo_sylius_report_admin_report_export
+                                parameters:
+                                    id: resource.id
+
+    templates:
+        action:
+            export: "@OdiseoSyliusReportPlugin/Grid/Action/export.html.twig"
