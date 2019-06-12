@@ -1,0 +1,73 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Odiseo\SyliusReportPlugin\Controller\Action;
+
+use FOS\RestBundle\View\View;
+use FOS\RestBundle\View\ViewHandler;
+use FOS\RestBundle\View\ViewHandlerInterface;
+use Sylius\Component\Core\Model\ProductInterface;
+use Sylius\Component\Core\Repository\ProductRepositoryInterface;
+use Sylius\Component\Locale\Context\LocaleContextInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+final class ProductSearchAction
+{
+    /** @var ProductRepositoryInterface */
+    private $productRepository;
+
+    /** @var LocaleContextInterface */
+    private $localeContext;
+
+    /** @var ViewHandlerInterface */
+    private $viewHandler;
+
+    public function __construct(
+        ProductRepositoryInterface $productRepository,
+        LocaleContextInterface $localeContext,
+        ViewHandler $viewHandler
+    )
+    {
+        $this->productRepository = $productRepository;
+        $this->localeContext = $localeContext;
+        $this->viewHandler = $viewHandler;
+    }
+
+    public function __invoke(Request $request): Response
+    {
+        $locale = $this->localeContext->getLocaleCode();
+
+        $products = $this->getProducts($request->get('name', ''), $locale);
+        $view = View::create($products);
+
+        $this->viewHandler->setExclusionStrategyGroups(['Autocomplete']);
+        $view->getContext()->enableMaxDepth();
+
+        return $this->viewHandler->handle($view);
+    }
+
+    private function getProducts($query, $locale): array
+    {
+        $products = [];
+        $searchProducts = $this->productRepository->findByNamePart($query, $locale);
+
+        /** @var ProductInterface $product */
+        foreach ($searchProducts as $product) {
+            $productLabel = ucfirst(strtolower($product->getName()));
+            $isNew = count(array_filter($products, function ($product) use ($productLabel) {
+                return $product['name'] === $productLabel;
+            })) === 0;
+
+            if ($isNew) {
+                $products[] = [
+                    'name' => $productLabel,
+                    'id' => $product->getId(),
+                ];
+            }
+        }
+
+        return $products;
+    }
+}

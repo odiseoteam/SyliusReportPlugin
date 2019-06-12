@@ -21,3 +21,10 @@ odiseo_sylius_report_plugin_admin_ajax_postcodes:
     defaults:
         _format: json
         _controller: odiseo_sylius_report.controller.action.postcode_search
+
+odiseo_sylius_report_plugin_admin_ajax_products:
+    path: /ajax/products-search
+    methods: [GET]
+    defaults:
+        _format: json
+        _controller: odiseo_sylius_report.controller.action.product_search

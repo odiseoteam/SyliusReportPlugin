@@ -4,6 +4,7 @@ namespace Odiseo\SyliusReportPlugin\Form\Builder;
 
 use Odiseo\SyliusReportPlugin\Form\Type\AddressAutocompleteChoiceType;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\TimePeriodType;
+use Odiseo\SyliusReportPlugin\Form\Type\ProductAutocompleteChoiceType;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductInterface;
@@ -150,15 +151,15 @@ class QueryFilterFormBuilder
     public function addProduct(FormBuilderInterface $builder)
     {
         $builder
-            ->add('product', ChoiceType::class, [
-                'required' => false,
-                'attr' => [
-                    'class' => 'fluid search selection withAjax',
-                    //'data-list-url' => $this->generator->generate('odiseo_report_select_products')
-                ],
-                'multiple' => true,
+            ->add('product', ProductAutocompleteChoiceType::class, [
                 'label' => 'sylius.ui.product',
-                //'choices' => $this->buildProductsChoices()
+                'multiple' => true,
+                'required' => false,
+                'remote_url' => $this->generator->generate('odiseo_sylius_report_plugin_admin_ajax_products'),
+                'choice_name' => 'name',
+                'attr' => [
+                    'class' => 'sylius-autocomplete',
+                ],
             ])
         ;
     }
@@ -176,19 +177,6 @@ class QueryFilterFormBuilder
                 'choices' => $this->buildCategoriesChoices()
             ])
         ;
-    }
-
-    protected function buildProductsChoices()
-    {
-        $choices = [];
-        $products = $this->productRepository->findAll();
-
-        /** @var ProductInterface $product */
-        foreach ($products as $product) {
-            $choices[$product->getName()] = $product->getId();
-        }
-
-        return $choices;
     }
 
     /**

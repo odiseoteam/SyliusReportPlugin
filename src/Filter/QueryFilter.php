@@ -7,6 +7,7 @@ use Doctrine\ORM\QueryBuilder;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\Customer;
+use Sylius\Component\Core\Model\ProductInterface;
 
 class QueryFilter
 {
@@ -290,8 +291,12 @@ class QueryFilter
     public function addProduct(array $configuration = [], string $field = 'p.id'): void
     {
         if (isset($configuration['product']) && count($configuration['product']) > 0) {
+            $products = $configuration['product']->map(function (ProductInterface $product) {
+                return $product->getId();
+            })->toArray();
+
             $this->qb
-                ->andWhere($this->qb->expr()->in($field, $configuration['product']))
+                ->andWhere($this->qb->expr()->in($field, $products))
             ;
         }
     }
@@ -300,7 +305,7 @@ class QueryFilter
      * @param array $configuration
      * @param string $field
      */
-    public function addProductCategory(array $configuration = [], string $field = 'pt.id'): void
+    public function addProductCategory(array $configuration = [], string $field = 'pt.taxon'): void
     {
         if (isset($configuration['productCategory']) && count($configuration['productCategory']) > 0) {
             $this->qb
