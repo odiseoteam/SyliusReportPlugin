@@ -3,6 +3,7 @@
 namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\SalesTotalType;
+use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\OrderPaymentStates;
 use Sylius\Component\Order\Model\OrderInterface;
 
@@ -24,17 +25,16 @@ class SalesTotalDataFetcher extends TimePeriodDataFetcher
             ->select('DATE(payment.updatedAt) as date', 'COUNT(DATE(payment.updatedAt)) as orders', 'ROUND(SUM(o.total/100), 2) as total_'.$configuration['baseCurrency'])
             ->from($from, 'o')
         ;
-        $this->queryFilter->addLeftJoin('o.items', 'oi');
-        $this->queryFilter->addLeftJoin('oi.variant', 'v');
-        $this->queryFilter->addLeftJoin('v.product', 'p');
-        $this->queryFilter->addLeftJoin('p.productTaxons', 'pt');
+
         $this->queryFilter->addLeftJoin('o.customer', 'c');
         $this->queryFilter->addLeftJoin('c.user', 'user');
         $this->queryFilter->addLeftJoin('o.payments', 'payment');
 
         $qb
             ->andWhere('o.paymentState = :paymentState')
+            ->andWhere('payment.state = :state')
             ->setParameter('paymentState', OrderPaymentStates::STATE_PAID)
+            ->setParameter('state', PaymentInterface::STATE_COMPLETED)
         ;
 
         $this->queryFilter->addTimePeriod($configuration, 'payment.updatedAt');
@@ -48,8 +48,6 @@ class SalesTotalDataFetcher extends TimePeriodDataFetcher
         $this->queryFilter->addUserCity($configuration, 'billing');
         $this->queryFilter->addUserProvince($configuration, 'billing');
         $this->queryFilter->addUserPostcode($configuration, 'billing');
-        $this->queryFilter->addProduct($configuration);
-        $this->queryFilter->addProductCategory($configuration);
     }
 
     /**

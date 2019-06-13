@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 /**
  * @author Diego D'amico <diego@odiseo.com.ar>
  */
-class TimePeriodType extends AbstractType
+final class TimePeriodType extends AbstractType
 {
     /**
      * {@inheritdoc}
