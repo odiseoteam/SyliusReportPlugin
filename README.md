@@ -29,6 +29,8 @@ This plugin add data reports to the Sylius administration interface.
 It is highly inspired on the past [SyliusReportBundle](https://github.com/Sylius/SyliusReportBundle) bundle and 
 [Report](https://github.com/Sylius/Report) component using its good architecture.
 
+Now supporting Sylius 1.4 with Symfony 4 + Flex structure.
+
 ### Architecture
 
 Basically you have a **DataFetcherInterface** and **RendererInterface** interfaces. The first one defines how to fetch the **Data**
@@ -48,32 +50,28 @@ Next, you can enter to the [reports](https://sylius-demo.odiseo.com.ar/admin/rep
 
 ## Installation
 
-1. Run `composer require odiseoteam/sylius-report-plugin`.
+1. Run `composer require odiseoteam/sylius-report-plugin`
 
-2. Add the plugin to the AppKernel but add it before SyliusResourceBundle. To do that you need change the registerBundles like this:
+2. Enable the plugin in bundles.php
 
 ```php
-public function registerBundles(): array
-{
-    $preResourceBundles = [
-        new \Odiseo\SyliusReportPlugin\OdiseoSyliusReportPlugin(),
-    ];
+<?php
 
-    $bundles = [
-        ...
-    ];
-
-    return array_merge($preResourceBundles, parent::registerBundles(), $bundles);
-}
+return [
+    // ...
+    Odiseo\SyliusReportPlugin\OdiseoSyliusReportPlugin::class => ['all' => true],
+    // ...
+];
 ```
  
-3. Import the configurations on your config.yml:
+3. Import the plugin configurations
  
 ```yml
+imports:
     - { resource: "@OdiseoSyliusReportPlugin/Resources/config/config.yml" }
 ```
 
-5. Add the admin routes:
+4. Add the admin routes
 
 ```yml
 odiseo_sylius_report_plugin_admin:
@@ -81,7 +79,7 @@ odiseo_sylius_report_plugin_admin:
     prefix: /admin
 ```
 
-6. Finish the installation updatating the database schema and installing assets:
+5. Finish the installation updating the database schema and installing assets
    
 ```
 php bin/console doctrine:schema:update --force
