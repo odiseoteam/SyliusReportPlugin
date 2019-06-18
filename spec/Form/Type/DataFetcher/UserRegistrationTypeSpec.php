@@ -2,6 +2,7 @@
 
 namespace spec\Odiseo\SyliusReportPlugin\Form\Type\DataFetcher;
 
+use Odiseo\SyliusReportPlugin\Form\Builder\QueryFilterFormBuilder;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\UserRegistrationType;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -13,6 +14,11 @@ use Symfony\Component\Form\FormBuilder;
 
 class UserRegistrationTypeSpec extends ObjectBehavior
 {
+    function let(QueryFilterFormBuilder $queryFilterFormBuilder)
+    {
+        $this->beConstructedWith($queryFilterFormBuilder);
+    }
+
     function it_is_initializable()
     {
         $this->shouldHaveType(UserRegistrationType::class);

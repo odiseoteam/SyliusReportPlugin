@@ -32,11 +32,11 @@ class DelegatingDataFetcherSpec extends ObjectBehavior
         $this->shouldImplement(DelegatingDataFetcherInterface::class);
     }
 
-    function it_get_the_data_fetcher_with_given_report(ReportInterface $report, ServiceRegistryInterface $registry)
+    function it_get_the_data_fetcher_with_given_report(ReportInterface $report, ServiceRegistryInterface $registry, UserRegistrationDataFetcher $userRegistrationDataFetcher)
     {
         $report->getDataFetcher()->willReturn(DefaultDataFetchers::USER_REGISTRATION);
-        $registry->get(DefaultDataFetchers::USER_REGISTRATION)->willReturn(UserRegistrationDataFetcher::class);
-        $this->getDataFetcher($report)->shouldReturn(UserRegistrationDataFetcher::class);
+        $registry->get(DefaultDataFetchers::USER_REGISTRATION)->willReturn($userRegistrationDataFetcher);
+        $this->getDataFetcher($report)->shouldReturn($userRegistrationDataFetcher);
     }
 
     function it_throws_an_exception_if_report_has_not_data_fetcher(ReportInterface $report, ServiceRegistryInterface $registry)
