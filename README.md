@@ -71,8 +71,8 @@ imports:
     - { resource: "@OdiseoSyliusReportPlugin/Resources/config/config.yml" }
 ```
 
-This plugin use [DoctrineExtensions](https://github.com/beberlei/DoctrineExtensions).
-Add the config DQL functions as follows
+This plugin use [DoctrineExtensions](https://github.com/beberlei/DoctrineExtensions) to create the different DataFetcher queries.
+Add the config DQL functions as follows:
 
 ```yml
 doctrine:
