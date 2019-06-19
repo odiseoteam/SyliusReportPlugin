@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Tests\Odiseo\SyliusReportPlugin\Behat\Page\Admin\Report;
 
-use Sylius\Behat\Page\PageInterface;
+use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
 
-interface ShowPageInterface extends PageInterface
+interface ShowPageInterface extends SymfonyPageInterface
 {
     /**
      * @return string

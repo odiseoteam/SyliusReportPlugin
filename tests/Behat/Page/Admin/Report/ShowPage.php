@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Odiseo\SyliusReportPlugin\Behat\Page\Admin\Report;
 
-use Sylius\Behat\Page\SymfonyPage;
+use FriendsOfBehat\PageObjectExtension\Page\SymfonyPage;
 
 class ShowPage extends SymfonyPage implements ShowPageInterface
 {
@@ -28,7 +28,7 @@ class ShowPage extends SymfonyPage implements ShowPageInterface
     /**
      * {@inheritdoc}
      */
-    public function getRouteName()
+    public function getRouteName(): string
     {
         return 'odiseo_sylius_report_admin_report_show';
     }
@@ -36,7 +36,7 @@ class ShowPage extends SymfonyPage implements ShowPageInterface
     /**
      * {@inheritdoc}
      */
-    protected function getDefinedElements()
+    protected function getDefinedElements(): array
     {
         return array_merge(parent::getDefinedElements(), [
             'header_title' => '#wrapper .header .content',

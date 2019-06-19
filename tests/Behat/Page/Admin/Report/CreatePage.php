@@ -78,13 +78,13 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
     {
         return array_merge(parent::getDefinedElements(), [
             'data_fetcher' => '#odiseo_sylius_report_dataFetcher',
-            'day_start_date' => '#odiseo_sylius_report_dataFetcherConfiguration_start_day',
-            'month_start_date' => '#odiseo_sylius_report_dataFetcherConfiguration_start_month',
-            'year_start_date' => '#odiseo_sylius_report_dataFetcherConfiguration_start_year',
-            'day_end_date' => '#odiseo_sylius_report_dataFetcherConfiguration_end_day',
-            'month_end_date' => '#odiseo_sylius_report_dataFetcherConfiguration_end_month',
-            'year_end_date' => '#odiseo_sylius_report_dataFetcherConfiguration_end_year',
-            'time_period' => '#odiseo_sylius_report_dataFetcherConfiguration_period'
+            'day_start_date' => '#odiseo_sylius_report_dataFetcherConfiguration_timePeriod_start_day',
+            'month_start_date' => '#odiseo_sylius_report_dataFetcherConfiguration_timePeriod_start_month',
+            'year_start_date' => '#odiseo_sylius_report_dataFetcherConfiguration_timePeriod_start_year',
+            'day_end_date' => '#odiseo_sylius_report_dataFetcherConfiguration_timePeriod_end_day',
+            'month_end_date' => '#odiseo_sylius_report_dataFetcherConfiguration_timePeriod_end_month',
+            'year_end_date' => '#odiseo_sylius_report_dataFetcherConfiguration_timePeriod_end_year',
+            'time_period' => '#odiseo_sylius_report_dataFetcherConfiguration_timePeriod_period'
         ]);
     }
 }

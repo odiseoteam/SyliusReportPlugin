@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Odiseo\SyliusReportPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
+use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
 use Odiseo\SyliusReportPlugin\Model\ReportInterface;
-use Sylius\Behat\Page\SymfonyPageInterface;
 use Sylius\Behat\Service\NotificationCheckerInterface;
 use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
 use Tests\Odiseo\SyliusReportPlugin\Behat\Page\Admin\Report\CreatePageInterface;
@@ -61,7 +61,7 @@ final class ManagingReportsContext implements Context
 
     /**
      * @Given I want to add a new report
-     * @throws \Sylius\Behat\Page\UnexpectedPageException
+     * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
     public function iWantToAddNewReport()
     {
@@ -150,7 +150,7 @@ final class ManagingReportsContext implements Context
     /**
      * @Given /^I want to modify the (report "([^"]+)")/
      * @param ReportInterface $report
-     * @throws \Sylius\Behat\Page\UnexpectedPageException
+     * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
     public function iWantToModifyReport(ReportInterface $report)
     {
@@ -167,7 +167,7 @@ final class ManagingReportsContext implements Context
 
     /**
      * @When I want to browse reports
-     * @throws \Sylius\Behat\Page\UnexpectedPageException
+     * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
     public function iWantToBrowseReports()
     {
@@ -186,7 +186,7 @@ final class ManagingReportsContext implements Context
     /**
      * @When /^I view details of the (report "([^"]+)")/
      * @param ReportInterface $report
-     * @throws \Sylius\Behat\Page\UnexpectedPageException
+     * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
     public function iViewDetailsOfTheReport(ReportInterface $report)
     {
@@ -205,7 +205,7 @@ final class ManagingReportsContext implements Context
     /**
      * @Then /^the (report "([^"]+)") should appear in the admin/
      * @param ReportInterface $report
-     * @throws \Sylius\Behat\Page\UnexpectedPageException
+     * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
     public function reportShouldAppearInTheAdmin(ReportInterface $report) // This step use Report transformer to get Report object.
     {

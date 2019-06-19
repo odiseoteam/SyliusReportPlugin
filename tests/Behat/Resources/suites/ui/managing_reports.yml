@@ -1,7 +1,7 @@
 default:
     suites:
         ui_managing_reports:
-            contexts_services:
+            contexts:
                 - sylius.behat.context.hook.doctrine_orm
 
                 - odiseo_sylius_report.context.transform.report
