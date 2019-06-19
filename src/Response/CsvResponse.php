@@ -18,15 +18,18 @@ class CsvResponse extends Response
     public function setData(array $data)
     {
         $output = fopen('php://temp', 'r+');
-        foreach ($data as $row) {
-            fputcsv($output, $row);
+        if ($output !== false) {
+            foreach ($data as $row) {
+                fputcsv($output, $row);
+            }
+            rewind($output);
+            $this->data = '';
+            while ($line = fgets($output)) {
+                $this->data .= $line;
+            }
+            $this->data .= fgets($output);
         }
-        rewind($output);
-        $this->data = '';
-        while ($line = fgets($output)) {
-            $this->data .= $line;
-        }
-        $this->data .= fgets($output);
+
         return $this->update();
     }
 

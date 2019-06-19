@@ -34,10 +34,10 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
         $data = new Data();
 
         /** @var \DateTime $endDate */
-        $endDate = $configuration['timePeriod']['end'];
+        $endDate = $configuration['timePeriod']['end']?:null;
 
         //There is added 23 hours 59 minutes 59 seconds to the end date to provide records for whole end date
-        $configuration['timePeriod']['end'] = $endDate?$endDate->add(new \DateInterval('PT23H59M59S')):null;
+        $configuration['timePeriod']['end'] = $endDate !== null ? $endDate->add(new \DateInterval('PT23H59M59S')) : null;
 
         switch ($configuration['timePeriod']['period']) {
             case self::PERIOD_DAY:
@@ -91,7 +91,7 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
         $labels = [];
         foreach ($labelsAux as $label) {
             if (!in_array($label, ['MonthDate', 'YearDate', 'DateDate'])) {
-                $labels[] = preg_replace('/(?!^)[A-Z]{2,}(?=[A-Z][a-z])|[A-Z][a-z]/', ' $0', $label);
+                $labels[] = preg_replace('/(?!^)[A-Z]{2,}(?=[A-Z][a-z])|[A-Z][a-z]/', ' $0', (string)$label);
             }
         }
         $data->setLabels($labels);

@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusReportPlugin\Controller\Action;
 
+use FOS\RestBundle\View\ConfigurableViewHandlerInterface;
 use FOS\RestBundle\View\View;
-use FOS\RestBundle\View\ViewHandler;
-use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Locale\Context\LocaleContextInterface;
@@ -21,13 +20,13 @@ final class ProductSearchAction
     /** @var LocaleContextInterface */
     private $localeContext;
 
-    /** @var ViewHandlerInterface */
+    /** @var ConfigurableViewHandlerInterface */
     private $viewHandler;
 
     public function __construct(
         ProductRepositoryInterface $productRepository,
         LocaleContextInterface $localeContext,
-        ViewHandler $viewHandler
+        ConfigurableViewHandlerInterface $viewHandler
     )
     {
         $this->productRepository = $productRepository;

@@ -85,8 +85,8 @@ class QueryFilter
     }
 
     /**
-     * @param $join
-     * @param $alias
+     * @param string $join
+     * @param string $alias
      *
      * @return string
      */
@@ -134,7 +134,7 @@ class QueryFilter
 
     /**
      * @param array $configuration
-     * @param null $field
+     * @param string $field
      */
     public function addChannel(array $configuration = [], $field = null): void
     {
@@ -315,7 +315,7 @@ class QueryFilter
     }
 
     /**
-     * @param $rootEntityClassname
+     * @param string $rootEntityClassname
      *
      * @return bool
      */

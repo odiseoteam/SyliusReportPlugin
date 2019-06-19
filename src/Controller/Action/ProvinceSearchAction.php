@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusReportPlugin\Controller\Action;
 
+use FOS\RestBundle\View\ConfigurableViewHandlerInterface;
 use FOS\RestBundle\View\View;
-use FOS\RestBundle\View\ViewHandler;
-use FOS\RestBundle\View\ViewHandlerInterface;
 use Odiseo\SyliusReportPlugin\Repository\AddressRepositoryInterface;
 use Sylius\Component\Addressing\Model\CountryInterface;
 use Sylius\Component\Addressing\Model\ProvinceInterface;
@@ -26,14 +25,14 @@ final class ProvinceSearchAction
     /** @var RepositoryInterface */
     private $countryRepository;
 
-    /** @var ViewHandlerInterface */
+    /** @var ConfigurableViewHandlerInterface */
     private $viewHandler;
 
     public function __construct(
         AddressRepositoryInterface $addressRepository,
         RepositoryInterface $provinceRepository,
         RepositoryInterface $countryRepository,
-        ViewHandler $viewHandler
+        ConfigurableViewHandlerInterface $viewHandler
     )
     {
         $this->addressRepository = $addressRepository;
@@ -66,7 +65,7 @@ final class ProvinceSearchAction
             ]);
 
             $countryName = $country !== null ? $country->getName() : $address->getCountryCode();
-            
+
             $provinceName = $this->getProvinceName($address);
             $provinceLabel = ucfirst(strtolower($provinceName)).', '.$countryName;
             $isNew = count(array_filter($addresses, function ($address) use ($provinceLabel) {
@@ -84,7 +83,7 @@ final class ProvinceSearchAction
         return $addresses;
     }
 
-    private function getProvinceName(AddressInterface $address): string
+    private function getProvinceName(AddressInterface $address): ?string
     {
         $provinceName = $address->getProvinceName();
 

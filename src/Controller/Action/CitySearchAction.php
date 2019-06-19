@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusReportPlugin\Controller\Action;
 
+use FOS\RestBundle\View\ConfigurableViewHandlerInterface;
 use FOS\RestBundle\View\View;
-use FOS\RestBundle\View\ViewHandler;
-use FOS\RestBundle\View\ViewHandlerInterface;
 use Odiseo\SyliusReportPlugin\Repository\AddressRepositoryInterface;
 use Sylius\Component\Addressing\Model\CountryInterface;
 use Sylius\Component\Core\Model\AddressInterface;
@@ -22,13 +21,13 @@ final class CitySearchAction
     /** @var RepositoryInterface */
     private $countryRepository;
 
-    /** @var ViewHandlerInterface */
+    /** @var ConfigurableViewHandlerInterface */
     private $viewHandler;
 
     public function __construct(
         AddressRepositoryInterface $addressRepository,
         RepositoryInterface $countryRepository,
-        ViewHandler $viewHandler
+        ConfigurableViewHandlerInterface $viewHandler
     )
     {
         $this->addressRepository = $addressRepository;

@@ -187,8 +187,9 @@ class QueryFilterFormBuilder
         $choices = [];
         $channels = $this->channelRepository->findAll();
 
-        /** @var ChannelInterface $channel */
         $choices['odiseo_sylius_report.form.all_channels'] = 0;
+
+        /** @var ChannelInterface $channel */
         foreach ($channels as $channel) {
             $choices[$channel->getName()] = $channel->getId();
         }
