@@ -71,6 +71,22 @@ imports:
     - { resource: "@OdiseoSyliusReportPlugin/Resources/config/config.yml" }
 ```
 
+This plugin use [DoctrineExtensions](https://github.com/beberlei/DoctrineExtensions).
+Add the config DQL functions as follows
+
+```yml
+doctrine:
+    orm:
+        # ...
+        dql:
+            datetime_functions:
+                date: DoctrineExtensions\Query\Mysql\Date
+                month: DoctrineExtensions\Query\Mysql\Month
+                year: DoctrineExtensions\Query\Mysql\Year
+            numeric_functions:
+                round: DoctrineExtensions\Query\Mysql\Round
+```
+
 4. Add the admin routes
 
 ```yml

@@ -64,9 +64,11 @@ class Report implements ReportInterface
     {
         $this->createdAt = new \DateTime();
         $this->dataFetcherConfiguration = [
-            'start' => new \DateTime('10 years'),
-            'end' => new \DateTime(),
-            'period' => TimePeriodDataFetcher::PERIOD_MONTH
+            'timePeriod' => [
+                'start' => new \DateTime('10 years'),
+                'end' => new \DateTime(),
+                'period' => TimePeriodDataFetcher::PERIOD_MONTH
+            ]
         ];
     }
 

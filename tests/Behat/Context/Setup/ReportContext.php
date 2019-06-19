@@ -69,7 +69,6 @@ final class ReportContext implements Context
         $report->setName($name);
         $report->setDescription($description);
         $report->setDataFetcher(DefaultDataFetchers::SALES_TOTAL);
-        $report->setDataFetcherConfiguration([]);
 
         return $report;
     }
