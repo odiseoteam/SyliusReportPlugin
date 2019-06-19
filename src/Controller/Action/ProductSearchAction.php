@@ -27,8 +27,7 @@ final class ProductSearchAction
         ProductRepositoryInterface $productRepository,
         LocaleContextInterface $localeContext,
         ConfigurableViewHandlerInterface $viewHandler
-    )
-    {
+    ) {
         $this->productRepository = $productRepository;
         $this->localeContext = $localeContext;
         $this->viewHandler = $viewHandler;

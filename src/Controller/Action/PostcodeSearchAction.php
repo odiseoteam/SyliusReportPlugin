@@ -28,8 +28,7 @@ final class PostcodeSearchAction
         AddressRepositoryInterface $addressRepository,
         RepositoryInterface $countryRepository,
         ConfigurableViewHandlerInterface $viewHandler
-    )
-    {
+    ) {
         $this->addressRepository = $addressRepository;
         $this->countryRepository = $countryRepository;
         $this->viewHandler = $viewHandler;

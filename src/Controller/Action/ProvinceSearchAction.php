@@ -33,8 +33,7 @@ final class ProvinceSearchAction
         RepositoryInterface $provinceRepository,
         RepositoryInterface $countryRepository,
         ConfigurableViewHandlerInterface $viewHandler
-    )
-    {
+    ) {
         $this->addressRepository = $addressRepository;
         $this->provinceRepository = $provinceRepository;
         $this->countryRepository = $countryRepository;
