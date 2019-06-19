@@ -79,7 +79,7 @@ class ReportSpec extends ObjectBehavior
 
     function it_has_a_default_data_fetcher_configuration(): void
     {
-        $this->getDataFetcherConfiguration()->shouldHaveCount(3);
+        $this->getDataFetcherConfiguration()->shouldHaveCount(1);
     }
 
     function it_is_timestampable(): void
