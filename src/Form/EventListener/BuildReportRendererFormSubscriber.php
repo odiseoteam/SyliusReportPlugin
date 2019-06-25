@@ -2,6 +2,7 @@
 
 namespace Odiseo\SyliusReportPlugin\Form\EventListener;
 
+use InvalidArgumentException;
 use Odiseo\SyliusReportPlugin\Model\ReportInterface;
 use Odiseo\SyliusReportPlugin\Renderer\RendererInterface;
 use Sylius\Component\Registry\ServiceRegistryInterface;
@@ -37,6 +38,9 @@ class BuildReportRendererFormSubscriber implements EventSubscriberInterface
         $this->factory = $factory;
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function getSubscribedEvents()
     {
         return [
@@ -45,6 +49,9 @@ class BuildReportRendererFormSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * @param FormEvent $event
+     */
     public function preSetData(FormEvent $event)
     {
         $report = $event->getData();
@@ -60,6 +67,9 @@ class BuildReportRendererFormSubscriber implements EventSubscriberInterface
         $this->addConfigurationFields($event->getForm(), $report->getRenderer(), $report->getRendererConfiguration());
     }
 
+    /**
+     * @param FormEvent $event
+     */
     public function preBind(FormEvent $event)
     {
         $data = $event->getData();
@@ -91,7 +101,7 @@ class BuildReportRendererFormSubscriber implements EventSubscriberInterface
                 $data,
                 ['auto_initialize' => false]
             );
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             return;
         }
 

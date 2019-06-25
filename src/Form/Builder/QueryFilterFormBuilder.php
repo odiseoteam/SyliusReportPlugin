@@ -7,7 +7,6 @@ use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\TimePeriodType;
 use Odiseo\SyliusReportPlugin\Form\Type\ProductAutocompleteChoiceType;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
-use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
@@ -17,6 +16,9 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * @author Odiseo Team <team@odiseo.com.ar>
+ */
 class QueryFilterFormBuilder
 {
     /** @var RepositoryInterface */
@@ -87,9 +89,6 @@ class QueryFilterFormBuilder
                 'required' => false,
                 'remote_url' => $this->generator->generate('odiseo_sylius_report_plugin_admin_ajax_cities'),
                 'choice_name' => 'city',
-                'attr' => [
-                    'class' => 'sylius-autocomplete',
-                ],
             ])
         ;
     }
@@ -103,9 +102,6 @@ class QueryFilterFormBuilder
                 'required' => false,
                 'remote_url' => $this->generator->generate('odiseo_sylius_report_plugin_admin_ajax_provinces'),
                 'choice_name' => 'province',
-                'attr' => [
-                    'class' => 'sylius-autocomplete',
-                ],
             ])
         ;
     }
@@ -119,9 +115,6 @@ class QueryFilterFormBuilder
                 'required' => false,
                 'remote_url' => $this->generator->generate('odiseo_sylius_report_plugin_admin_ajax_postcodes'),
                 'choice_name' => 'postcode',
-                'attr' => [
-                    'class' => 'sylius-autocomplete',
-                ],
             ])
         ;
     }
@@ -157,9 +150,6 @@ class QueryFilterFormBuilder
                 'required' => false,
                 'remote_url' => $this->generator->generate('odiseo_sylius_report_plugin_admin_ajax_products'),
                 'choice_name' => 'name',
-                'attr' => [
-                    'class' => 'sylius-autocomplete',
-                ],
             ])
         ;
     }

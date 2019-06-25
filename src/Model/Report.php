@@ -2,6 +2,7 @@
 
 namespace Odiseo\SyliusReportPlugin\Model;
 
+use DateTime;
 use Odiseo\SyliusReportPlugin\DataFetcher\DefaultDataFetchers;
 use Odiseo\SyliusReportPlugin\DataFetcher\TimePeriodDataFetcher;
 use Odiseo\SyliusReportPlugin\Renderer\DefaultRenderers;
@@ -62,11 +63,11 @@ class Report implements ReportInterface
 
     public function __construct()
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new DateTime();
         $this->dataFetcherConfiguration = [
             'timePeriod' => [
-                'start' => new \DateTime('10 years'),
-                'end' => new \DateTime(),
+                'start' => new DateTime('10 years'),
+                'end' => new DateTime(),
                 'period' => TimePeriodDataFetcher::PERIOD_MONTH
             ]
         ];

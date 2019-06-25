@@ -2,6 +2,7 @@
 
 namespace Odiseo\SyliusReportPlugin\Form\Type;
 
+use InvalidArgumentException;
 use Odiseo\SyliusReportPlugin\DataFetcher\DataFetcherInterface;
 use Odiseo\SyliusReportPlugin\Form\EventListener\BuildReportDataFetcherFormSubscriber;
 use Odiseo\SyliusReportPlugin\Form\EventListener\BuildReportRendererFormSubscriber;
@@ -92,7 +93,7 @@ class ReportType extends AbstractResourceType
 
             try {
                 $prototypes['renderers'][$type] = $builder->create('rendererConfiguration', $formType)->getForm();
-            } catch (\InvalidArgumentException $e) {
+            } catch (InvalidArgumentException $e) {
                 continue;
             }
         }

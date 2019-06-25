@@ -2,6 +2,7 @@
 
 namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
+use InvalidArgumentException;
 use Odiseo\SyliusReportPlugin\Model\ReportInterface;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 
@@ -42,12 +43,12 @@ class DelegatingDataFetcher implements DelegatingDataFetcherInterface
     /**
      * {@inheritdoc}
      *
-     * @throws \InvalidArgumentException If the report does not have a data fetcher.
+     * @throws InvalidArgumentException If the report does not have a data fetcher.
      */
     public function getDataFetcher(ReportInterface $report): DataFetcherInterface
     {
         if (null === $type = $report->getDataFetcher()) {
-            throw new \InvalidArgumentException('Cannot fetch data for ReportInterface instance without DataFetcher defined.');
+            throw new InvalidArgumentException('Cannot fetch data for ReportInterface instance without DataFetcher defined.');
         }
 
         /** @var DataFetcherInterface $dataFetcher */

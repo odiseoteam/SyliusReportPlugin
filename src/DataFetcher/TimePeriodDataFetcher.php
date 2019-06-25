@@ -2,6 +2,11 @@
 
 namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
+use DateInterval;
+use DateTime;
+use Exception;
+use InvalidArgumentException;
+
 /**
  * Abstract class to provide time periods logic.
  *
@@ -28,16 +33,17 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
 
     /**
      * {@inheritdoc}
+     * @throws Exception
      */
     public function fetch(array $configuration): Data
     {
         $data = new Data();
 
-        /** @var \DateTime $endDate */
+        /** @var DateTime $endDate */
         $endDate = $configuration['timePeriod']['end']?:null;
 
         //There is added 23 hours 59 minutes 59 seconds to the end date to provide records for whole end date
-        $configuration['timePeriod']['end'] = $endDate !== null ? $endDate->add(new \DateInterval('PT23H59M59S')) : null;
+        $configuration['timePeriod']['end'] = $endDate !== null ? $endDate->add(new DateInterval('PT23H59M59S')) : null;
 
         switch ($configuration['timePeriod']['period']) {
             case self::PERIOD_DAY:
@@ -50,7 +56,7 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
                 $this->setExtraConfiguration($configuration, 'P1Y', '%y', 'Y', ['year']);
                 break;
             default:
-                throw new \InvalidArgumentException('Wrong data fetcher period');
+                throw new InvalidArgumentException('Wrong data fetcher period');
         }
 
         $rawData = $this->getData($configuration);
@@ -77,7 +83,7 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
             $rowFetched = [];
             foreach ($labels as $i => $label) {
                 if ($i === 0) {
-                    $date = new \DateTime($row[$labels[0]]);
+                    $date = new DateTime($row[$labels[0]]);
                     $rowFetched[] = $date->format($configuration['timePeriod']['presentationFormat']);
                 } else {
                     $rowFetched[] = $row[$labels[$i]];
@@ -128,14 +134,14 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
      */
     private function fillEmptyRecords(array $fetched, array $configuration)
     {
-        /** @var \DateTime $startDate */
+        /** @var DateTime $startDate */
         $startDate = $configuration['start'];
-        /** @var \DateTime $startDate */
+        /** @var DateTime $startDate */
         $endDate = $configuration['end'];
 
         try {
-            $dateInterval = new \DateInterval($configuration['interval']);
-        } catch (\Exception $e) {
+            $dateInterval = new DateInterval($configuration['interval']);
+        } catch (Exception $e) {
             return $fetched;
         }
 
@@ -154,6 +160,7 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
      * @param array $datas
      * @param array $configuration
      * @return array
+     * @throws Exception
      */
     protected function getMediaResults(array $datas = [], array $configuration = [])
     {
@@ -163,7 +170,7 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
         $labels = array_keys($datas[0]);
         $datesMedia = [];
         foreach ($datas as $data) {
-            $date = new \DateTime($data[$labels[0]]);
+            $date = new DateTime($data[$labels[0]]);
             $dateFormated = $date->format($configuration['timePeriod']['presentationFormat']);
             $currentDateMedia = isset($datesMedia[$dateFormated])?$datesMedia[$dateFormated]:array('quantity' => 0, 'media' => 0);
             $currentDateMedia['quantity'] = $currentDateMedia['quantity']+1;

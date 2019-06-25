@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusReportPlugin\DependencyInjection;
 
+use Exception;
 use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -17,6 +18,7 @@ final class OdiseoSyliusReportExtension extends AbstractResourceExtension
 {
     /**
      * {@inheritdoc}
+     * @throws Exception
      */
     public function load(array $config, ContainerBuilder $container): void
     {

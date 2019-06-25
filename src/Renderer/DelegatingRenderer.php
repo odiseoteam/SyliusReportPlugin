@@ -2,6 +2,7 @@
 
 namespace Odiseo\SyliusReportPlugin\Renderer;
 
+use InvalidArgumentException;
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;
 use Odiseo\SyliusReportPlugin\Model\ReportInterface;
 use Sylius\Component\Registry\ServiceRegistryInterface;
@@ -40,12 +41,12 @@ class DelegatingRenderer implements DelegatingRendererInterface
     /**
      * {@inheritdoc}
      *
-     * @throws \InvalidArgumentException If the report subject does not have a renderer.
+     * @throws InvalidArgumentException If the report subject does not have a renderer.
      */
     public function getRenderer(ReportInterface $report)
     {
         if (null === $type = $report->getRenderer()) {
-            throw new \InvalidArgumentException('Cannot render data for ReportInterface instance without renderer defined.');
+            throw new InvalidArgumentException('Cannot render data for ReportInterface instance without renderer defined.');
         }
 
         /** @var RendererInterface $renderer */

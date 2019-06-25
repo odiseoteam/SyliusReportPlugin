@@ -2,6 +2,7 @@
 
 namespace Odiseo\SyliusReportPlugin\DependencyInjection\Compiler;
 
+use InvalidArgumentException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -29,7 +30,7 @@ class RegisterDataFetchersPass implements CompilerPassInterface
 
         foreach ($container->findTaggedServiceIds('odiseo_sylius_report.data_fetcher') as $id => $attributes) {
             if (!isset($attributes[0]['fetcher']) || !isset($attributes[0]['label'])) {
-                throw new \InvalidArgumentException(
+                throw new InvalidArgumentException(
                     'Tagged report data fetchers needs to have `fetcher` and `label` attributes.'
                 );
             }

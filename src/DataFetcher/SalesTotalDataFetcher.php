@@ -2,6 +2,7 @@
 
 namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
+use Exception;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\SalesTotalType;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\OrderPaymentStates;
@@ -15,6 +16,7 @@ class SalesTotalDataFetcher extends TimePeriodDataFetcher
 {
     /**
      * {@inheritdoc}
+     * @throws Exception
      */
     protected function setupQueryFilter(array $configuration = []): void
     {

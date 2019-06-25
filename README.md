@@ -26,10 +26,10 @@
 ## Description
 
 This plugin add data reports to the Sylius administration interface.
-It is highly inspired on the past [SyliusReportBundle](https://github.com/Sylius/SyliusReportBundle) bundle and 
-[Report](https://github.com/Sylius/Report) component using its good architecture.
+It's highly inspired on the old [SyliusReportBundle](https://github.com/Sylius/SyliusReportBundle) and 
+[Report](https://github.com/Sylius/Report) component using it's good architecture.
 
-Now supporting Sylius 1.4 with Symfony 4 + Flex structure.
+Now supporting Sylius 1.4+ and Symfony 4.
 
 ### Architecture
 
@@ -52,7 +52,7 @@ Next, you can enter to the [reports](https://sylius-demo.odiseo.com.ar/admin/rep
 
 1. Run `composer require odiseoteam/sylius-report-plugin`
 
-2. Enable the plugin in bundles.php
+2. Enable the plugin in bundles.php but add it before SyliusResourceBundle like follows:
 
 ```php
 <?php
@@ -60,6 +60,7 @@ Next, you can enter to the [reports](https://sylius-demo.odiseo.com.ar/admin/rep
 return [
     // ...
     Odiseo\SyliusReportPlugin\OdiseoSyliusReportPlugin::class => ['all' => true],
+    Sylius\Bundle\ResourceBundle\SyliusResourceBundle::class => ['all' => true],
     // ...
 ];
 ```
@@ -71,8 +72,8 @@ imports:
     - { resource: "@OdiseoSyliusReportPlugin/Resources/config/config.yml" }
 ```
 
-This plugin use [DoctrineExtensions](https://github.com/beberlei/DoctrineExtensions) to create the different DataFetcher queries.
-Add the config DQL functions as follows:
+This plugin use [DoctrineExtensions](https://github.com/beberlei/DoctrineExtensions) to create the different DataFetcher's queries.
+For example you will need to add the Doctrine DQL functions as follows if you are using Mysql:
 
 ```yml
 doctrine:
@@ -98,8 +99,9 @@ odiseo_sylius_report_plugin_admin:
 5. Finish the installation updating the database schema and installing assets
    
 ```
-php bin/console doctrine:schema:update --force
-php bin/console sylius:theme:assets:install
+php bin/console doctrine:migrations:diff
+php bin/console doctrine:migrations:migrate
+php bin/console sylius:theme:assets:install --symlink
 ```
 
 ## Test the plugin

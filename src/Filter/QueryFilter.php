@@ -2,13 +2,18 @@
 
 namespace Odiseo\SyliusReportPlugin\Filter;
 
+use DateTime;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
+use Exception;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\Customer;
 use Sylius\Component\Core\Model\ProductInterface;
 
+/**
+ * @author Odiseo Team <team@odiseo.com.ar>
+ */
 class QueryFilter
 {
     /** @var EntityManager */
@@ -104,6 +109,7 @@ class QueryFilter
     /**
      * @param array $configuration
      * @param string $dateField
+     * @throws Exception
      */
     public function addTimePeriod(array $configuration = [], $dateField = 'checkoutCompletedAt'): void
     {
@@ -116,10 +122,10 @@ class QueryFilter
 
         $groupByParts = $this->getGroupByParts($this->qb, $configuration, $dateField);
 
-        /** @var \DateTime $startDateTime */
+        /** @var DateTime $startDateTime */
         $startDateTime = $configuration['timePeriod']['start'];
-        /** @var \DateTime $endDateTime */
-        $endDateTime = $configuration['timePeriod']['end']?:new \DateTime();
+        /** @var DateTime $endDateTime */
+        $endDateTime = $configuration['timePeriod']['end']?:new DateTime();
 
         $this->qb
             ->addSelect($groupByParts[0])

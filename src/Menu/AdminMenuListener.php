@@ -2,7 +2,6 @@
 
 namespace Odiseo\SyliusReportPlugin\Menu;
 
-use Knp\Menu\ItemInterface;
 use Sylius\Bundle\UiBundle\Menu\Event\MenuBuilderEvent;
 
 /**

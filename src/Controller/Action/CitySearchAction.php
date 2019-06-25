@@ -13,6 +13,9 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @author Odiseo Team <team@odiseo.com.ar>
+ */
 final class CitySearchAction
 {
     /** @var AddressRepositoryInterface */
@@ -34,6 +37,11 @@ final class CitySearchAction
         $this->viewHandler = $viewHandler;
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
     public function __invoke(Request $request): Response
     {
         $addresses = $this->getAddresses($request->get('city', ''));
@@ -45,7 +53,12 @@ final class CitySearchAction
         return $this->viewHandler->handle($view);
     }
 
-    private function getAddresses($query): array
+    /**
+     * @param string $query
+     *
+     * @return array
+     */
+    private function getAddresses(string $query): array
     {
         $addresses = [];
         $searchAddresses = $this->addressRepository->findByCityName($query);

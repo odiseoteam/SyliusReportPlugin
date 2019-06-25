@@ -10,8 +10,14 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @author Odiseo Team <team@odiseo.com.ar>
+ */
 final class AddressAutocompleteChoiceType extends AbstractType
 {
+    /**
+     * @inheritDoc
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
@@ -25,6 +31,9 @@ final class AddressAutocompleteChoiceType extends AbstractType
         ;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['remote_criteria_type'] = 'contains';
@@ -32,11 +41,17 @@ final class AddressAutocompleteChoiceType extends AbstractType
         $view->vars['remote_url'] = $view->vars['load_edit_url'] = $options['remote_url'];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getBlockPrefix(): string
     {
         return 'odiseo_address_autocomplete_choice';
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getParent(): string
     {
         return ResourceAutocompleteChoiceType::class;

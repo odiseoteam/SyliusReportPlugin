@@ -114,8 +114,8 @@ class ReportController extends ResourceController
     }
 
     /**
-     * @param ReportInterface  $report
-     * @param array   $configuration
+     * @param ReportInterface $report
+     * @param array $configuration
      *
      * @return Response
      */
@@ -150,6 +150,7 @@ class ReportController extends ResourceController
     {
         /** @var DelegatingDataFetcherInterface $dataFetcher */
         $dataFetcher = $this->container->get('odiseo_sylius_report.data_fetcher');
+
         return $dataFetcher;
     }
 

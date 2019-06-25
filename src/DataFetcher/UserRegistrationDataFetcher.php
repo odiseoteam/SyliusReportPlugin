@@ -2,6 +2,7 @@
 
 namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
+use Exception;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\UserRegistrationType;
 use Sylius\Component\Order\Model\OrderInterface;
 
@@ -11,6 +12,10 @@ use Sylius\Component\Order\Model\OrderInterface;
  */
 class UserRegistrationDataFetcher extends TimePeriodDataFetcher
 {
+    /**
+     * @inheritdoc
+     * @throws Exception
+     */
     protected function setupQueryFilter(array $configuration = []): void
     {
         $qb = $this->queryFilter->getQueryBuilder();

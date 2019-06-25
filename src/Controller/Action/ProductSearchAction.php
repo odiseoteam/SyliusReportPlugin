@@ -12,6 +12,9 @@ use Sylius\Component\Locale\Context\LocaleContextInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @author Odiseo Team <team@odiseo.com.ar>
+ */
 final class ProductSearchAction
 {
     /** @var ProductRepositoryInterface */
@@ -33,6 +36,11 @@ final class ProductSearchAction
         $this->viewHandler = $viewHandler;
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
     public function __invoke(Request $request): Response
     {
         $locale = $this->localeContext->getLocaleCode();
@@ -46,7 +54,13 @@ final class ProductSearchAction
         return $this->viewHandler->handle($view);
     }
 
-    private function getProducts($query, $locale): array
+    /**
+     * @param string $query
+     * @param string $locale
+     *
+     * @return array
+     */
+    private function getProducts(string $query, string $locale): array
     {
         $products = [];
         $searchProducts = $this->productRepository->findByNamePart($query, $locale);
