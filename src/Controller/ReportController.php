@@ -12,6 +12,7 @@ use Odiseo\SyliusReportPlugin\Response\CsvResponse;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
 use Sylius\Component\Currency\Context\CurrencyContextInterface;
 use Sylius\Component\Resource\ResourceActions;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,6 +33,8 @@ class ReportController extends ResourceController
      */
     public function renderAction(Request $request)
     {
+        /** @var FormFactoryInterface $formFactory */
+        $formFactory = $this->container->get('form.factory');
         $configuration = $this->requestConfigurationFactory->create($this->metadata, $request);
 
         $this->isGrantedOr403($configuration, ResourceActions::SHOW);
@@ -42,7 +45,7 @@ class ReportController extends ResourceController
         /** @var DataFetcherInterface $dataFetcher */
         $dataFetcher = $this->getReportDataFetcher()->getDataFetcher($report);
         /** @var FormInterface $configurationForm */
-        $configurationForm = $this->container->get('form.factory')->createNamed(
+        $configurationForm = $formFactory->createNamed(
             'configuration',
             $dataFetcher->getType(),
             $report->getDataFetcherConfiguration()
