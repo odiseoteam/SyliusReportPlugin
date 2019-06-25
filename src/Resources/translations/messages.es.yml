@@ -4,12 +4,15 @@ odiseo_sylius_report:
         manage_reports: Administrar reportes
         renderers: Renderizadores
         data_fetchers: Obtención de datos
-        no_data: No data
+        no_data: Sin datos
         new_report: Nuevo reporte
         show_report: Ver reporte
         edit_report: Editar reporte
         there_are_no_reports_results: No se encontraron resultados para este reporte
         export: Exportar
+        daily: Diario
+        monthly: Mensual
+        yearly: Anual
     form:
         report:
             name: Nombre
@@ -21,10 +24,10 @@ odiseo_sylius_report:
             chart:
                 type: Tipo
         time_period:
-            start: Start date
-            end: End date
-            period: Time period
-            empty_records: Print empty records?
+            start: Fecha desde
+            end: Fecha hasta
+            period: Período de fecha
+            empty_records: Imprimir resultados vacios?
         user_gender: Genero del usuario
         shipping_country: País de envío
         shipping_city: Ciudad de envío
@@ -34,19 +37,19 @@ odiseo_sylius_report:
         billing_city: Ciudad de facturación
         billing_province: Provincia de facturación
         billing_postcode: Código postal de facturación
-        orders: Ordenes
+        orders: Órdenes
         all_channels: Todos los canales
         category: Categoría
     renderer:
-        chart: Chart renderer
-        table: Table renderer
+        chart: Renderizador por gráfico
+        table: Renderizador por tabla
     data_fetcher:
-        user_registration: User registration
-        sales_total: Sales Total
-        number_of_orders: Number of orders
+        user_registration: Registración de usuario
+        sales_total: Total de ventas
+        number_of_orders: Cantidad de órdenes
 
-odiseo_sylius_report_renderer_table: Table renderer
-odiseo_sylius_report_renderer_chart: Chart renderer
-odiseo_sylius_report_data_fetcher_user_registration: User Registration
-odiseo_sylius_report_data_fetcher_sales_total: Sales Total
-odiseo_sylius_report_number_of_orders: Number of orders
+odiseo_sylius_report_renderer_table: Renderizador por tabla
+odiseo_sylius_report_renderer_chart: Renderizador por gráfico
+odiseo_sylius_report_data_fetcher_user_registration: Registración de usuario
+odiseo_sylius_report_data_fetcher_sales_total: Total de ventas
+odiseo_sylius_report_data_fetcher_number_of_orders: Cantidad de órdenes

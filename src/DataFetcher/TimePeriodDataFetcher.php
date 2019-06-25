@@ -25,9 +25,9 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
     public static function getPeriodChoices()
     {
         return [
-            'Daily' => self::PERIOD_DAY,
-            'Monthly' => self::PERIOD_MONTH,
-            'Yearly' => self::PERIOD_YEAR,
+            'odiseo_sylius_report.ui.daily' => self::PERIOD_DAY,
+            'odiseo_sylius_report.ui.monthly' => self::PERIOD_MONTH,
+            'odiseo_sylius_report.ui.yearly' => self::PERIOD_YEAR,
         ];
     }
 
