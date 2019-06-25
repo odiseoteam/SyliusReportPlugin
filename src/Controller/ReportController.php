@@ -33,14 +33,15 @@ class ReportController extends ResourceController
      */
     public function renderAction(Request $request)
     {
-        /** @var FormFactoryInterface $formFactory */
-        $formFactory = $this->container->get('form.factory');
         $configuration = $this->requestConfigurationFactory->create($this->metadata, $request);
 
         $this->isGrantedOr403($configuration, ResourceActions::SHOW);
 
         /** @var ReportInterface $report */
         $report = $this->findOr404($configuration);
+
+        /** @var FormFactoryInterface $formFactory */
+        $formFactory = $this->container->get('form.factory');
 
         /** @var DataFetcherInterface $dataFetcher */
         $dataFetcher = $this->getReportDataFetcher()->getDataFetcher($report);
