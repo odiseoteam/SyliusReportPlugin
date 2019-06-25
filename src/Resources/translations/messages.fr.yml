@@ -27,6 +27,18 @@ odiseo_sylius_report:
             end: Date de fin
             period: Laps de temps
             empty_records: Afficher les lignes vides
+        user_gender: Genre d'utilisateur
+        shipping_country: Pays de livraison
+        shipping_city: Ville d'expédition
+        shipping_province: Province d'expédition
+        shipping_postcode: Code postal d'expédition
+        billing_country: Pays de facturation
+        billing_city: Ville de facturation
+        billing_province: Province de facturation
+        billing_postcode: Code postal de facturation
+        orders: Ordres
+        all_channels: Toutes les chaînes
+        category: Catégorie
     renderer:
         chart: Moteur de rendu graphique
         table: Moteur de rendu par tableau
@@ -34,11 +46,9 @@ odiseo_sylius_report:
         user_registration: Enregistrement d'utilisateurs
         sales_total: Total des ventes
         number_of_orders: Nombre de commandes
-        payment_state_orders: Statut de paiement des commandes
 
 odiseo_sylius_report_renderer_table: Moteur de rendu par tableau
 odiseo_sylius_report_renderer_chart: Moteur de rendu graphique
 odiseo_sylius_report_data_fetcher_user_registration: Enregistrement d'utilisateurs
 odiseo_sylius_report_data_fetcher_sales_total: Total des ventes
 odiseo_sylius_report_data_fetcher_number_of_orders: Nombre de commandes
-odiseo_sylius_report_data_fetcher_payment_state_orders: Statut de paiement des commandes
