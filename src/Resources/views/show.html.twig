@@ -53,7 +53,9 @@
         </div>
     </div>
 
-    {{ render(controller('odiseo_sylius_report.controller.report:embedAction', {'report': report, 'configuration' : configurationForm})) }}
+    <div class="ui segment">
+        {{ render(controller('odiseo_sylius_report.controller.report:embedAction', {'report': report, 'configuration' : configurationForm})) }}
+    </div>
 
     {{ sonata_block_render_event(event_prefix ~ '.after_content', {'resource': resource}) }}
 {% endblock %}
@@ -62,6 +64,7 @@
     {{ parent() }}
 
     {{ include('@SyliusUi/_javascripts.html.twig', {'path': 'bundles/odiseosyliusreportplugin/js/Chart.min.js'}) }}
+    {{ include('@SyliusUi/_javascripts.html.twig', {'path': 'bundles/odiseosyliusreportplugin/js/report-chart.js'}) }}
     {{ include('@SyliusUi/_javascripts.html.twig', {'path': 'bundles/odiseosyliusreportplugin/js/report-auto-complete.js'}) }}
     {{ include('@SyliusUi/_javascripts.html.twig', {'path': 'bundles/odiseosyliusreportplugin/js/report.js'}) }}
 {% endblock %}

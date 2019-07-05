@@ -40,7 +40,7 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
         $data = new Data();
 
         /** @var DateTime $endDate */
-        $endDate = $configuration['timePeriod']['end']?:null;
+        $endDate = isset($configuration['timePeriod']['end']) ? $configuration['timePeriod']['end'] : null;
 
         //There is added 23 hours 59 minutes 59 seconds to the end date to provide records for whole end date
         $configuration['timePeriod']['end'] = $endDate !== null ? $endDate->add(new DateInterval('PT23H59M59S')) : null;

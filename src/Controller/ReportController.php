@@ -60,20 +60,18 @@ class ReportController extends ResourceController
 
         $view = View::create($report);
 
-        if ($configuration->isHtmlRequest()) {
-            $view
-                ->setTemplate($configuration->getTemplate(ResourceActions::SHOW . '.html'))
-                ->setTemplateVar($this->metadata->getName())
-                ->setData([
-                    'configuration' => $configuration,
-                    'metadata' => $this->metadata,
-                    'resource' => $report,
-                    'form' => $configurationForm->createView(),
-                    'configurationForm' => $configurationForm->getData(),
-                    $this->metadata->getName() => $report,
-                ])
-            ;
-        }
+        $view
+            ->setTemplate($configuration->getTemplate(ResourceActions::SHOW . '.html'))
+            ->setTemplateVar($this->metadata->getName())
+            ->setData([
+                'configuration' => $configuration,
+                'metadata' => $this->metadata,
+                'resource' => $report,
+                'form' => $configurationForm->createView(),
+                'configurationForm' => $configurationForm->getData(),
+                $this->metadata->getName() => $report,
+            ])
+        ;
 
         return $this->viewHandler->handle($configuration, $view);
     }
@@ -93,15 +91,15 @@ class ReportController extends ResourceController
         $report = $this->findOr404($configuration);
 
         $type = $request->get('type');
-        $configuration = $report->getDataFetcherConfiguration();
+        $configurationForm = $report->getDataFetcherConfiguration();
 
         /** @var CurrencyContextInterface $currencyContext */
         $currencyContext = $this->get('sylius.context.currency');
 
-        $configuration['baseCurrency'] = $currencyContext->getCurrencyCode();
+        $configurationForm['baseCurrency'] = $currencyContext->getCurrencyCode();
 
         /** @var Data $data */
-        $data = $this->getReportDataFetcher()->fetch($report, $configuration);
+        $data = $this->getReportDataFetcher()->fetch($report, $configurationForm);
 
         $response = null;
         switch ($type) {

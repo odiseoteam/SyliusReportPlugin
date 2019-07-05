@@ -3,7 +3,6 @@
 {% import '@SyliusResource/Macros/buttons.html.twig' as buttons %}
 
 {% if values|length > 0 %}
-<div class="ui segment">
     <table class="ui sortable stackable celled table">
         <thead>
         <tr>
@@ -24,7 +23,6 @@
         {% endfor %}
         </tbody>
     </table>
-</div>
 {% else %}
     <span>{{ 'odiseo_sylius_report.ui.there_are_no_reports_results'|trans }}</span>
 {% endif %}
