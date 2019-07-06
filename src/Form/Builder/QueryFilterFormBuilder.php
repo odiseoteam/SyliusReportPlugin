@@ -55,13 +55,13 @@ class QueryFilterFormBuilder
         $builder
             ->add('userGender', ChoiceType::class, [
                 'choices'  => [
-                    'odiseo.report.male' => 'm',
-                    'odiseo.report.female' => 'f',
+                    'odiseo_sylius_report.form.user_gender.male' => 'm',
+                    'odiseo_sylius_report.form.user_gender.female' => 'f',
                 ],
                 'multiple' => true,
                 'expanded' => true,
                 'required' => false,
-                'label' => 'odiseo_sylius_report.form.user_gender',
+                'label' => 'odiseo_sylius_report.form.user_gender.label',
             ])
         ;
     }

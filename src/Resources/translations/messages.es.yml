@@ -28,7 +28,10 @@ odiseo_sylius_report:
             end: Fecha hasta
             period: Período de fecha
             empty_records: Imprimir resultados vacios?
-        user_gender: Genero del usuario
+        user_gender:
+            label: Genero del usuario
+            male: Masculino
+            female: Femenino
         shipping_country: País de envío
         shipping_city: Ciudad de envío
         shipping_province: Provincia de envío
