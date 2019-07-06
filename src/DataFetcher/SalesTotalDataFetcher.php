@@ -3,10 +3,10 @@
 namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
 use Exception;
+use Odiseo\SyliusReportPlugin\Filter\QueryFilter;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\SalesTotalType;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\OrderPaymentStates;
-use Sylius\Component\Order\Model\OrderInterface;
 
 /**
  * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
@@ -15,6 +15,24 @@ use Sylius\Component\Order\Model\OrderInterface;
 class SalesTotalDataFetcher extends TimePeriodDataFetcher
 {
     /**
+     * @var string
+     */
+    private $orderClass;
+
+    /**
+     * @param QueryFilter $queryFilter
+     * @param string $orderClass
+     */
+    public function __construct(
+        QueryFilter $queryFilter,
+        string $orderClass
+    ) {
+        parent::__construct($queryFilter);
+
+        $this->orderClass = $orderClass;
+    }
+
+    /**
      * {@inheritdoc}
      * @throws Exception
      */
@@ -22,7 +40,7 @@ class SalesTotalDataFetcher extends TimePeriodDataFetcher
     {
         $qb = $this->queryFilter->getQueryBuilder();
 
-        $from = $qb->getEntityManager()->getClassMetadata(OrderInterface::class)->getName();
+        $from = $this->orderClass;
         $qb
             ->select('DATE(payment.updatedAt) as date', 'COUNT(DATE(payment.updatedAt)) as orders', 'ROUND(SUM(o.total/100), 2) as total_'.$configuration['baseCurrency'])
             ->from($from, 'o')
