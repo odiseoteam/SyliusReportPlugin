@@ -101,14 +101,16 @@ class ReportController extends ResourceController
         /** @var Data $data */
         $data = $this->getReportDataFetcher()->fetch($report, $configurationForm);
 
+        $filename = $this->slugify($report->getName());
+
         $response = null;
         switch ($type) {
             case 'json':
-                $response = $this->createJsonResponse($data);
+                $response = $this->createJsonResponse($filename, $data);
                 break;
             case 'csv':
             default:
-                $response = $this->createCsvResponse($data);
+                $response = $this->createCsvResponse($filename, $data);
                 break;
         }
 
@@ -157,11 +159,12 @@ class ReportController extends ResourceController
     }
 
     /**
+     * @param string $filename
      * @param Data $data
      *
      * @return Response
      */
-    protected function createJsonResponse($data)
+    protected function createJsonResponse($filename, $data)
     {
         $responseData = [];
         foreach ($data->getData() as $key => $value) {
@@ -170,7 +173,7 @@ class ReportController extends ResourceController
 
         $response = JsonResponse::create($responseData);
 
-        $response->headers->set('Content-Disposition', sprintf('attachment; filename="%s"', 'export.json'));
+        $response->headers->set('Content-Disposition', sprintf('attachment; filename="%s"', $filename.'.json'));
 
         if (!$response->headers->has('Content-Type')) {
             $response->headers->set('Content-Type', 'text/json');
@@ -180,16 +183,30 @@ class ReportController extends ResourceController
     }
 
     /**
+     * @param string $filename
      * @param Data $data
      *
      * @return Response
      */
-    protected function createCsvResponse($data)
+    protected function createCsvResponse($filename, $data)
     {
         $labels = [$data->getLabels()];
 
         $responseData = array_merge($labels, $data->getData());
 
-        return new CsvResponse($responseData);
+        $response = new CsvResponse($responseData);
+        $response->setFilename($filename.'.csv');
+
+        return $response;
+    }
+
+    /**
+     * @param string $string
+     *
+     * @return string
+     */
+    private function slugify($string)
+    {
+        return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string)));
     }
 }
