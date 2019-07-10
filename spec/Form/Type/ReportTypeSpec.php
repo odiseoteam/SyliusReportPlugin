@@ -29,9 +29,18 @@ use Symfony\Component\Form\FormView;
  */
 final class ReportTypeSpec extends ObjectBehavior
 {
-    function let(ServiceRegistryInterface $rendererRegistry, ServiceRegistryInterface $dataFetcherRegistry)
-    {
-        $this->beConstructedWith(Report::class, ['sylius'], $rendererRegistry, $dataFetcherRegistry);
+    function let(
+        ServiceRegistryInterface $rendererRegistry,
+        ServiceRegistryInterface $dataFetcherRegistry
+    ) {
+        $this->beConstructedWith(
+            Report::class,
+            ['sylius'],
+            $rendererRegistry,
+            $dataFetcherRegistry,
+            '@OdiseoSyliusReportPlugin/_rendererConfiguration.html.twig',
+            '@OdiseoSyliusReportPlugin/_dataFetcherConfiguration.html.twig'
+        );
     }
 
     function it_is_initializable()
