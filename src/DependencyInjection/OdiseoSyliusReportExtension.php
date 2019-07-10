@@ -39,6 +39,8 @@ final class OdiseoSyliusReportExtension extends AbstractResourceExtension
             ->getDefinition('odiseo_sylius_report.form.type.report')
             ->addArgument(new Reference('odiseo_sylius_report.registry.renderer'))
             ->addArgument(new Reference('odiseo_sylius_report.registry.data_fetcher'))
+            ->addArgument($config['renderer_configuration_template'])
+            ->addArgument($config['data_fetcher_configuration_template'])
         ;
     }
 }

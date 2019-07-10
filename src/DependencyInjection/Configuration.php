@@ -38,6 +38,8 @@ final class Configuration implements ConfigurationInterface
             ->addDefaultsIfNotSet()
             ->children()
                 ->scalarNode('driver')->defaultValue(SyliusResourceBundle::DRIVER_DOCTRINE_ORM)->end()
+                ->scalarNode('renderer_configuration_template')->defaultValue('@OdiseoSyliusReportPlugin/_rendererConfiguration.html.twig')->end()
+                ->scalarNode('data_fetcher_configuration_template')->defaultValue('@OdiseoSyliusReportPlugin/_dataFetcherConfiguration.html.twig')->end()
             ->end()
         ;
 

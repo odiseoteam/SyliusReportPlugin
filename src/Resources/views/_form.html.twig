@@ -14,10 +14,10 @@
     </div>
     <div class="prototypes">
         {% for name, rendererConfigurationPrototype in form.vars.prototypes.renderers %}
-            <div id="{{ form.renderer.vars.id }}_{{ name }}" data-container="#renderer.configuration" data-prototype="{{ include('@OdiseoSyliusReportPlugin/_rendererConfiguration.html.twig', { 'configurationForm': rendererConfigurationPrototype })|e }}"></div>
+            <div id="{{ form.renderer.vars.id }}_{{ name }}" data-container="#renderer.configuration" data-prototype="{{ include(form.vars.rendererConfigurationTemplate, { 'configurationForm': rendererConfigurationPrototype })|e }}"></div>
         {% endfor %}
         {% for name, dataFetcherConfigurationPrototype in form.vars.prototypes.dataFetchers %}
-            <div id="{{ form.dataFetcher.vars.id }}_{{ name }}" data-container="#data_fetcher.configuration" data-prototype="{{ include('@OdiseoSyliusReportPlugin/_dataFetcherConfiguration.html.twig', { 'configurationForm': dataFetcherConfigurationPrototype })|e }}"></div>
+            <div id="{{ form.dataFetcher.vars.id }}_{{ name }}" data-container="#data_fetcher.configuration" data-prototype="{{ include(form.vars.dataFetcherConfigurationTemplate, { 'configurationForm': dataFetcherConfigurationPrototype })|e }}"></div>
         {% endfor %}
     </div>
     <div class="column">
@@ -26,7 +26,7 @@
             {{ form_row(form.renderer) }}
             <div class="ui divider"></div>
             <div class="two fields" id="odiseo_sylius_report_renderer_configuration">
-                {{ include('@OdiseoSyliusReportPlugin/_rendererConfiguration.html.twig', { 'configurationForm': form.rendererConfiguration }) }}
+                {{ include(form.vars.rendererConfigurationTemplate, { 'configurationForm': form.rendererConfiguration }) }}
             </div>
         </div>
         <div class="ui segment">
@@ -34,7 +34,7 @@
             {{ form_row(form.dataFetcher) }}
             <div class="ui divider"></div>
             <div class="field" id="odiseo_sylius_report_dataFetcher_configuration">
-                {{ include('@OdiseoSyliusReportPlugin/_dataFetcherConfiguration.html.twig', { 'configurationForm': form.dataFetcherConfiguration }) }}
+                {{ include(form.vars.dataFetcherConfigurationTemplate, { 'configurationForm': form.dataFetcherConfiguration }) }}
             </div>
         </div>
     </div>

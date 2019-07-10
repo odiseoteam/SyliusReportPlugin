@@ -36,21 +36,37 @@ class ReportType extends AbstractResourceType
     protected $dataFetcherRegistry;
 
     /**
+     * @var string
+     */
+    protected $rendererConfigurationTemplate;
+
+    /**
+     * @var string
+     */
+    protected $dataFetcherConfigurationTemplate;
+
+    /**
      * @param string $dataClass FQCN
      * @param string[] $validationGroups
      * @param ServiceRegistryInterface $rendererRegistry
      * @param ServiceRegistryInterface $dataFetcherRegistry
+     * @param string $rendererConfigurationTemplate
+     * @param string $dataFetcherConfigurationTemplate
      */
     public function __construct(
         $dataClass,
         array $validationGroups,
         ServiceRegistryInterface $rendererRegistry,
-        ServiceRegistryInterface $dataFetcherRegistry
+        ServiceRegistryInterface $dataFetcherRegistry,
+        string $rendererConfigurationTemplate,
+        string $dataFetcherConfigurationTemplate
     ) {
         parent::__construct($dataClass, $validationGroups);
 
         $this->rendererRegistry = $rendererRegistry;
         $this->dataFetcherRegistry = $dataFetcherRegistry;
+        $this->rendererConfigurationTemplate = $rendererConfigurationTemplate;
+        $this->dataFetcherConfigurationTemplate = $dataFetcherConfigurationTemplate;
     }
 
     /**
@@ -118,6 +134,8 @@ class ReportType extends AbstractResourceType
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['prototypes'] = [];
+        $view->vars['rendererConfigurationTemplate'] = $this->rendererConfigurationTemplate;
+        $view->vars['dataFetcherConfigurationTemplate'] = $this->dataFetcherConfigurationTemplate;
 
         foreach ($form->getConfig()->getAttribute('prototypes') as $group => $prototypes) {
             /** @var FormView $prototypes */
