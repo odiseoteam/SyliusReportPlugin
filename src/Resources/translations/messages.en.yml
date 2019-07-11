@@ -6,7 +6,6 @@ odiseo_sylius_report:
         data_fetchers: Data Fetchers
         no_data: No data
         new_report: New report
-        show_report: Show report
         edit_report: Edit report
         there_are_no_reports_results: No report results
         export: Export

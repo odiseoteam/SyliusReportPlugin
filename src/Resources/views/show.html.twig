@@ -12,50 +12,56 @@
     { label: resource.name }
 ] %}
 
-{% set header = configuration.vars.header|default(metadata.applicationName~'.ui.show_'~metadata.name) %}
 {% set event_prefix = metadata.applicationName ~ '.admin.' ~ metadata.name ~ '.show' %}
 
-{% block title %}{{ header|trans }} "{{ resource.name }}"  {{ parent() }}{% endblock %}
+{% block title %}{{ resource.name }} {{ parent() }}{% endblock %}
 
 {% block content %}
-    {{ sonata_block_render_event(event_prefix ~ '.before_header', {'resource': resource}) }}
+    {% block show_header %}
+        {{ sonata_block_render_event(event_prefix ~ '.before_header', {'resource': resource}) }}
 
-    <div class="ui stackable two column grid">
-        <div class="column">
-            {{ headers.default(header|trans~' "'~resource.name~'"', configuration.vars.icon|default('bar chart'), configuration.vars.subheader|default(null)|trans) }}
-            {{ breadcrumb.crumble(breadcrumbs) }}
-        </div>
-        <div class="middle aligned column">
-            <div class="ui right floated buttons">
-                {{ buttons.default(path('odiseo_sylius_report_admin_report_update', {'id': resource.id}), 'sylius.ui.edit', null, 'pencil',  'primary') }}
-                {{ buttons.default(path('odiseo_sylius_report_admin_report_export', {'id': resource.id}), 'odiseo_sylius_report.ui.export', null, 'download',  'green') }}
+        <div class="ui stackable two column grid">
+            <div class="column">
+                {{ headers.default(resource.name, configuration.vars.icon|default('bar chart'), configuration.vars.subheader|default(null)|trans) }}
+                {{ breadcrumb.crumble(breadcrumbs) }}
+            </div>
+            <div class="middle aligned column">
+                <div class="ui right floated buttons">
+                    {{ buttons.default(path('odiseo_sylius_report_admin_report_update', {'id': resource.id}), 'sylius.ui.edit', null, 'pencil',  'primary') }}
+                    {{ buttons.default(path('odiseo_sylius_report_admin_report_export', {'id': resource.id}), 'odiseo_sylius_report.ui.export', null, 'download',  'green') }}
+                </div>
             </div>
         </div>
-    </div>
 
-    {{ sonata_block_render_event(event_prefix ~ '.after_header', {'resource': resource}) }}
+        {{ sonata_block_render_event(event_prefix ~ '.after_header', {'resource': resource}) }}
+    {% endblock %}
 
-    {% set path = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+    {% block show_filters %}
+        {% set path = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
 
-    <div class="ui hidden divider"></div>
-    <div class="ui styled fluid accordion">
-        <div class="title active">
-            <i class="dropdown icon"></i>
-            {{ 'sylius.ui.filters'|trans }}
+        <div class="ui hidden divider"></div>
+
+        <div class="ui styled fluid accordion">
+            <div class="title active">
+                <i class="dropdown icon"></i>
+                {{ 'sylius.ui.filters'|trans }}
+            </div>
+            <div class="content">
+                <form method="get" action="{{ path }}" class="ui loadable form">
+                    {{ include('@OdiseoSyliusReportPlugin/_dataFetcherConfiguration.html.twig', { 'configurationForm': form }) }}
+
+                    {{ buttons.filter() }}
+                    {{ buttons.resetFilters(path) }}
+                </form>
+            </div>
         </div>
-        <div class="content">
-            <form method="get" action="{{ path }}" class="ui loadable form">
-                {{ include('@OdiseoSyliusReportPlugin/_dataFetcherConfiguration.html.twig', { 'configurationForm': form }) }}
+    {% endblock %}
 
-                {{ buttons.filter() }}
-                {{ buttons.resetFilters(path) }}
-            </form>
+    {% block show_results %}
+        <div class="ui segment">
+            {{ render(controller('odiseo_sylius_report.controller.report:embedAction', {'report': report, 'configuration' : configurationForm})) }}
         </div>
-    </div>
-
-    <div class="ui segment">
-        {{ render(controller('odiseo_sylius_report.controller.report:embedAction', {'report': report, 'configuration' : configurationForm})) }}
-    </div>
+    {% endblock %}
 
     {{ sonata_block_render_event(event_prefix ~ '.after_content', {'resource': resource}) }}
 {% endblock %}

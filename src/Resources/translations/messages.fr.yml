@@ -6,7 +6,6 @@ odiseo_sylius_report:
         data_fetchers: Collecteur de données
         no_data: Aucune donnée
         new_report: Nouveau rapport
-        show_report: Afficher le rapport
         edit_report: Éditer le rapport
         there_are_no_reports_results: Il n'y a aucun résultat pour ce rapport.
         daily: Journalier

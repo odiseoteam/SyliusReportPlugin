@@ -6,7 +6,6 @@ odiseo_sylius_report:
         data_fetchers: Obtención de datos
         no_data: Sin datos
         new_report: Nuevo reporte
-        show_report: Ver reporte
         edit_report: Editar reporte
         there_are_no_reports_results: No se encontraron resultados para este reporte
         export: Exportar
