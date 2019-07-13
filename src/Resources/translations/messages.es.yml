@@ -9,9 +9,11 @@ odiseo_sylius_report:
         edit_report: Editar reporte
         there_are_no_reports_results: No se encontraron resultados para este reporte
         export: Exportar
+        today: Hoy
         daily: Diario
         monthly: Mensual
         yearly: Anual
+        more_filters: Más filtros
     form:
         report:
             name: Nombre

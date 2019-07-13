@@ -25,13 +25,3 @@ Odiseo\SyliusReportPlugin\Model\Report:
                 minMessage: 'odiseo_sylius_report.report.name.min_length'
                 maxMessage: 'odiseo_sylius_report.report.name.max_length'
                 groups: ['odiseo']
-        description:
-            - NotBlank:
-                message: 'odiseo_sylius_report.report.description.not_blank'
-                groups: ['odiseo']
-            - Length:
-                min: 2
-                max: 5000
-                minMessage: 'odiseo_sylius_report.report.description.min_length'
-                maxMessage: 'odiseo_sylius_report.report.description.max_length'
-                groups: ['odiseo']

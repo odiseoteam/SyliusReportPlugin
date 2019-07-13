@@ -8,9 +8,12 @@ odiseo_sylius_report:
         new_report: Nouveau rapport
         edit_report: Éditer le rapport
         there_are_no_reports_results: Il n'y a aucun résultat pour ce rapport.
+        export: Exportation
+        today: Aujourd'hui
         daily: Journalier
         monthly: Mensuel
         yearly: Annuel
+        more_filters: Plus de filtres
     form:
         report:
             name: Nom

@@ -84,7 +84,7 @@ class ReportType extends AbstractResourceType
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'odiseo_sylius_report.form.report.description',
-                'required' => true,
+                'required' => false,
             ])
             ->add('dataFetcher', DataFetcherChoiceType::class, [
                 'label' => 'odiseo_sylius_report.form.data_fetcher',

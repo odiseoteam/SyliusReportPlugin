@@ -1,39 +1,47 @@
 {% if configurationForm.timePeriod is defined %}
-<div class="two fields">
-{% for field in configurationForm.timePeriod %}
-    {% if field.vars.name == 'end' %}
-    <div class="field">
-        {{ form_label(field) }}
-        {{ form_widget(field) }}
+    <div class="two fields">
+    {% for field in configurationForm.timePeriod %}
+        {% if field.vars.name == 'end' %}
+        <div class="field">
+            {{ form_label(field) }}
+            {{ form_widget(field) }}
 
-        <div class="ui checkbox">
-            <input id="timePeriod_end_today" type="checkbox" tabindex="0" class="hidden" {{ field.vars.data is same as(null)?'checked':'' }}>
-            <label for="timePeriod_end_today">Today</label>
+            <div class="ui checkbox">
+                <input id="timePeriod_end_today" type="checkbox" tabindex="0" class="hidden" {{ field.vars.data is same as(null)?'checked':'' }}>
+                <label for="timePeriod_end_today">{{ 'odiseo_sylius_report.ui.today'|trans }}</label>
+            </div>
         </div>
-    </div>
-    {% else %}
-        {{ form_row(field) }}
-    {% endif %}
+        {% else %}
+            {{ form_row(field) }}
+        {% endif %}
 
-    {% if loop.index is divisible by(2) %}
-</div>
-<div class="two fields">
-    {% endif %}
-{% endfor %}
-</div>
-<div class="ui divider"></div>
+        {% if loop.index is divisible by(2) %}
+    </div>
+    <div class="two fields">
+        {% endif %}
+    {% endfor %}
+    </div>
 {% endif %}
 
-{% set index = 1 %}
-<div class="two fields">
-{% for field in configurationForm %}
-    {% if field.vars.name != 'timePeriod' %}
-    {{ form_row(field) }}
-    {% if index is divisible by(2) %}
-</div>
-<div class="two fields">
-    {% endif %}
-    {% set index = index+1 %}
-    {% endif %}
-{% endfor %}
+<div class="ui accordion">
+    <div class="title">
+        <i class="dropdown icon"></i>
+        {{ 'odiseo_sylius_report.ui.more_filters'|trans }}
+    </div>
+    <div class="content">
+        {% set index = 1 %}
+        <div class="two fields">
+        {% for field in configurationForm %}
+            {% if field.vars.name != 'timePeriod' %}
+                {{ form_row(field) }}
+                {% if index is divisible by(2) %}
+        </div>
+        <div class="two fields">
+                {% endif %}
+
+                {% set index = index+1 %}
+            {% endif %}
+        {% endfor %}
+        </div>
+    </div>
 </div>

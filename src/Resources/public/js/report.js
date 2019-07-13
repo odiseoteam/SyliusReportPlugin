@@ -20,6 +20,7 @@ var setupAutocomplete = function () {
 var setupForms = function () {
     $('#odiseo_sylius_report_dataFetcher_configuration .ui.toggle.checkbox').checkbox();
     $('#odiseo_sylius_report_dataFetcher_configuration .ui.dropdown').dropdown();
+    $('#odiseo_sylius_report_dataFetcher_configuration .ui.accordion').accordion();
 
     setupAutocomplete();
 };

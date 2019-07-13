@@ -12,7 +12,7 @@ Odiseo\SyliusReportPlugin\Model\Report:
             type: string
         description:
             type: string
-            nullable: false
+            nullable: true
         code:
             type: string
             unique: true
