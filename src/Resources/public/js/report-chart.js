@@ -1,115 +1,199 @@
-function generateLineChart(labels, values, ctx) {
-    data = {
-        labels : labels,
-        datasets : [
-            {
-                fillColor : "rgba(26,187,156,0.5)",
-                strokeColor : "rgba(55,163,126,1)",
-                pointColor : "rgba(55,163,126,1)",
-                pointStrokeColor : "#fff",
-                pointHighlightFill : "#fff",
-                pointHighlightStroke : "rgba(55,163,126,1)",
-                data : values
-            }
-        ]
-    }
-    window.myLine = new Chart(ctx).Line(data, {
-        responsive: true,
-        maintainAspectRatio: false
-    });
-}
-function generateBarChart(labels, values, ctx) {
-    data = {
-        labels : labels,
-        datasets : [
-            {
-                fillColor : "rgba(220,220,220,0.5)",
-                strokeColor : "rgba(220,220,220,0.8)",
-                highlightFill: "rgba(220,220,220,0.75)",
-                highlightStroke: "rgba(220,220,220,1)",
-                data : values
-            }
-        ]
-    }
-    window.myBar = new Chart(ctx).Bar(data, {
-        responsive: true,
-        maintainAspectRatio: false
-    });
-}
-function generateRadarChart(labels, values, ctx) {
-    data = {
-        labels: labels,
-        datasets: [
-            {
-                fillColor: "rgba(26,187,156,0.5)",
-                strokeColor: "#37a37e",
-                pointColor: "rgba(220,220,220,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(220,220,220,1)",
-                data: values
-            }
-        ]
-    }
-    $("#canvas").width(600).height("auto");
-    window.myBar = new Chart(ctx).Radar(data, {
-        responsive: true,
-        maintainAspectRatio: false
-    });
-}
-function generatePolarChart(labels, values, ctx) {
-    window.myBar = new Chart(ctx).PolarArea(generateRadialData(labels, values), {
-        responsive: true,
-        maintainAspectRatio: false
-    });
-}
-function generatePieChart(labels, values, ctx) {
-    window.myBar = new Chart(ctx).Pie(generateRadialData(labels, values), {
-        responsive: true,
-        maintainAspectRatio: false
-    });
-}
-function generateDoughnutChart(labels, values, ctx) {
-    window.myBar = new Chart(ctx).Doughnut(generateRadialData(labels, values), {
-        responsive: true,
-        maintainAspectRatio: false
-    });
-}
-function generateRadialData(labels, values) {
-    var colors = ["#1abb9c", "#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360", "#bdbdbd", "#AA66CC", "33B5E5"];
-    var highlights = ["#37a37e", "#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774", "#acacac", "#9933CC", "0099CC"];
-    var data = [];
-    $.each(values, function(i){
-        var fragment = {
-            value: parseInt(this),
-            color: colors[i%9],
-            highlight: highlights[i%9],
-            label: labels[i]
+var reportChart = null;
+
+function formatMoney(number, decimals, decPoint, thousandsSep, currencySymbol)
+{
+// *     example: formatMoney(1234.56, 2, ',', ' ');
+// *     return: '1 234,56'
+    number = (number + '').replace(',', '').replace(' ', '');
+    var n = !isFinite(+number) ? 0 : +number,
+        prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+        sep = (typeof thousandsSep === 'undefined') ? ',' : thousandsSep,
+        dec = (typeof decPoint === 'undefined') ? '.' : decPoint,
+        s = '',
+        toFixedFix = function (n, prec) {
+            var k = Math.pow(10, prec);
+            return '' + Math.round(n * k) / k;
         };
-        data.push(fragment);
-    });
-    return data;
+    // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+    s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+    if (s[0].length > 3) {
+        s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+    }
+    if ((s[1] || '').length < prec) {
+        s[1] = s[1] || '';
+        s[1] += new Array(prec - s[1].length + 1).join('0');
+    }
+    return currencySymbol + s.join(dec);
 }
 
-function initChart(self){
-    var chartType = self.attr("data-type");
-    var reportCode = self.attr("id");
-    var labels = self.attr("data-labels").split(";");
-    var values = self.attr("data-values").split(";");
+function generateChart(ctx, type, labels, values, options)
+{
+    var datasetOptions = $.extend({
+        data: values
+    }, options.dataset);
+
+    var chartOptions = {
+        type: type,
+        data: {
+            labels: labels,
+            datasets: [datasetOptions]
+        },
+        options: {
+            maintainAspectRatio: false,
+            legend: {
+                display: false
+            },
+            tooltips: {
+                callbacks: {
+                    label: function (tooltipItem, chart) {
+                        var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || (chart.labels[tooltipItem.index] || '');
+                        var datasetValue = chart.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+
+                        if (options.isMoneyValue !== undefined && options.isMoneyValue === true) {
+                            return datasetLabel + ': ' + formatMoney(datasetValue, 2, '.', ',', '$');
+                        }
+
+                        return datasetLabel + datasetValue;
+                    }
+                }
+            }
+        }
+    };
+
+    if (type !== 'pie' && type !== 'radar' && type !== 'polarArea' && type !== 'doughnut') {
+        chartOptions.options.scales = {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    userCallback: function (value, index, values) {
+                        if (options.isMoneyValue !== undefined && options.isMoneyValue === true) {
+                            return formatMoney(value, 2, '.', ',', '$');
+                        }
+
+                        return value;
+                    }
+                }
+            }]
+        };
+    }
+
+    console.log(chartOptions);
+    reportChart = new Chart(ctx, chartOptions);
+}
+
+function generateLineChart(ctx, labels, values, options)
+{
+    options = $.extend(options, {
+        dataset: {
+            backgroundColor: 'rgba(60,122,167,0.6)',
+            borderColor: 'rgba(44,79,110,0.95)',
+            borderWidth: 1
+        }
+    });
+
+    generateChart(ctx, 'line', labels, values, options);
+}
+
+function generateBarChart(ctx, labels, values, options)
+{
+    options = $.extend(options, {
+        dataset: {
+            backgroundColor: 'rgba(60,122,167,0.6)',
+            borderColor: 'rgba(44,79,110,0.95)',
+            borderWidth: 1
+        }
+    });
+
+    generateChart(ctx, 'bar', labels, values, options);
+}
+
+function generateRadarChart(ctx, labels, values, options)
+{
+    options = $.extend(options, {
+        dataset: {
+            backgroundColor: 'rgba(60,122,167,0.6)',
+            borderColor: 'rgba(44,79,110,0.95)',
+            borderWidth: 1
+        }
+    });
+
+    generateChart(ctx, 'radar', labels, values, options);
+}
+
+function generatePolarChart(ctx, labels, values, options)
+{
+    options = $.extend(options, {
+        dataset: {
+            backgroundColor: 'rgba(60,122,167,0.6)',
+            borderColor: 'rgba(44,79,110,0.95)',
+            borderWidth: 1
+        }
+    });
+
+    generateChart(ctx, 'polarArea', labels, values, options);
+}
+
+function generatePieChart(ctx, labels, values, options)
+{
+    options = $.extend(options, {
+        dataset: generateRadialData(values)
+    });
+
+    generateChart(ctx, 'pie', labels, values, options);
+}
+
+function generateDoughnutChart(ctx, labels, values, options)
+{
+    options = $.extend(options, {
+        dataset: generateRadialData(values)
+    });
+
+    generateChart(ctx, 'doughnut', labels, values, options);
+}
+
+function generateRadialData(values)
+{
+    var backgroundColors = ["#1abb9c", "#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360", "#bdbdbd", "#AA66CC", "#33B5E5"];
+    var borderColors = ["#37a37e", "#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774", "#acacac", "#9933CC", "#0099CC"];
+    var datasetConfiguration = {
+        backgroundColor: [],
+        borderColor: [],
+        borderWidth: 1
+    };
+
+    $.each(values, function(i) {
+        datasetConfiguration.backgroundColor.push(backgroundColors[i%9]);
+        datasetConfiguration.borderColor.push(borderColors[i%9]);
+    });
+
+    return datasetConfiguration;
+}
+
+function initChart($reportCanvas)
+{
+    var reportCode = $reportCanvas.attr("id");
+    var chartType = $reportCanvas.data("type");
+    var labels = $reportCanvas.data("labels").split(";");
+    var values = $reportCanvas.data("values").split(";");
+    var options = $.extend($reportCanvas.data('options'), {
+        dataset: {}
+    });
 
     var ctx = document.getElementById(reportCode).getContext("2d");
+
     switch(chartType) {
-        case "line": generateLineChart(labels, values, ctx); break;
-        case "bar": generateBarChart(labels, values, ctx); break;
-        case "radar": generateRadarChart(labels, values, ctx); break;
-        case "polar": generatePolarChart(labels, values, ctx); break;
-        case "pie": generatePieChart(labels, values, ctx); break;
-        case "doughnut": generateDoughnutChart(labels, values, ctx); break;
+        case "line": generateLineChart(ctx, labels, values, options); break;
+        case "bar": generateBarChart(ctx, labels, values, options); break;
+        case "radar": generateRadarChart(ctx, labels, values, options); break;
+        case "polar": generatePolarChart(ctx, labels, values, options); break;
+        case "pie": generatePieChart(ctx, labels, values, options); break;
+        case "doughnut": generateDoughnutChart(ctx, labels, values, options); break;
     }
 }
 
-window.addEventListener("load",function(){
-    $.each($("canvas"), function(){
+window.addEventListener("load",function()
+{
+    $.each($("canvas"), function() {
         initChart($(this));
     });
 });

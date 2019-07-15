@@ -1,7 +1,13 @@
 {% set report = data.report %}
 {% set labels = data.labels %}
 {% set values = data.values %}
+{% set isMoneyValue = report.dataFetcher == 'odiseo_sylius_report_data_fetcher_sales_total' %}
 
 {% block content %}
-    <canvas id="{{ report.code }}" data-type="{{ configuration.type }}" data-labels="{% for items in values %}{{ items[0] }}{% if loop.index != loop.length %};{% endif %}{% endfor %}" data-values="{% for items in values %}{{ items[items|length-1] }}{% if loop.index != loop.length %};{% endif %}{% endfor %}" height="400"></canvas>
+    <canvas id="{{ report.code }}" data-type="{{ configuration.type }}" data-options="{{ {isMoneyValue: isMoneyValue}|json_encode }}"
+            data-labels="{% for items in values %}{{ items[0] }}{% if loop.index != loop.length %};{% endif %}{% endfor %}"
+            data-values="{% for items in values %}{{ items[items|length-1] }}{% if loop.index != loop.length %};{% endif %}{% endfor %}"
+            height="400"
+    >
+    </canvas>
 {% endblock %}
