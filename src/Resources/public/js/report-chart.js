@@ -77,7 +77,6 @@ function generateChart(ctx, type, labels, values, options)
         };
     }
 
-    console.log(chartOptions);
     reportChart = new Chart(ctx, chartOptions);
 }
 
@@ -173,8 +172,8 @@ function initChart($reportCanvas)
 {
     var reportCode = $reportCanvas.attr("id");
     var chartType = $reportCanvas.data("type");
-    var labels = $reportCanvas.data("labels").split(";");
-    var values = $reportCanvas.data("values").split(";");
+    var labels = $reportCanvas.data("labels").toString().split(";");
+    var values = $reportCanvas.data("values").toString().split(";");
     var options = $.extend($reportCanvas.data('options'), {
         dataset: {}
     });
