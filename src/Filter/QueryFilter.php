@@ -109,12 +109,16 @@ class QueryFilter
     /**
      * @param array $configuration
      * @param string $dateField
+     * @param string $rootAlias
      * @throws Exception
      */
-    public function addTimePeriod(array $configuration = [], $dateField = 'checkoutCompletedAt'): void
+    public function addTimePeriod(array $configuration = [], $dateField = 'checkoutCompletedAt', $rootAlias = null): void
     {
         if (false === strpos($dateField, '.')) {
-            $rootAlias = $this->qb->getRootAliases()[0];
+            if (!$rootAlias) {
+                $rootAlias = $this->qb->getRootAliases()[0];
+            }
+
             $dateF = $rootAlias.'.'.$dateField;
         } else {
             $dateF = $dateField;
@@ -141,8 +145,9 @@ class QueryFilter
     /**
      * @param array $configuration
      * @param string $field
+     * @param string $rootAlias
      */
-    public function addChannel(array $configuration = [], $field = null): void
+    public function addChannel(array $configuration = [], $field = null, $rootAlias = null): void
     {
         if (isset($configuration['channel']) && count($configuration['channel']) > 0) {
             $storeIds = [];
@@ -158,8 +163,11 @@ class QueryFilter
             }
 
             if (!$field) {
-                $alias = $this->qb->getRootAliases()[0];
-                $field = $alias.'.channel';
+                if (!$rootAlias) {
+                    $rootAlias = $this->qb->getRootAliases()[0];
+                }
+
+                $field = $rootAlias.'.channel';
             }
 
             $this->qb
@@ -170,11 +178,14 @@ class QueryFilter
 
     /**
      * @param array $configuration
+     * @param string $rootAlias
      */
-    public function addUserGender(array $configuration = []): void
+    public function addUserGender(array $configuration = [], $rootAlias = null): void
     {
         if (isset($configuration['userGender']) && count($configuration['userGender']) > 0) {
-            $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
+            if (!$rootAlias) {
+                $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
+            }
 
             if (!$this->hasRootEntity(Customer::class)) {
                 $cAlias = $this->addLeftJoin($rootAlias.'.customer', 'c');
@@ -189,13 +200,16 @@ class QueryFilter
     /**
      * @param array $configuration
      * @param string $addressType
+     * @param string $rootAlias
      */
-    public function addUserCountry(array $configuration = [], string $addressType = 'shipping'): void
+    public function addUserCountry(array $configuration = [], string $addressType = 'shipping', $rootAlias = null): void
     {
         $type = 'user'.ucfirst($addressType).'Country';
 
         if (isset($configuration[$type]) && count($configuration[$type]) > 0) {
-            $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
+            if (!$rootAlias) {
+                $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
+            }
 
             if (!$this->hasRootEntity(Customer::class)) {
                 $cAlias = $this->addLeftJoin($rootAlias.'.customer', 'c');
@@ -212,8 +226,9 @@ class QueryFilter
     /**
      * @param array $configuration
      * @param string $addressType
+     * @param string $rootAlias
      */
-    public function addUserProvince(array $configuration = [], string $addressType = 'shipping'): void
+    public function addUserProvince(array $configuration = [], string $addressType = 'shipping', $rootAlias = null): void
     {
         $type = 'user'.ucfirst($addressType).'Province';
 
@@ -221,7 +236,10 @@ class QueryFilter
             $provinces = $configuration[$type]->map(function (AddressInterface $address) {
                 return $address->getProvinceCode() ?: $address->getProvinceName();
             })->toArray();
-            $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
+
+            if (!$rootAlias) {
+                $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
+            }
 
             if (!$this->hasRootEntity(Customer::class)) {
                 $cAlias = $this->addLeftJoin($rootAlias.'.customer', 'c');
@@ -241,8 +259,9 @@ class QueryFilter
     /**
      * @param array $configuration
      * @param string $addressType
+     * @param string $rootAlias
      */
-    public function addUserCity(array $configuration = [], string $addressType = 'shipping'): void
+    public function addUserCity(array $configuration = [], string $addressType = 'shipping', $rootAlias = null): void
     {
         $type = 'user'.ucfirst($addressType).'City';
 
@@ -250,7 +269,10 @@ class QueryFilter
             $cities = $configuration[$type]->map(function (AddressInterface $address) {
                 return $address->getCity();
             })->toArray();
-            $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
+
+            if (!$rootAlias) {
+                $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
+            }
 
             if (!$this->hasRootEntity(Customer::class)) {
                 $cAlias = $this->addLeftJoin($rootAlias.'.customer', 'c');
@@ -267,8 +289,9 @@ class QueryFilter
     /**
      * @param array $configuration
      * @param string $addressType
+     * @param string $rootAlias
      */
-    public function addUserPostcode(array $configuration = [], string $addressType = 'shipping'): void
+    public function addUserPostcode(array $configuration = [], string $addressType = 'shipping', $rootAlias = null): void
     {
         $type = 'user'.ucfirst($addressType).'Postcode';
 
@@ -276,7 +299,10 @@ class QueryFilter
             $codes = $configuration[$type]->map(function (AddressInterface $address) {
                 return $address->getPostcode();
             })->toArray();
-            $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
+
+            if (!$rootAlias) {
+                $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
+            }
 
             if (!$this->hasRootEntity(Customer::class)) {
                 $cAlias = $this->addLeftJoin($rootAlias.'.customer', 'c');
