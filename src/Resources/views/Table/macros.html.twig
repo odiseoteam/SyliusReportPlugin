@@ -8,7 +8,7 @@
         <tr>
             <th>{{ '#' }}</th>
             {% for label in labels %}
-                <th>{{ label }}</th>
+                <th>{{ ('odiseo_sylius_report_plus.ui.table.'~label)|trans }}</th>
             {% endfor %}
         </tr>
         </thead>
