@@ -39,7 +39,7 @@ Feature: Adding a new report
         When I fill the code with "2018_sales"
         And I fill the name with "2018 Sales"
         And I fill the description with "Sales statistic for year 2018"
-        And I select "Sales Total" as data fetcher
+        And I select "odiseo_sylius_report_data_fetcher_sales_total" as data fetcher
         And I select "2018-01-01" as start date
         And I select today as end date
         And I select "month" as time period
