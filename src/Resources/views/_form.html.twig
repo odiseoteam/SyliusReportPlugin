@@ -25,7 +25,7 @@
             <h4 class="ui dividing header">{{ 'odiseo_sylius_report.ui.renderers'|trans }}</h4>
             {{ form_row(form.renderer) }}
             <div class="ui divider"></div>
-            <div class="two fields" id="odiseo_sylius_report_renderer_configuration">
+            <div id="odiseo_sylius_report_renderer_configuration">
                 {{ include(form.vars.rendererConfigurationTemplate, { 'configurationForm': form.rendererConfiguration }) }}
             </div>
         </div>

@@ -41,19 +41,16 @@
 
         <div class="ui hidden divider"></div>
 
-        <div class="ui styled fluid accordion">
-            <div class="title active">
-                <i class="dropdown icon"></i>
+        <div class="ui segment">
+            <h4 class="ui header">
                 {{ 'sylius.ui.filters'|trans }}
-            </div>
-            <div class="content">
-                <form method="get" action="{{ path }}" class="ui loadable form">
-                    {{ include('@OdiseoSyliusReportPlugin/_dataFetcherConfiguration.html.twig', { 'configurationForm': form }) }}
+            </h4>
+            <form method="get" action="{{ path }}" class="ui loadable form">
+                {{ include('@OdiseoSyliusReportPlugin/_dataFetcherConfiguration.html.twig', { 'configurationForm': form }) }}
 
-                    {{ buttons.filter() }}
-                    {{ buttons.resetFilters(path) }}
-                </form>
-            </div>
+                {{ buttons.filter() }}
+                {{ buttons.resetFilters(path) }}
+            </form>
         </div>
     {% endblock %}
 

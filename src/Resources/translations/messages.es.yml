@@ -14,6 +14,16 @@ odiseo_sylius_report:
         monthly: Mensual
         yearly: Anual
         more_filters: Más filtros
+        table:
+            date: Fecha
+            orders_quantity: Cantidad de ordenes
+            products_quantity: Cantidad de productos
+            users_quantity: Cantidad de usuarios
+            carts_quantity: Cantidad de carritos
+            products_total_money: Total productos
+            net_total_money: Total neto
+            adjustment_total_money: Total ajustes
+            gross_total_money: Total bruto
     form:
         report:
             name: Nombre

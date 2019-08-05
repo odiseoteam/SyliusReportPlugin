@@ -31,7 +31,7 @@ class NumberOfOrdersDataFetcher extends TimePeriodDataFetcher
 
         $this->orderClass = $orderClass;
     }
-    
+
     /**
      * {@inheritdoc}
      * @throws Exception
@@ -42,7 +42,7 @@ class NumberOfOrdersDataFetcher extends TimePeriodDataFetcher
 
         $from = $this->orderClass;
         $qb
-            ->select('DATE(payment.updatedAt) as date', 'COUNT(o.id) as NumberOfOrders')
+            ->select('DATE(payment.updatedAt) as date', 'COUNT(o.id) as orders_quantity')
             ->from($from, 'o')
         ;
 

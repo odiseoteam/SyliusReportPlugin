@@ -42,7 +42,7 @@ class SalesTotalDataFetcher extends TimePeriodDataFetcher
 
         $from = $this->orderClass;
         $qb
-            ->select('DATE(payment.updatedAt) as date', 'COUNT(DATE(payment.updatedAt)) as orders', 'ROUND(SUM(o.total/100), 2) as total_'.$configuration['baseCurrency'])
+            ->select('DATE(payment.updatedAt) as date', 'COUNT(DATE(payment.updatedAt)) as orders_quantity', 'ROUND(SUM(o.total/100), 2) as gross_total_money')
             ->from($from, 'o')
         ;
 

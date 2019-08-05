@@ -183,6 +183,7 @@ class QueryFilter
     public function addUserGender(array $configuration = [], $rootAlias = null): void
     {
         if (isset($configuration['userGender']) && count($configuration['userGender']) > 0) {
+            $cAlias = $rootAlias;
             if (!$rootAlias) {
                 $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
             }
@@ -207,6 +208,7 @@ class QueryFilter
         $type = 'user'.ucfirst($addressType).'Country';
 
         if (isset($configuration[$type]) && count($configuration[$type]) > 0) {
+            $cAlias = $rootAlias;
             if (!$rootAlias) {
                 $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
             }
@@ -237,6 +239,7 @@ class QueryFilter
                 return $address->getProvinceCode() ?: $address->getProvinceName();
             })->toArray();
 
+            $cAlias = $rootAlias;
             if (!$rootAlias) {
                 $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
             }
@@ -270,6 +273,7 @@ class QueryFilter
                 return $address->getCity();
             })->toArray();
 
+            $cAlias = $rootAlias;
             if (!$rootAlias) {
                 $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
             }
@@ -300,6 +304,7 @@ class QueryFilter
                 return $address->getPostcode();
             })->toArray();
 
+            $cAlias = $rootAlias;
             if (!$rootAlias) {
                 $rootAlias = $cAlias = $this->qb->getRootAliases()[0];
             }

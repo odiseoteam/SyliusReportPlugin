@@ -29,7 +29,7 @@ class UserRegistrationDataFetcher extends TimePeriodDataFetcher
 
         $this->orderClass = $orderClass;
     }
-    
+
     /**
      * @inheritdoc
      * @throws Exception
@@ -40,7 +40,7 @@ class UserRegistrationDataFetcher extends TimePeriodDataFetcher
 
         $from = $this->orderClass;
         $qb
-            ->select('DATE(u.createdAt) as date', 'count(u.id) as user_total')
+            ->select('DATE(u.createdAt) as date', 'count(u.id) as users_quantity')
             ->from($from, 'u')
         ;
 
