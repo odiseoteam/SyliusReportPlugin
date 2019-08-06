@@ -131,15 +131,25 @@ class QueryFilter
         /** @var DateTime $endDateTime */
         $endDateTime = $configuration['timePeriod']['end']?:new DateTime();
 
-        $this->qb
-            ->addSelect($groupByParts[0])
-            ->andWhere($this->qb->expr()->gte($dateF, ':from'))
-            ->andWhere($this->qb->expr()->lte($dateF, ':to'))
-            ->setParameter('from', $startDateTime->format('Y-m-d H:i:s'))
-            ->setParameter('to', $endDateTime->format('Y-m-d H:i:s'))
-            ->groupBy($groupByParts[1])
-            ->orderBy('date,'.$groupByParts[1])
-        ;
+        if ($groupByParts[0] && $groupByParts[1]) {
+            $this->qb
+                ->addSelect($groupByParts[0])
+                ->andWhere($this->qb->expr()->gte($dateF, ':from'))
+                ->andWhere($this->qb->expr()->lte($dateF, ':to'))
+                ->setParameter('from', $startDateTime->format('Y-m-d H:i:s'))
+                ->setParameter('to', $endDateTime->format('Y-m-d H:i:s'))
+                ->groupBy($groupByParts[1])
+                ->orderBy('date,' . $groupByParts[1])
+            ;
+        } else {
+            $this->qb
+                ->andWhere($this->qb->expr()->gte($dateF, ':from'))
+                ->andWhere($this->qb->expr()->lte($dateF, ':to'))
+                ->setParameter('from', $startDateTime->format('Y-m-d H:i:s'))
+                ->setParameter('to', $endDateTime->format('Y-m-d H:i:s'))
+                ->orderBy('date')
+            ;
+        }
     }
 
     /**
