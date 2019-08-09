@@ -90,7 +90,7 @@ class ReportController extends ResourceController
         /** @var ReportInterface $report */
         $report = $this->findOr404($configuration);
 
-        $type = $request->get('type');
+        $format = $request->get('_format');
         $configurationForm = $report->getDataFetcherConfiguration();
 
         /** @var CurrencyContextInterface $currencyContext */
@@ -104,7 +104,7 @@ class ReportController extends ResourceController
         $filename = $this->slugify($report->getName());
 
         $response = null;
-        switch ($type) {
+        switch ($format) {
             case 'json':
                 $response = $this->createJsonResponse($filename, $data);
                 break;

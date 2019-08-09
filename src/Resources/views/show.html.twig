@@ -21,16 +21,21 @@
         {{ sonata_block_render_event(event_prefix ~ '.before_header', {'resource': resource}) }}
 
         <div class="ui stackable two column grid">
-            <div class="column">
-                {{ headers.default(resource.name, configuration.vars.icon|default('bar chart'), configuration.vars.subheader|default(null)|trans) }}
-                {{ breadcrumb.crumble(breadcrumbs) }}
-            </div>
-            <div class="middle aligned column">
-                <div class="ui right floated buttons">
-                    {{ buttons.default(path('odiseo_sylius_report_admin_report_update', {'id': resource.id}), 'sylius.ui.edit', null, 'pencil') }}
-                    {{ buttons.default(path('odiseo_sylius_report_admin_report_export', {'id': resource.id}), 'odiseo_sylius_report.ui.export', null, 'download',  'green') }}
+            {% block show_header_breadcrumbs %}
+                <div class="column">
+                    {{ headers.default(resource.name, configuration.vars.icon|default('bar chart'), configuration.vars.subheader|default(null)|trans) }}
+                    {{ breadcrumb.crumble(breadcrumbs) }}
                 </div>
-            </div>
+            {% endblock %}
+
+            {% block show_header_buttons %}
+                <div class="middle aligned column">
+                    <div class="ui right floated buttons">
+                        {{ buttons.default(path('odiseo_sylius_report_admin_report_update', {'id': resource.id}), 'sylius.ui.edit', null, 'pencil') }}
+                        {{ buttons.default(path('odiseo_sylius_report_admin_report_export', {'id': resource.id}), 'odiseo_sylius_report.ui.export', null, 'download',  'green') }}
+                    </div>
+                </div>
+            {% endblock %}
         </div>
 
         {{ sonata_block_render_event(event_prefix ~ '.after_header', {'resource': resource}) }}
