@@ -15,8 +15,8 @@ doctrine:
     orm:
         dql:
             datetime_functions:
-                date: DoctrineExtensions\Query\Sqlite\Date
-                month: DoctrineExtensions\Query\Sqlite\Month
-                year: DoctrineExtensions\Query\Sqlite\Year
+                date: DoctrineExtensions\Query\Mysql\Date
+                month: DoctrineExtensions\Query\Mysql\Month
+                year: DoctrineExtensions\Query\Mysql\Year
             numeric_functions:
-                round: DoctrineExtensions\Query\Sqlite\Round
+                round: DoctrineExtensions\Query\Mysql\Round

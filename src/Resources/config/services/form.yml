@@ -8,7 +8,6 @@ services:
             - "@sylius.repository.channel"
             - "@router"
 
-    #REPORT DATAFETCHER CONFIGURATION TYPES
     odiseo_sylius_report.form.type.data_fetcher_choice:
         class: Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\DataFetcherChoiceType
         arguments: ['%odiseo_sylius_report.data_fetchers%']
@@ -27,6 +26,13 @@ services:
         tags:
             - { name: form.type, alias: odiseo_sylius_report }
 
+    odiseo_sylius_report.form.type.report_data_fetcher_configuration:
+        class: Odiseo\SyliusReportPlugin\Form\Type\ReportDataFetcherConfigurationType
+        arguments: ['%odiseo_sylius_report.model.report.class%', ['odiseo'], '@odiseo_sylius_report.data_fetcher']
+        tags:
+            - { name: form.type, alias: odiseo_sylius_report }
+
+    #REPORT DATAFETCHER CONFIGURATION TYPES
     odiseo_sylius_report.form.type.data_fetcher.user_registration:
         class: Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\UserRegistrationType
         arguments: ['@odiseo_sylius_report.form_builder.query_filter']

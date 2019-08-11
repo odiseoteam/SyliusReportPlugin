@@ -4,13 +4,12 @@ namespace Odiseo\SyliusReportPlugin\Controller;
 
 use FOS\RestBundle\View\View;
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;
-use Odiseo\SyliusReportPlugin\DataFetcher\DataFetcherInterface;
 use Odiseo\SyliusReportPlugin\DataFetcher\DelegatingDataFetcherInterface;
 use Odiseo\SyliusReportPlugin\Model\ReportInterface;
 use Odiseo\SyliusReportPlugin\Renderer\DelegatingRendererInterface;
 use Odiseo\SyliusReportPlugin\Response\CsvResponse;
+use Odiseo\SyliusReportPlugin\Form\Type\ReportDataFetcherConfigurationType;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
-use Sylius\Component\Currency\Context\CurrencyContextInterface;
 use Sylius\Component\Resource\ResourceActions;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -39,22 +38,8 @@ class ReportController extends ResourceController
 
         /** @var ReportInterface $report */
         $report = $this->findOr404($configuration);
-
-        /** @var FormFactoryInterface $formFactory */
-        $formFactory = $this->container->get('form.factory');
-
-        /** @var DataFetcherInterface $dataFetcher */
-        $dataFetcher = $this->getReportDataFetcher()->getDataFetcher($report);
-        /** @var FormInterface $configurationForm */
-        $configurationForm = $formFactory->createNamed(
-            'configuration',
-            $dataFetcher->getType(),
-            $report->getDataFetcherConfiguration()
-        );
-
-        if ($request->query->has('configuration')) {
-            $configurationForm->handleRequest($request);
-        }
+        $reportDataFetcherConfigurationForm = $this->getReportDataFetcherConfigurationForm($report, $request);
+        $report = $reportDataFetcherConfigurationForm->getData();
 
         $this->eventDispatcher->dispatch(ResourceActions::SHOW, $configuration, $report);
 
@@ -67,8 +52,7 @@ class ReportController extends ResourceController
                 'configuration' => $configuration,
                 'metadata' => $this->metadata,
                 'resource' => $report,
-                'form' => $configurationForm->createView(),
-                'configurationForm' => $configurationForm->getData(),
+                'form' => $reportDataFetcherConfigurationForm->createView(),
                 $this->metadata->getName() => $report,
             ])
         ;
@@ -89,20 +73,17 @@ class ReportController extends ResourceController
 
         /** @var ReportInterface $report */
         $report = $this->findOr404($configuration);
+        $reportDataFetcherConfigurationForm = $this->getReportDataFetcherConfigurationForm($report, $request);
+        $report = $reportDataFetcherConfigurationForm->getData();
 
-        $format = $request->get('_format');
-        $configurationForm = $report->getDataFetcherConfiguration();
-
-        /** @var CurrencyContextInterface $currencyContext */
-        $currencyContext = $this->get('sylius.context.currency');
-
-        $configurationForm['baseCurrency'] = $currencyContext->getCurrencyCode();
+        $dataFetcherConfiguration = $report->getDataFetcherConfiguration();
 
         /** @var Data $data */
-        $data = $this->getReportDataFetcher()->fetch($report, $configurationForm);
+        $data = $this->getReportDataFetcher()->fetch($report, $dataFetcherConfiguration);
 
         $filename = $this->slugify($report->getName());
 
+        $format = $request->get('_format');
         $response = null;
         switch ($format) {
             case 'json':
@@ -119,19 +100,13 @@ class ReportController extends ResourceController
 
     /**
      * @param ReportInterface $report
-     * @param array $configuration
+     * @param array $dataFetcherConfiguration
      *
      * @return Response
      */
-    public function embedAction(ReportInterface $report, array $configuration = [])
+    public function embedAction(ReportInterface $report, array $dataFetcherConfiguration = [])
     {
-        /** @var CurrencyContextInterface $currencyContext */
-        $currencyContext = $this->get('sylius.context.currency');
-
-        $configuration = (count($configuration) > 0) ? $configuration : $report->getDataFetcherConfiguration();
-        $configuration['baseCurrency'] = $currencyContext->getCurrencyCode();
-
-        $data = $this->getReportDataFetcher()->fetch($report, $configuration);
+        $data = $this->getReportDataFetcher()->fetch($report, $dataFetcherConfiguration);
 
         return new Response($this->getReportRenderer()->render($report, $data));
     }
@@ -198,6 +173,26 @@ class ReportController extends ResourceController
         $response->setFilename($filename.'.csv');
 
         return $response;
+    }
+
+    /**
+     * @param ReportInterface $report
+     * @param Request $request
+     * @return FormInterface
+     */
+    protected function getReportDataFetcherConfigurationForm(ReportInterface $report, Request $request): FormInterface
+    {
+        /** @var FormFactoryInterface $formFactory */
+        $formFactory = $this->container->get('form.factory');
+
+        /** @var FormInterface $configurationForm */
+        $configurationForm = $formFactory->create(ReportDataFetcherConfigurationType::class, $report);
+
+        if ($request->query->has($configurationForm->getName())) {
+            $configurationForm->handleRequest($request);
+        }
+
+        return $configurationForm;
     }
 
     /**

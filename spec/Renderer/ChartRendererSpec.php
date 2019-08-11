@@ -35,11 +35,12 @@ final class ChartRendererSpec extends ObjectBehavior
     function it_renders_data_with_given_configuration(ReportInterface $report, Data $reportData, $templating)
     {
         $reportData->getData()->willReturn(['month1' => '50', 'month2' => '40']);
+        $reportData->getLabels()->willReturn(['month', 'sales']);
 
         $renderData = [
             'report' => $report,
             'values' => ['month1' => '50', 'month2' => '40'],
-            'labels' => ['month1', 'month2'],
+            'labels' => ['month', 'sales'],
         ];
 
         $report->getRendererConfiguration()->willReturn(['template' => '@OdiseoSyliusReportPlugin/Chart/default.html.twig']);

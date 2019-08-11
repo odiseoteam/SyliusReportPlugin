@@ -15,7 +15,7 @@
             {{ form_row(field) }}
         {% endif %}
 
-        {% if loop.index is divisible by(2) %}
+        {% if loop.index is divisible by(2) and not loop.last %}
     </div>
     <div class="two fields">
         {% endif %}

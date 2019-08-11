@@ -37,7 +37,6 @@ class TableRenderer implements RendererInterface
                 'report' => $report,
                 'values' => $data->getData(),
                 'labels' => $data->getLabels(),
-                'fields' => array_keys($data->getData()),
             ];
 
             $rendererConfiguration = $report->getRendererConfiguration();

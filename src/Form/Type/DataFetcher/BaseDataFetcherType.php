@@ -2,7 +2,7 @@
 
 namespace Odiseo\SyliusReportPlugin\Form\Type\DataFetcher;
 
-use Odiseo\SyliusReportPlugin\Form\Builder\QueryFilterFormBuilder;
+use Odiseo\SyliusReportPlugin\Form\Builder\QueryFilterFormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 
 /**
@@ -11,11 +11,11 @@ use Symfony\Component\Form\AbstractType;
 abstract class BaseDataFetcherType extends AbstractType
 {
     /**
-     * @var QueryFilterFormBuilder
+     * @var QueryFilterFormBuilderInterface
      */
     protected $queryFilterFormBuilder;
 
-    public function __construct(QueryFilterFormBuilder $queryFilterFormBuilder)
+    public function __construct(QueryFilterFormBuilderInterface $queryFilterFormBuilder)
     {
         $this->queryFilterFormBuilder = $queryFilterFormBuilder;
     }

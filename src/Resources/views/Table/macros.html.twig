@@ -1,4 +1,4 @@
-{% macro list(report, labels, fields, values) %}
+{% macro list(report, labels, values) %}
 
 {% import '@SyliusResource/Macros/buttons.html.twig' as buttons %}
 
@@ -17,7 +17,7 @@
             <tr id="{{ loop.index }}">
                 <td>{{ loop.index }}</td>
                 {% for value in valueData %}
-                <td>{{ value }}</td>
+                <td>{% if '_money' in labels[loop.index0] %}$ {% endif %}{{ value }}</td>
                 {% endfor %}
             </tr>
         {% endfor %}

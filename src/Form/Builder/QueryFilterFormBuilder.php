@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 /**
  * @author Odiseo Team <team@odiseo.com.ar>
  */
-class QueryFilterFormBuilder
+class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
 {
     /** @var RepositoryInterface */
     protected $addressRepository;
@@ -50,7 +50,10 @@ class QueryFilterFormBuilder
         $this->generator = $generator;
     }
 
-    public function addUserGender(FormBuilderInterface &$builder)
+    /**
+     * @inheritDoc
+     */
+    public function addUserGender(FormBuilderInterface &$builder): void
     {
         $builder
             ->add('userGender', ChoiceType::class, [
@@ -66,7 +69,10 @@ class QueryFilterFormBuilder
         ;
     }
 
-    public function addUserCountry(FormBuilderInterface &$builder, $addressType = 'shipping')
+    /**
+     * @inheritDoc
+     */
+    public function addUserCountry(FormBuilderInterface &$builder, $addressType = 'shipping'): void
     {
         $builder
             ->add('user'.ucfirst($addressType).'Country', CountryType::class, [
@@ -80,7 +86,10 @@ class QueryFilterFormBuilder
         ;
     }
 
-    public function addUserCity(FormBuilderInterface $builder, $addressType = 'shipping')
+    /**
+     * @inheritDoc
+     */
+    public function addUserCity(FormBuilderInterface $builder, $addressType = 'shipping'): void
     {
         $builder
             ->add('user'.ucfirst($addressType).'City', AddressAutocompleteChoiceType::class, [
@@ -93,7 +102,10 @@ class QueryFilterFormBuilder
         ;
     }
 
-    public function addUserProvince(FormBuilderInterface $builder, $addressType = 'shipping')
+    /**
+     * @inheritDoc
+     */
+    public function addUserProvince(FormBuilderInterface $builder, $addressType = 'shipping'): void
     {
         $builder
             ->add('user'.ucfirst($addressType).'Province', AddressAutocompleteChoiceType::class, [
@@ -106,7 +118,10 @@ class QueryFilterFormBuilder
         ;
     }
 
-    public function addUserPostcode(FormBuilderInterface $builder, $addressType = 'shipping')
+    /**
+     * @inheritDoc
+     */
+    public function addUserPostcode(FormBuilderInterface $builder, $addressType = 'shipping'): void
     {
         $builder
             ->add('user'.ucfirst($addressType).'Postcode', AddressAutocompleteChoiceType::class, [
@@ -119,14 +134,20 @@ class QueryFilterFormBuilder
         ;
     }
 
-    public function addTimePeriod(FormBuilderInterface $builder)
+    /**
+     * @inheritDoc
+     */
+    public function addTimePeriod(FormBuilderInterface $builder): void
     {
         $builder
             ->add('timePeriod', TimePeriodType::class, [])
         ;
     }
 
-    public function addChannel(FormBuilderInterface $builder)
+    /**
+     * @inheritDoc
+     */
+    public function addChannel(FormBuilderInterface $builder): void
     {
         $builder
             ->add('channel', ChoiceType::class, [
@@ -141,7 +162,10 @@ class QueryFilterFormBuilder
         ;
     }
 
-    public function addProduct(FormBuilderInterface $builder)
+    /**
+     * @inheritDoc
+     */
+    public function addProduct(FormBuilderInterface $builder): void
     {
         $builder
             ->add('product', ProductAutocompleteChoiceType::class, [
@@ -154,7 +178,10 @@ class QueryFilterFormBuilder
         ;
     }
 
-    public function addProductCategory(FormBuilderInterface $builder)
+    /**
+     * @inheritDoc
+     */
+    public function addProductCategory(FormBuilderInterface $builder): void
     {
         $builder
             ->add('productCategory', ChoiceType::class, [
@@ -187,7 +214,10 @@ class QueryFilterFormBuilder
         return $choices;
     }
 
-    protected function buildCategoriesChoices()
+    /**
+     * @return array
+     */
+    protected function buildCategoriesChoices(): array
     {
         $choices = [];
         $categories = $this->taxonRepository->findChildren('category');
@@ -200,7 +230,12 @@ class QueryFilterFormBuilder
         return $choices;
     }
 
-    protected function addCategoryToChoices($choices, TaxonInterface $category)
+    /**
+     * @param array $choices
+     * @param TaxonInterface $category
+     * @return array
+     */
+    protected function addCategoryToChoices(array $choices, TaxonInterface $category): array
     {
         $choices[$category->getName()] = $category->getId();
 

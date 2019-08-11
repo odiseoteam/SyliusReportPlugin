@@ -14,7 +14,7 @@ use Sylius\Component\Core\Model\ProductInterface;
 /**
  * @author Odiseo Team <team@odiseo.com.ar>
  */
-class QueryFilter
+class QueryFilter implements QueryFilterInterface
 {
     /** @var EntityManager */
     protected $em;

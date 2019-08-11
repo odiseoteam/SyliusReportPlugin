@@ -41,7 +41,6 @@ final class TableRendererSpec extends ObjectBehavior
             'report' => $report,
             'values' => ['month1' => '50', 'month2' => '40'],
             'labels' => ['month', 'user_total'],
-            'fields' => ['month1', 'month2'],
         ];
 
         $report->getRendererConfiguration()->willReturn(['template' => '@OdiseoSyliusReportPlugin/Table/default.html.twig']);

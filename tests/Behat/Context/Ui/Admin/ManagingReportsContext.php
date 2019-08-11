@@ -213,7 +213,7 @@ final class ManagingReportsContext implements Context
 
         //Webmozart assert library.
         Assert::true(
-            $this->indexPage->isSingleResourceOnPage(['code' => $report->getCode()]),
+            $this->indexPage->isSingleResourceOnPage(['id' => $report->getId()]),
             sprintf('Report %s should exist but it does not', $report->getCode())
         );
     }

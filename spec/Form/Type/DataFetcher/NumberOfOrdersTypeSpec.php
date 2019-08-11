@@ -2,7 +2,7 @@
 
 namespace spec\Odiseo\SyliusReportPlugin\Form\Type\DataFetcher;
 
-use Odiseo\SyliusReportPlugin\Form\Builder\QueryFilterFormBuilder;
+use Odiseo\SyliusReportPlugin\Form\Builder\QueryFilterFormBuilderInterface;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\NumberOfOrdersType;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -14,7 +14,7 @@ use Symfony\Component\Form\FormBuilder;
 
 class NumberOfOrdersTypeSpec extends ObjectBehavior
 {
-    function let(QueryFilterFormBuilder $queryFilterFormBuilder)
+    function let(QueryFilterFormBuilderInterface $queryFilterFormBuilder)
     {
         $this->beConstructedWith($queryFilterFormBuilder);
     }

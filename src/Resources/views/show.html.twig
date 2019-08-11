@@ -32,7 +32,7 @@
                 <div class="middle aligned column">
                     <div class="ui right floated buttons">
                         {{ buttons.default(path('odiseo_sylius_report_admin_report_update', {'id': resource.id}), 'sylius.ui.edit', null, 'pencil') }}
-                        {{ buttons.default(path('odiseo_sylius_report_admin_report_export', {'id': resource.id}), 'odiseo_sylius_report.ui.export', null, 'download',  'green') }}
+                        {{ buttons.default(path('odiseo_sylius_report_admin_report_export', {'id': resource.id}), 'odiseo_sylius_report.ui.export', null, 'download',  'brown') }}
                     </div>
                 </div>
             {% endblock %}
@@ -51,8 +51,8 @@
                 {{ 'sylius.ui.filters'|trans }}
             </h4>
             <form method="get" action="{{ path }}" class="ui loadable form">
-                {{ include('@OdiseoSyliusReportPlugin/_dataFetcherConfiguration.html.twig', { 'configurationForm': form }) }}
-
+                {{ include('@OdiseoSyliusReportPlugin/_dataFetcherConfiguration.html.twig', { 'configurationForm': form.dataFetcherConfiguration }) }}
+                <br>
                 {{ buttons.filter() }}
                 {{ buttons.resetFilters(path) }}
             </form>
@@ -60,8 +60,8 @@
     {% endblock %}
 
     {% block show_results %}
-        <div class="ui segment">
-            {{ render(controller('odiseo_sylius_report.controller.report:embedAction', {'report': report, 'configuration' : configurationForm})) }}
+        <div id="report-results">
+            {{ render(controller('odiseo_sylius_report.controller.report:embedAction', {'report': report, 'configuration' : report.dataFetcherConfiguration})) }}
         </div>
     {% endblock %}
 

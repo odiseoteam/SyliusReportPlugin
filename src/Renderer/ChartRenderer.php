@@ -43,7 +43,7 @@ class ChartRenderer implements RendererInterface
             $rendererData = [
                 'report' => $report,
                 'values' => $data->getData(),
-                'labels' => array_keys($data->getData()),
+                'labels' => $data->getLabels(),
             ];
 
             $rendererConfiguration = $report->getRendererConfiguration();

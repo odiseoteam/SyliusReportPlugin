@@ -3,8 +3,9 @@
 {% set report = data.report %}
 {% set labels = data.labels %}
 {% set values = data.values %}
-{% set fields = data.fields %}
 
 {% if labels is defined %}
-    {{ list(report, labels, fields, values) }}
+<div class="ui segment">
+    {{ list(report, labels, values) }}
+</div>
 {% endif %}
