@@ -50,7 +50,7 @@ function generateChart(ctx, type, labels, values, options)
                         var datasetValue = chart.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
 
                         if (options.isMoneyValue !== undefined && options.isMoneyValue === true) {
-                            return formatMoney(datasetValue, 2, '.', ',', '$');
+                            return datasetLabel + ': ' + formatMoney(datasetValue, 2, '.', ',', '$');
                         }
 
                         return datasetValue;
