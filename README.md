@@ -31,6 +31,10 @@ It's highly inspired on the old [SyliusReportBundle](https://github.com/Sylius/S
 
 Now supporting Sylius 1.4+ and Symfony 4.
 
+
+#### Premium features!
+Do you want advanced features? Take a look at our [Report Plus Plugin](https://odiseo.com.ar/plugins-and-bundles/premium/sylius-report-plus-plugin), an extended version of this one.
+
 ### Architecture
 
 Basically you have a **DataFetcherInterface** and **RendererInterface** interfaces. The first one defines how to fetch the **Data**
