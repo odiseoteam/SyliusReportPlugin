@@ -33,7 +33,7 @@ Now supporting Sylius 1.4+ and Symfony 4.
 
 
 #### Premium features!
-Do you want advanced features? Take a look at our [Report Plus Plugin](https://odiseo.com.ar/plugins-and-bundles/premium/sylius-report-plus-plugin), an extended version of this one.
+Do you want advanced features? Take a look at our [Report Pro Plugin](https://odiseo.com.ar/plugins-and-bundles/premium/sylius-report-pro-plugin), an extended version of this one.
 
 ### Architecture
 
