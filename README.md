@@ -1,9 +1,7 @@
-<h1 align="center">
+<p align="center">
     <a href="https://odiseo.com.ar/" target="_blank" title="Odiseo">
-        <img src="https://github.com/odiseoteam/SyliusReportPlugin/blob/master/logo_odiseo.png" alt="Odiseo" width="300px" />
+        <img src="https://github.com/odiseoteam/SyliusReportPlugin/blob/master/sylius-report-plugin.png" alt="Sylius Report Plugin" />
     </a>
-    <br />
-    Odiseo Sylius Report Plugin
     <br />
     <a href="https://packagist.org/packages/odiseoteam/sylius-report-plugin" title="License" target="_blank">
         <img src="https://img.shields.io/packagist/l/odiseoteam/sylius-report-plugin.svg" />
@@ -20,11 +18,8 @@
     <a href="https://packagist.org/packages/odiseoteam/sylius-report-plugin" title="Total Downloads" target="_blank">
         <img src="https://poser.pugx.org/odiseoteam/sylius-report-plugin/downloads" />
     </a>
-    <p align="center">
-        <a href="https://sylius.com/plugin/report/" target="_blank"><img src="https://sylius.com/assets/badge-approved-by-sylius.png" width="100"></a>
-        <a href="https://sylius.com/partners/odiseo/" target="_blank"><img src="https://github.com/odiseoteam/SyliusReportPlugin/blob/master/badge-partner-by-sylius.png" width="100"></a>
-    </p>
-</h1>
+    <a href="https://sylius.com/partners/odiseo/" target="_blank"><img src="https://github.com/odiseoteam/SyliusReportPlugin/blob/master/badge-partner-by-sylius.png" width="140"></a>
+</p>
 
 ## Description
 
