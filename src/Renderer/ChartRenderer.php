@@ -5,7 +5,7 @@ namespace Odiseo\SyliusReportPlugin\Renderer;
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;
 use Odiseo\SyliusReportPlugin\Form\Type\Renderer\ChartConfigurationType;
 use Odiseo\SyliusReportPlugin\Model\ReportInterface;
-use Symfony\Component\Templating\EngineInterface;
+use Twig\Environment;
 
 /**
  * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
@@ -22,14 +22,14 @@ class ChartRenderer implements RendererInterface
     const DOUGHNUT_CHART = 'doughnut';
 
     /**
-     * @var EngineInterface
+     * @var Environment
      */
     private $templating;
 
     /**
-     * @param EngineInterface $templating
+     * @param Environment $templating
      */
-    public function __construct(EngineInterface $templating)
+    public function __construct(Environment $templating)
     {
         $this->templating = $templating;
     }

@@ -2,7 +2,6 @@
 
 namespace Odiseo\SyliusReportPlugin\Controller;
 
-use FOS\RestBundle\View\View;
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;
 use Odiseo\SyliusReportPlugin\DataFetcher\DelegatingDataFetcherInterface;
 use Odiseo\SyliusReportPlugin\Model\ReportInterface;
@@ -43,21 +42,17 @@ class ReportController extends ResourceController
 
         $this->eventDispatcher->dispatch(ResourceActions::SHOW, $configuration, $report);
 
-        $view = View::create($report);
-
-        $view
-            ->setTemplate($configuration->getTemplate(ResourceActions::SHOW . '.html'))
-            ->setTemplateVar($this->metadata->getName())
-            ->setData([
+        if ($configuration->isHtmlRequest()) {
+            return $this->render($configuration->getTemplate(ResourceActions::SHOW . '.html'), [
                 'configuration' => $configuration,
                 'metadata' => $this->metadata,
                 'resource' => $report,
                 'form' => $reportDataFetcherConfigurationForm->createView(),
                 $this->metadata->getName() => $report,
-            ])
-        ;
+            ]);
+        }
 
-        return $this->viewHandler->handle($configuration, $view);
+        return $this->createRestView($configuration, $report);
     }
 
     /**

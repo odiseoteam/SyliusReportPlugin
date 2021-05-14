@@ -2,7 +2,7 @@ odiseo_sylius_report_admin_report:
     resource: |
         alias: odiseo_sylius_report.report
         section: admin
-        templates: OdiseoSyliusReportPlugin:Crud
+        templates: "@OdiseoSyliusReportPlugin/Crud"
         except: ['show']
         redirect: show
         grid: odiseo_sylius_report_admin_report

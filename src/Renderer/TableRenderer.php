@@ -5,7 +5,7 @@ namespace Odiseo\SyliusReportPlugin\Renderer;
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;
 use Odiseo\SyliusReportPlugin\Form\Type\Renderer\TableConfigurationType;
 use Odiseo\SyliusReportPlugin\Model\ReportInterface;
-use Symfony\Component\Templating\EngineInterface;
+use Twig\Environment;
 
 /**
  * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
@@ -15,14 +15,14 @@ use Symfony\Component\Templating\EngineInterface;
 class TableRenderer implements RendererInterface
 {
     /**
-     * @var EngineInterface
+     * @var Environment
      */
     private $templating;
 
     /**
-     * @param EngineInterface $templating
+     * @param Environment $templating
      */
-    public function __construct(EngineInterface $templating)
+    public function __construct(Environment $templating)
     {
         $this->templating = $templating;
     }

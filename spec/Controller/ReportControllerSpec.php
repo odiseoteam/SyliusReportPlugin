@@ -2,7 +2,7 @@
 
 namespace spec\Odiseo\SyliusReportPlugin\Controller;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use FOS\RestBundle\View\View;
 use Odiseo\SyliusReportPlugin\Controller\ReportController;
 use PhpSpec\ObjectBehavior;
@@ -93,50 +93,6 @@ class ReportControllerSpec extends ObjectBehavior
         ;
     }
 
-    function it_returns_a_response_for_html_view_of_a_single_resource(
-        MetadataInterface $metadata,
-        RequestConfigurationFactoryInterface $requestConfigurationFactory,
-        RequestConfiguration $configuration,
-        AuthorizationCheckerInterface $authorizationChecker,
-        RepositoryInterface $repository,
-        SingleResourceProviderInterface $singleResourceProvider,
-        ResourceInterface $resource,
-        ViewHandlerInterface $viewHandler,
-        EventDispatcherInterface $eventDispatcher,
-        Request $request,
-        Response $response
-    ): void {
-        $metadata->getApplicationName()->willReturn('sylius');
-        $metadata->getName()->willReturn('product');
-
-        $requestConfigurationFactory->create($metadata, $request)->willReturn($configuration);
-        $configuration->hasPermission()->willReturn(true);
-        $configuration->getPermission(ResourceActions::SHOW)->willReturn('sylius.product.show');
-
-        $authorizationChecker->isGranted($configuration, 'sylius.product.show')->willReturn(true);
-        $singleResourceProvider->get($configuration, $repository)->willReturn($resource);
-
-        $configuration->isHtmlRequest()->willReturn(true);
-        $configuration->getTemplate(ResourceActions::SHOW . '.html')->willReturn('SyliusShopBundle:Product:show.html.twig');
-
-        $eventDispatcher->dispatch(ResourceActions::SHOW, $configuration, $resource)->shouldBeCalled();
-
-        $expectedView = View::create()
-            ->setData([
-                'configuration' => $configuration,
-                'metadata' => $metadata,
-                'resource' => $resource,
-                'product' => $resource,
-            ])
-            ->setTemplateVar('product')
-            ->setTemplate('SyliusShopBundle:Product:show.html.twig')
-        ;
-
-        $viewHandler->handle($configuration, Argument::that($this->getViewComparingCallback($expectedView)))->willReturn($response);
-
-        $this->showAction($request)->shouldReturn($response);
-    }
-
     function it_returns_a_response_for_non_html_view_of_single_resource(
         MetadataInterface $metadata,
         RequestConfigurationFactoryInterface $requestConfigurationFactory,
@@ -186,12 +142,9 @@ class ReportControllerSpec extends ObjectBehavior
             return
                 $expectedView->getStatusCode() === $value->getStatusCode() &&
                 $expectedView->getHeaders() === $value->getHeaders() &&
-                $expectedView->getEngine() === $value->getEngine() &&
                 $expectedView->getFormat() === $value->getFormat() &&
-                $expectedView->getData() === $value->getData() &&
-                $expectedView->getTemplate() === $value->getTemplate() &&
-                $expectedView->getTemplateVar() === $value->getTemplateVar()
-                ;
+                $expectedView->getData() === $value->getData()
+            ;
         };
     }
 
