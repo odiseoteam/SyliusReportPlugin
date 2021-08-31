@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusReportPlugin\Form\Type\Renderer;
 
 use Odiseo\SyliusReportPlugin\Renderer\ChartRenderer;
@@ -15,10 +17,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class ChartConfigurationType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('type', ChoiceType::class, [
@@ -34,10 +33,7 @@ class ChartConfigurationType extends AbstractType
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'odiseo_sylius_report_renderer_chart';
     }

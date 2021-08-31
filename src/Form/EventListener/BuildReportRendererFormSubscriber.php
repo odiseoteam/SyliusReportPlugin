@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusReportPlugin\Form\EventListener;
 
 use InvalidArgumentException;
@@ -19,18 +21,13 @@ use Symfony\Component\Form\FormInterface;
  *
  * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
  * @author Diego D'amico <diego@odiseo.com.ar>
+ * @author Rimas Kudelis <rimas.kudelis@adeoweb.biz>
  */
 class BuildReportRendererFormSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var ServiceRegistryInterface
-     */
-    private $rendererRegistry;
+    private ServiceRegistryInterface $rendererRegistry;
 
-    /**
-     * @var FormFactoryInterface
-     */
-    private $factory;
+    private FormFactoryInterface $factory;
 
     public function __construct(ServiceRegistryInterface $rendererRegistry, FormFactoryInterface $factory)
     {
@@ -38,10 +35,7 @@ class BuildReportRendererFormSubscriber implements EventSubscriberInterface
         $this->factory = $factory;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             FormEvents::PRE_SET_DATA => 'preSetData',
@@ -49,10 +43,7 @@ class BuildReportRendererFormSubscriber implements EventSubscriberInterface
         ];
     }
 
-    /**
-     * @param FormEvent $event
-     */
-    public function preSetData(FormEvent $event)
+    public function preSetData(FormEvent $event): void
     {
         $report = $event->getData();
 
@@ -67,10 +58,7 @@ class BuildReportRendererFormSubscriber implements EventSubscriberInterface
         $this->addConfigurationFields($event->getForm(), $report->getRenderer(), $report->getRendererConfiguration());
     }
 
-    /**
-     * @param FormEvent $event
-     */
-    public function preBind(FormEvent $event)
+    public function preBind(FormEvent $event): void
     {
         $data = $event->getData();
 
@@ -81,14 +69,7 @@ class BuildReportRendererFormSubscriber implements EventSubscriberInterface
         $this->addConfigurationFields($event->getForm(), $data['renderer']);
     }
 
-    /**
-     * Add configuration fields to the form.
-     *
-     * @param FormInterface $form
-     * @param string        $rendererType
-     * @param array         $data
-     */
-    public function addConfigurationFields(FormInterface $form, $rendererType, array $data = [])
+    public function addConfigurationFields(FormInterface $form, string $rendererType, array $data = []): void
     {
         /** @var RendererInterface $renderer */
         $renderer = $this->rendererRegistry->get($rendererType);

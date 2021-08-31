@@ -19,17 +19,13 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class ProvinceSearchAction
 {
-    /** @var AddressRepositoryInterface */
-    private $addressRepository;
+    private AddressRepositoryInterface $addressRepository;
 
-    /** @var RepositoryInterface */
-    private $provinceRepository;
+    private RepositoryInterface $provinceRepository;
 
-    /** @var RepositoryInterface */
-    private $countryRepository;
+    private RepositoryInterface $countryRepository;
 
-    /** @var ConfigurableViewHandlerInterface */
-    private $viewHandler;
+    private ConfigurableViewHandlerInterface $viewHandler;
 
     public function __construct(
         AddressRepositoryInterface $addressRepository,
@@ -43,11 +39,6 @@ final class ProvinceSearchAction
         $this->viewHandler = $viewHandler;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function __invoke(Request $request): Response
     {
         $addresses = $this->getAddresses($request->get('province', ''));
@@ -59,11 +50,6 @@ final class ProvinceSearchAction
         return $this->viewHandler->handle($view);
     }
 
-    /**
-     * @param string $query
-     *
-     * @return array
-     */
     private function getAddresses(string $query): array
     {
         $addresses = [];
@@ -71,7 +57,7 @@ final class ProvinceSearchAction
 
         /** @var AddressInterface $address */
         foreach ($searchAddresses as $address) {
-            /** @var CountryInterface $country */
+            /** @var CountryInterface|null $country */
             $country = $this->countryRepository->findOneBy([
                 'code' => $address->getCountryCode()
             ]);
@@ -79,8 +65,8 @@ final class ProvinceSearchAction
             $countryName = $country !== null ? $country->getName() : $address->getCountryCode();
 
             $provinceName = $this->getProvinceName($address);
-            $provinceLabel = ucfirst(strtolower($provinceName)).', '.$countryName;
-            $isNew = count(array_filter($addresses, function ($address) use ($provinceLabel) {
+            $provinceLabel = ucfirst(strtolower($provinceName ?? '')).', '.$countryName;
+            $isNew = count(array_filter($addresses, function ($address) use ($provinceLabel): bool {
                 return $address['province'] === $provinceLabel;
             })) === 0;
 
@@ -95,11 +81,6 @@ final class ProvinceSearchAction
         return $addresses;
     }
 
-    /**
-     * @param AddressInterface $address
-     *
-     * @return string|null
-     */
     private function getProvinceName(AddressInterface $address): ?string
     {
         $provinceName = $address->getProvinceName();

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
 use Exception;
@@ -14,15 +16,8 @@ use Sylius\Component\Core\OrderPaymentStates;
  */
 class SalesTotalDataFetcher extends TimePeriodDataFetcher
 {
-    /**
-     * @var string
-     */
-    private $orderClass;
+    private string $orderClass;
 
-    /**
-     * @param QueryFilterInterface $queryFilter
-     * @param string $orderClass
-     */
     public function __construct(
         QueryFilterInterface $queryFilter,
         string $orderClass
@@ -33,7 +28,6 @@ class SalesTotalDataFetcher extends TimePeriodDataFetcher
     }
 
     /**
-     * {@inheritdoc}
      * @throws Exception
      */
     protected function setupQueryFilter(array $configuration = []): void
@@ -70,9 +64,6 @@ class SalesTotalDataFetcher extends TimePeriodDataFetcher
         $this->queryFilter->addUserPostcode($configuration, 'billing');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getType(): string
     {
         return SalesTotalType::class;

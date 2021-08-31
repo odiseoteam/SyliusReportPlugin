@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusReportPlugin\DependencyInjection\Compiler;
 
 use InvalidArgumentException;
@@ -16,10 +18,7 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class RegisterDataFetchersPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->hasDefinition('odiseo_sylius_report.registry.data_fetcher')) {
             return;

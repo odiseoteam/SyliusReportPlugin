@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusReportPlugin\Form\Type\Renderer;
 
 use Symfony\Component\Form\AbstractType;
@@ -14,10 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class TableConfigurationType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('template', ChoiceType::class, [
@@ -29,10 +28,7 @@ class TableConfigurationType extends AbstractType
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'odiseo_sylius_report_renderer_table';
     }

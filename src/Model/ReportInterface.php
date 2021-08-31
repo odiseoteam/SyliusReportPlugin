@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusReportPlugin\Model;
 
 use Sylius\Component\Resource\Model\CodeAwareInterface;
@@ -10,66 +12,31 @@ use Sylius\Component\Resource\Model\TimestampableInterface;
  * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
  * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
  * @author Diego D'amico <diego@odiseo.com.ar>
+ * @author Rimas Kudelis <rimas.kudelis@adeoweb.biz>
  */
 interface ReportInterface extends CodeAwareInterface, ResourceInterface, TimestampableInterface
 {
-    /**
-     * @return string
-     */
-    public function getName();
+    public function getName(): ?string;
 
-    /**
-     * @param string $name
-     */
-    public function setName($name);
+    public function setName(?string $name): void;
 
-    /**
-     * @return string
-     */
-    public function getDescription();
+    public function getDescription(): ?string;
 
-    /**
-     * @param string $description
-     */
-    public function setDescription($description);
+    public function setDescription(?string $description): void;
 
-    /**
-     * @return string|null
-     */
-    public function getRenderer();
+    public function getRenderer(): string;
 
-    /**
-     * @param string $renderer
-     */
-    public function setRenderer(string $renderer);
+    public function setRenderer(string $renderer): void;
 
-    /**
-     * @return array
-     */
-    public function getRendererConfiguration();
+    public function getRendererConfiguration(): array;
 
-    /**
-     * @param array $rendererConfiguration
-     */
-    public function setRendererConfiguration(array $rendererConfiguration);
+    public function setRendererConfiguration(array $rendererConfiguration): void;
 
-    /**
-     * @return string|null
-     */
-    public function getDataFetcher();
+    public function getDataFetcher(): string;
 
-    /**
-     * @param string $dataFetcher
-     */
-    public function setDataFetcher(string $dataFetcher);
+    public function setDataFetcher(string $dataFetcher): void;
 
-    /**
-     * @return array
-     */
-    public function getDataFetcherConfiguration();
+    public function getDataFetcherConfiguration(): array;
 
-    /**
-     * @param array $dataFetcherConfiguration
-     */
-    public function setDataFetcherConfiguration(array $dataFetcherConfiguration);
+    public function setDataFetcherConfiguration(array $dataFetcherConfiguration): void;
 }

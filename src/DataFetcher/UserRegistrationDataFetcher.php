@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
 use Exception;
@@ -12,15 +14,8 @@ use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\UserRegistrationType;
  */
 class UserRegistrationDataFetcher extends TimePeriodDataFetcher
 {
-    /**
-     * @var string
-     */
-    private $orderClass;
+    private string $orderClass;
 
-    /**
-     * @param QueryFilterInterface $queryFilter
-     * @param string $orderClass
-     */
     public function __construct(
         QueryFilterInterface $queryFilter,
         string $orderClass
@@ -31,7 +26,6 @@ class UserRegistrationDataFetcher extends TimePeriodDataFetcher
     }
 
     /**
-     * @inheritdoc
      * @throws Exception
      */
     protected function setupQueryFilter(array $configuration = []): void
@@ -49,9 +43,6 @@ class UserRegistrationDataFetcher extends TimePeriodDataFetcher
         $this->queryFilter->addUserGender($configuration);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getType(): string
     {
         return UserRegistrationType::class;

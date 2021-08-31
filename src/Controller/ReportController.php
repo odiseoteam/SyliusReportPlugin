@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusReportPlugin\Controller;
 
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;
@@ -24,12 +26,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ReportController extends ResourceController
 {
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function renderAction(Request $request)
+    public function renderAction(Request $request): Response
     {
         $configuration = $this->requestConfigurationFactory->create($this->metadata, $request);
 
@@ -55,12 +52,7 @@ class ReportController extends ResourceController
         return $this->createRestView($configuration, $report);
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function exportAction(Request $request)
+    public function exportAction(Request $request): Response
     {
         $configuration = $this->requestConfigurationFactory->create($this->metadata, $request);
 
@@ -93,23 +85,14 @@ class ReportController extends ResourceController
         return $response;
     }
 
-    /**
-     * @param ReportInterface $report
-     * @param array $dataFetcherConfiguration
-     *
-     * @return Response
-     */
-    public function embedAction(ReportInterface $report, array $dataFetcherConfiguration = [])
+    public function embedAction(ReportInterface $report, array $dataFetcherConfiguration = []): Response
     {
         $data = $this->getReportDataFetcher()->fetch($report, $dataFetcherConfiguration);
 
         return new Response($this->getReportRenderer()->render($report, $data));
     }
 
-    /**
-     * @return DelegatingRendererInterface
-     */
-    private function getReportRenderer()
+    private function getReportRenderer(): DelegatingRendererInterface
     {
         /** @var DelegatingRendererInterface $renderer */
         $renderer = $this->container->get('odiseo_sylius_report.renderer');
@@ -117,10 +100,7 @@ class ReportController extends ResourceController
         return $renderer;
     }
 
-    /**
-     * @return DelegatingDataFetcherInterface
-     */
-    private function getReportDataFetcher()
+    private function getReportDataFetcher(): DelegatingDataFetcherInterface
     {
         /** @var DelegatingDataFetcherInterface $dataFetcher */
         $dataFetcher = $this->container->get('odiseo_sylius_report.data_fetcher');
@@ -128,13 +108,7 @@ class ReportController extends ResourceController
         return $dataFetcher;
     }
 
-    /**
-     * @param string $filename
-     * @param Data $data
-     *
-     * @return Response
-     */
-    protected function createJsonResponse($filename, $data)
+    protected function createJsonResponse(string $filename, Data $data): Response
     {
         $responseData = [];
         foreach ($data->getData() as $key => $value) {
@@ -152,29 +126,14 @@ class ReportController extends ResourceController
         return $response;
     }
 
-    /**
-     * @param string $filename
-     * @param Data $data
-     *
-     * @return Response
-     */
-    protected function createCsvResponse($filename, $data)
+    protected function createCsvResponse(string $filename, Data $data): Response
     {
-        $labels = [$data->getLabels()];
-
-        $responseData = array_merge($labels, $data->getData());
-
-        $response = new CsvResponse($responseData);
+        $response = new CsvResponse($data);
         $response->setFilename($filename.'.csv');
 
         return $response;
     }
 
-    /**
-     * @param ReportInterface $report
-     * @param Request $request
-     * @return FormInterface
-     */
     protected function getReportDataFetcherConfigurationForm(ReportInterface $report, Request $request): FormInterface
     {
         /** @var FormFactoryInterface $formFactory */
@@ -190,12 +149,7 @@ class ReportController extends ResourceController
         return $configurationForm;
     }
 
-    /**
-     * @param string $string
-     *
-     * @return string
-     */
-    private function slugify($string)
+    private function slugify(string $string): string
     {
         return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string)));
     }

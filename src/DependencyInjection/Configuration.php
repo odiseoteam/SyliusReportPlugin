@@ -26,9 +26,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 final class Configuration implements ConfigurationInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('odiseo_sylius_report_plugin');
@@ -48,10 +45,7 @@ final class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
-    /**
-     * @param ArrayNodeDefinition $node
-     */
-    private function addResourcesSection(ArrayNodeDefinition $node)
+    private function addResourcesSection(ArrayNodeDefinition $node): void
     {
         $node
             ->children()

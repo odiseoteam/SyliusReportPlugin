@@ -9,6 +9,7 @@ use Odiseo\SyliusReportPlugin\Renderer\ChartRenderer;
 use Odiseo\SyliusReportPlugin\Renderer\RendererInterface;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\Templating\EngineInterface;
+use Twig\Environment;
 
 /**
  * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
@@ -17,7 +18,7 @@ use Symfony\Component\Templating\EngineInterface;
  */
 final class ChartRendererSpec extends ObjectBehavior
 {
-    function let(EngineInterface $templating)
+    function let(Environment $templating)
     {
         $this->beConstructedWith($templating);
     }

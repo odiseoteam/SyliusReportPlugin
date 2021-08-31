@@ -18,14 +18,11 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class PostcodeSearchAction
 {
-    /** @var AddressRepositoryInterface */
-    private $addressRepository;
+    private AddressRepositoryInterface $addressRepository;
 
-    /** @var RepositoryInterface */
-    private $countryRepository;
+    private RepositoryInterface $countryRepository;
 
-    /** @var ConfigurableViewHandlerInterface */
-    private $viewHandler;
+    private ConfigurableViewHandlerInterface $viewHandler;
 
     public function __construct(
         AddressRepositoryInterface $addressRepository,
@@ -37,11 +34,6 @@ final class PostcodeSearchAction
         $this->viewHandler = $viewHandler;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function __invoke(Request $request): Response
     {
         $addresses = $this->getAddresses($request->get('postcode', ''));
@@ -53,11 +45,6 @@ final class PostcodeSearchAction
         return $this->viewHandler->handle($view);
     }
 
-    /**
-     * @param string $query
-     *
-     * @return array
-     */
     private function getAddresses(string $query): array
     {
         $addresses = [];
@@ -65,7 +52,7 @@ final class PostcodeSearchAction
 
         /** @var AddressInterface $address */
         foreach ($searchAddresses as $address) {
-            /** @var CountryInterface $country */
+            /** @var CountryInterface|null $country */
             $country = $this->countryRepository->findOneBy([
                 'code' => $address->getCountryCode()
             ]);
@@ -73,7 +60,7 @@ final class PostcodeSearchAction
             $countryName = $country !== null ? $country->getName() : $address->getCountryCode();
 
             $postcodeLabel = $address->getPostcode().', '.$countryName;
-            $isNew = count(array_filter($addresses, function ($address) use ($postcodeLabel) {
+            $isNew = count(array_filter($addresses, function ($address) use ($postcodeLabel): bool {
                 return $address['postcode'] === $postcodeLabel;
             })) === 0;
 

@@ -32,22 +32,11 @@ class DelegatingRendererSpec extends ObjectBehavior
         $this->shouldImplement(DelegatingRendererInterface::class);
     }
 
-    function it_get_the_renderer_with_given_report(ReportInterface $report, ServiceRegistryInterface $registry)
+    function it_get_the_renderer_with_given_report(ReportInterface $report, ServiceRegistryInterface $registry, TableRenderer $tableRenderer)
     {
         $report->getRenderer()->willReturn(DefaultRenderers::TABLE);
-        $registry->get(DefaultRenderers::TABLE)->willReturn(TableRenderer::class);
-        $this->getRenderer($report)->shouldReturn(TableRenderer::class);
-    }
-
-    function it_throws_an_exception_if_report_has_not_renderer(ReportInterface $report, ServiceRegistryInterface $registry)
-    {
-        $report->getRenderer()->willReturn(null);
-        $registry->get(DefaultRenderers::TABLE)->willReturn(TableRenderer::class);
-
-        $this
-            ->shouldThrow(new \InvalidArgumentException('Cannot render data for ReportInterface instance without renderer defined.'))
-            ->during('getRenderer', [$report])
-        ;
+        $registry->get(DefaultRenderers::TABLE)->willReturn($tableRenderer);
+        $this->getRenderer($report)->shouldReturn($tableRenderer);
     }
 
     function it_render_with_given_report_configuration_and_data(ReportInterface $report, RendererInterface $renderer, Data $data, ServiceRegistryInterface $registry)
