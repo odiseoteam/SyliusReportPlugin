@@ -9,6 +9,7 @@ use Odiseo\SyliusReportPlugin\Renderer\RendererInterface;
 use Odiseo\SyliusReportPlugin\Renderer\TableRenderer;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\Templating\EngineInterface;
+use Twig\Environment;
 
 /**
  * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
@@ -17,7 +18,7 @@ use Symfony\Component\Templating\EngineInterface;
  */
 final class TableRendererSpec extends ObjectBehavior
 {
-    function let(EngineInterface $templating)
+    function let(Environment $templating)
     {
         $this->beConstructedWith($templating);
     }
@@ -56,7 +57,7 @@ final class TableRendererSpec extends ObjectBehavior
     function it_renders_a_no_data_with_given_configuration(ReportInterface $report, Data $reportData, EngineInterface $templating)
     {
         $reportData->getLabels()->willReturn(['month', 'user_total']);
-        $reportData->getData()->willReturn(null);
+        $reportData->getData()->willReturn([]);
 
         $report->getRendererConfiguration()->willReturn(['template' => '@OdiseoSyliusReportPlugin/noDataTemplate.html.twig']);
 

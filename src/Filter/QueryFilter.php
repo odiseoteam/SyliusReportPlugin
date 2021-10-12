@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusReportPlugin\Filter;
 
 use DateTime;
@@ -13,21 +15,16 @@ use Sylius\Component\Core\Model\ProductInterface;
 
 /**
  * @author Odiseo Team <team@odiseo.com.ar>
+ * @author Rimas Kudelis <rimas.kudelis@adeoweb.biz>
  */
 class QueryFilter implements QueryFilterInterface
 {
-    /** @var EntityManager */
-    protected $em;
+    protected EntityManager $em;
 
-    /** @var QueryBuilder */
-    protected $qb;
+    protected QueryBuilder $qb;
 
-    /** @var array */
-    protected $joins = [];
+    protected array $joins = [];
 
-    /**
-     * @param EntityManager $entityManager
-     */
     public function __construct(EntityManager $entityManager)
     {
         $this->em = $entityManager;
@@ -35,37 +32,27 @@ class QueryFilter implements QueryFilterInterface
         $this->qb = $this->em->createQueryBuilder();
     }
 
-    /**
-     * @return QueryBuilder
-     */
-    public function getQueryBuilder()
+    public function getQueryBuilder(): QueryBuilder
     {
         return $this->qb;
     }
 
-    /**
-     * @return EntityManager
-     */
-    public function getEntityManager()
+    public function getEntityManager(): EntityManager
     {
         return $this->em;
     }
 
-    public function reset()
+    public function reset(): void
     {
         $this->qb = $this->em->createQueryBuilder();
         $this->joins = [];
     }
 
-    /**
-     * @param QueryBuilder $qb
-     * @param array $configuration
-     * @param string $dateField
-     *
-     * @return array
-     */
-    protected function getGroupByParts(QueryBuilder $qb, array $configuration = [], $dateField = 'checkoutCompletedAt')
-    {
+    protected function getGroupByParts(
+        QueryBuilder $qb,
+        array $configuration = [],
+        string $dateField = 'checkoutCompletedAt'
+    ): array {
         if (false === strpos($dateField, '.')) {
             $rootAlias = $qb->getRootAliases()[0];
             $dateF = $rootAlias.'.'.$dateField;
@@ -89,13 +76,7 @@ class QueryFilter implements QueryFilterInterface
         return [$selectPeriod, $selectGroupBy];
     }
 
-    /**
-     * @param string $join
-     * @param string $alias
-     *
-     * @return string
-     */
-    public function addLeftJoin($join, $alias): string
+    public function addLeftJoin(string $join, string $alias): string
     {
         if (!isset($this->joins[$join])) {
             $this->joins[$join] = $alias;
@@ -106,14 +87,11 @@ class QueryFilter implements QueryFilterInterface
         return $this->joins[$join];
     }
 
-    /**
-     * @param array $configuration
-     * @param string $dateField
-     * @param string $rootAlias
-     * @throws Exception
-     */
-    public function addTimePeriod(array $configuration = [], $dateField = 'checkoutCompletedAt', $rootAlias = null): void
-    {
+    public function addTimePeriod(
+        array $configuration = [],
+        string $dateField = 'checkoutCompletedAt',
+        ?string $rootAlias = null
+    ): void {
         if (false === strpos($dateField, '.')) {
             if (!$rootAlias) {
                 $rootAlias = $this->qb->getRootAliases()[0];
@@ -152,13 +130,11 @@ class QueryFilter implements QueryFilterInterface
         }
     }
 
-    /**
-     * @param array $configuration
-     * @param string $field
-     * @param string $rootAlias
-     */
-    public function addChannel(array $configuration = [], $field = null, $rootAlias = null): void
-    {
+    public function addChannel(
+        array $configuration = [],
+        ?string $field = null,
+        ?string $rootAlias = null
+    ): void {
         if (isset($configuration['channel']) && count($configuration['channel']) > 0) {
             $storeIds = [];
 
@@ -186,11 +162,7 @@ class QueryFilter implements QueryFilterInterface
         }
     }
 
-    /**
-     * @param array $configuration
-     * @param string $rootAlias
-     */
-    public function addUserGender(array $configuration = [], $rootAlias = null): void
+    public function addUserGender(array $configuration = [], ?string $rootAlias = null): void
     {
         if (isset($configuration['userGender']) && count($configuration['userGender']) > 0) {
             $cAlias = $rootAlias;
@@ -208,13 +180,11 @@ class QueryFilter implements QueryFilterInterface
         }
     }
 
-    /**
-     * @param array $configuration
-     * @param string $addressType
-     * @param string $rootAlias
-     */
-    public function addUserCountry(array $configuration = [], string $addressType = 'shipping', $rootAlias = null): void
-    {
+    public function addUserCountry(
+        array $configuration = [],
+        string $addressType = 'shipping',
+        ?string $rootAlias = null
+    ): void {
         $type = 'user'.ucfirst($addressType).'Country';
 
         if (isset($configuration[$type]) && count($configuration[$type]) > 0) {
@@ -235,13 +205,11 @@ class QueryFilter implements QueryFilterInterface
         }
     }
 
-    /**
-     * @param array $configuration
-     * @param string $addressType
-     * @param string $rootAlias
-     */
-    public function addUserProvince(array $configuration = [], string $addressType = 'shipping', $rootAlias = null): void
-    {
+    public function addUserProvince(
+        array $configuration = [],
+        string $addressType = 'shipping',
+        ?string $rootAlias = null
+    ): void {
         $type = 'user'.ucfirst($addressType).'Province';
 
         if (isset($configuration[$type]) && count($configuration[$type]) > 0) {
@@ -269,13 +237,11 @@ class QueryFilter implements QueryFilterInterface
         }
     }
 
-    /**
-     * @param array $configuration
-     * @param string $addressType
-     * @param string $rootAlias
-     */
-    public function addUserCity(array $configuration = [], string $addressType = 'shipping', $rootAlias = null): void
-    {
+    public function addUserCity(
+        array $configuration = [],
+        string $addressType = 'shipping',
+        ?string $rootAlias = null
+    ): void {
         $type = 'user'.ucfirst($addressType).'City';
 
         if (isset($configuration[$type]) && count($configuration[$type]) > 0) {
@@ -300,13 +266,11 @@ class QueryFilter implements QueryFilterInterface
         }
     }
 
-    /**
-     * @param array $configuration
-     * @param string $addressType
-     * @param string $rootAlias
-     */
-    public function addUserPostcode(array $configuration = [], string $addressType = 'shipping', $rootAlias = null): void
-    {
+    public function addUserPostcode(
+        array $configuration = [],
+        string $addressType = 'shipping',
+        ?string $rootAlias = null
+    ): void {
         $type = 'user'.ucfirst($addressType).'Postcode';
 
         if (isset($configuration[$type]) && count($configuration[$type]) > 0) {
@@ -331,10 +295,6 @@ class QueryFilter implements QueryFilterInterface
         }
     }
 
-    /**
-     * @param array $configuration
-     * @param string $field
-     */
     public function addProduct(array $configuration = [], string $field = 'p.id'): void
     {
         if (isset($configuration['product']) && count($configuration['product']) > 0) {
@@ -348,10 +308,6 @@ class QueryFilter implements QueryFilterInterface
         }
     }
 
-    /**
-     * @param array $configuration
-     * @param string $field
-     */
     public function addProductCategory(array $configuration = [], string $field = 'pt.taxon'): void
     {
         if (isset($configuration['productCategory']) && count($configuration['productCategory']) > 0) {
@@ -361,12 +317,7 @@ class QueryFilter implements QueryFilterInterface
         }
     }
 
-    /**
-     * @param string $rootEntityClassname
-     *
-     * @return bool
-     */
-    protected function hasRootEntity($rootEntityClassname): bool
+    protected function hasRootEntity(string $rootEntityClassname): bool
     {
         return in_array($rootEntityClassname, $this->qb->getRootEntities());
     }

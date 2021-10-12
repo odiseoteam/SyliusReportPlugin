@@ -9,7 +9,7 @@
     "description": "Plugin for Sylius to make customizable reports.",
     "license": "MIT",
     "require": {
-        "php": "^7.3",
+        "php": "^7.4",
 
         "sylius/sylius": "~1.8.0 || ~1.9.0",
         "beberlei/doctrineextensions": "^1.2"

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusReportPlugin\Form\Type\DataFetcher;
 
 use Symfony\Component\Form\FormBuilderInterface;
@@ -10,10 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class SalesTotalType extends TimePeriodChannelType
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         parent::buildForm($builder, $options);
 
@@ -28,10 +27,7 @@ class SalesTotalType extends TimePeriodChannelType
         $this->queryFilterFormBuilder->addUserPostcode($builder, 'billing');
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'odiseo_sylius_report_data_fetcher_sales_total';
     }

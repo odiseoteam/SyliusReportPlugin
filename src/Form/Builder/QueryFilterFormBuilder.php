@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusReportPlugin\Form\Builder;
 
 use Odiseo\SyliusReportPlugin\Form\Type\AddressAutocompleteChoiceType;
@@ -21,20 +23,15 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
 {
-    /** @var RepositoryInterface */
-    protected $addressRepository;
+    protected RepositoryInterface $addressRepository;
 
-    /** @var TaxonRepositoryInterface */
-    protected $taxonRepository;
+    protected TaxonRepositoryInterface $taxonRepository;
 
-    /** @var ProductRepositoryInterface */
-    protected $productRepository;
+    protected ProductRepositoryInterface $productRepository;
 
-    /** @var ChannelRepositoryInterface */
-    protected $channelRepository;
+    protected ChannelRepositoryInterface $channelRepository;
 
-    /** @var UrlGeneratorInterface */
-    protected $generator;
+    protected UrlGeneratorInterface $generator;
 
     public function __construct(
         RepositoryInterface $addressRepository,
@@ -50,9 +47,6 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
         $this->generator = $generator;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function addUserGender(FormBuilderInterface &$builder): void
     {
         $builder
@@ -69,10 +63,7 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
         ;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function addUserCountry(FormBuilderInterface &$builder, $addressType = 'shipping'): void
+    public function addUserCountry(FormBuilderInterface &$builder, string $addressType = 'shipping'): void
     {
         $builder
             ->add('user'.ucfirst($addressType).'Country', CountryType::class, [
@@ -86,10 +77,7 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
         ;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function addUserCity(FormBuilderInterface $builder, $addressType = 'shipping'): void
+    public function addUserCity(FormBuilderInterface $builder, string $addressType = 'shipping'): void
     {
         $builder
             ->add('user'.ucfirst($addressType).'City', AddressAutocompleteChoiceType::class, [
@@ -102,10 +90,7 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
         ;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function addUserProvince(FormBuilderInterface $builder, $addressType = 'shipping'): void
+    public function addUserProvince(FormBuilderInterface $builder, string $addressType = 'shipping'): void
     {
         $builder
             ->add('user'.ucfirst($addressType).'Province', AddressAutocompleteChoiceType::class, [
@@ -118,10 +103,7 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
         ;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function addUserPostcode(FormBuilderInterface $builder, $addressType = 'shipping'): void
+    public function addUserPostcode(FormBuilderInterface $builder, string $addressType = 'shipping'): void
     {
         $builder
             ->add('user'.ucfirst($addressType).'Postcode', AddressAutocompleteChoiceType::class, [
@@ -134,9 +116,6 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
         ;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function addTimePeriod(FormBuilderInterface $builder): void
     {
         $builder
@@ -144,9 +123,6 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
         ;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function addChannel(FormBuilderInterface $builder): void
     {
         $builder
@@ -162,9 +138,6 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
         ;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function addProduct(FormBuilderInterface $builder): void
     {
         $builder
@@ -178,9 +151,6 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
         ;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function addProductCategory(FormBuilderInterface $builder): void
     {
         $builder
@@ -196,9 +166,6 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
         ;
     }
 
-    /**
-     * @return array
-     */
     protected function buildChannelsChoices(): array
     {
         $choices = [];
@@ -214,9 +181,6 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
         return $choices;
     }
 
-    /**
-     * @return array
-     */
     protected function buildCategoriesChoices(): array
     {
         $choices = [];
@@ -230,11 +194,6 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
         return $choices;
     }
 
-    /**
-     * @param array $choices
-     * @param TaxonInterface $category
-     * @return array
-     */
     protected function addCategoryToChoices(array $choices, TaxonInterface $category): array
     {
         $choices[$category->getName()] = $category->getId();

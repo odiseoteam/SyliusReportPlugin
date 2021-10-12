@@ -1,7 +1,8 @@
 <?php
 
-namespace Odiseo\SyliusReportPlugin\Form\Builder;
+declare(strict_types=1);
 
+namespace Odiseo\SyliusReportPlugin\Form\Builder;
 
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -10,52 +11,21 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 interface QueryFilterFormBuilderInterface
 {
-    /**
-     * @param FormBuilderInterface $builder
-     */
     public function addUserGender(FormBuilderInterface &$builder): void;
 
-    /**
-     * @param FormBuilderInterface $builder
-     * @param string $addressType
-     */
-    public function addUserCountry(FormBuilderInterface &$builder, $addressType = 'shipping'): void;
+    public function addUserCountry(FormBuilderInterface &$builder, string $addressType = 'shipping'): void;
 
-    /**
-     * @param FormBuilderInterface $builder
-     * @param string $addressType
-     */
-    public function addUserCity(FormBuilderInterface $builder, $addressType = 'shipping'): void;
+    public function addUserCity(FormBuilderInterface $builder, string $addressType = 'shipping'): void;
 
-    /**
-     * @param FormBuilderInterface $builder
-     * @param string $addressType
-     */
-    public function addUserProvince(FormBuilderInterface $builder, $addressType = 'shipping'): void;
+    public function addUserProvince(FormBuilderInterface $builder, string $addressType = 'shipping'): void;
 
-    /**
-     * @param FormBuilderInterface $builder
-     * @param string $addressType
-     */
-    public function addUserPostcode(FormBuilderInterface $builder, $addressType = 'shipping'): void;
+    public function addUserPostcode(FormBuilderInterface $builder, string $addressType = 'shipping'): void;
 
-    /**
-     * @param FormBuilderInterface $builder
-     */
     public function addTimePeriod(FormBuilderInterface $builder): void;
 
-    /**
-     * @param FormBuilderInterface $builder
-     */
     public function addChannel(FormBuilderInterface $builder): void;
 
-    /**
-     * @param FormBuilderInterface $builder
-     */
     public function addProduct(FormBuilderInterface $builder): void;
 
-    /**
-     * @param FormBuilderInterface $builder
-     */
     public function addProductCategory(FormBuilderInterface $builder): void;
 }

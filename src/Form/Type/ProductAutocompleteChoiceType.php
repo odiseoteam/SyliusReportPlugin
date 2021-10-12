@@ -15,9 +15,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class ProductAutocompleteChoiceType extends AbstractType
 {
-    /**
-     * @inheritDoc
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
@@ -31,9 +28,6 @@ final class ProductAutocompleteChoiceType extends AbstractType
         ;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['remote_criteria_type'] = 'contains';
@@ -41,17 +35,11 @@ final class ProductAutocompleteChoiceType extends AbstractType
         $view->vars['remote_url'] = $view->vars['load_edit_url'] = $options['remote_url'];
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getBlockPrefix(): string
     {
         return 'odiseo_product_autocomplete_choice';
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getParent(): string
     {
         return ResourceAutocompleteChoiceType::class;

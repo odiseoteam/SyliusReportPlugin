@@ -34,7 +34,7 @@ final class OdiseoSyliusReportPlugin extends AbstractResourceBundle
     /**
      * {@inheritdoc}
      */
-    public function build(ContainerBuilder $container) :void
+    public function build(ContainerBuilder $container): void
     {
         parent::build($container);
 

@@ -17,14 +17,11 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class ProductSearchAction
 {
-    /** @var ProductRepositoryInterface */
-    private $productRepository;
+    private ProductRepositoryInterface$productRepository;
 
-    /** @var LocaleContextInterface */
-    private $localeContext;
+    private LocaleContextInterface $localeContext;
 
-    /** @var ConfigurableViewHandlerInterface */
-    private $viewHandler;
+    private ConfigurableViewHandlerInterface $viewHandler;
 
     public function __construct(
         ProductRepositoryInterface $productRepository,
@@ -36,11 +33,6 @@ final class ProductSearchAction
         $this->viewHandler = $viewHandler;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function __invoke(Request $request): Response
     {
         $locale = $this->localeContext->getLocaleCode();
@@ -54,12 +46,6 @@ final class ProductSearchAction
         return $this->viewHandler->handle($view);
     }
 
-    /**
-     * @param string $query
-     * @param string $locale
-     *
-     * @return array
-     */
     private function getProducts(string $query, string $locale): array
     {
         $products = [];
@@ -67,8 +53,8 @@ final class ProductSearchAction
 
         /** @var ProductInterface $product */
         foreach ($searchProducts as $product) {
-            $productLabel = ucfirst(strtolower($product->getName()));
-            $isNew = count(array_filter($products, function ($product) use ($productLabel) {
+            $productLabel = ucfirst(strtolower($product->getName() ?? ''));
+            $isNew = count(array_filter($products, function ($product) use ($productLabel): bool {
                 return $product['name'] === $productLabel;
             })) === 0;
 

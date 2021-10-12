@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
 use DateInterval;
@@ -19,10 +21,7 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
     const PERIOD_MONTH = 'month';
     const PERIOD_YEAR = 'year';
 
-    /**
-     * @return array
-     */
-    public static function getPeriodChoices()
+    public static function getPeriodChoices(): array
     {
         return [
             'odiseo_sylius_report.ui.daily' => self::PERIOD_DAY,
@@ -32,14 +31,13 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
     }
 
     /**
-     * {@inheritdoc}
      * @throws Exception
      */
     public function fetch(array $configuration): Data
     {
         $data = new Data();
 
-        /** @var DateTime $endDate */
+        /** @var DateTime|null $endDate */
         $endDate = isset($configuration['timePeriod']['end']) ? $configuration['timePeriod']['end'] : null;
 
         //There is added 23 hours 59 minutes 59 seconds to the end date to provide records for whole end date
@@ -61,14 +59,14 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
 
         $rawData = $this->getData($configuration);
 
-        if (empty($rawData)) {
+        if ([] === $rawData) {
             return $data;
         }
 
         $labelsAux = array_keys($rawData[0]);
         $labels = [];
         foreach ($labelsAux as $label) {
-            if (!in_array($label, ['MonthDate', 'YearDate', 'DateDate'])) {
+            if (!in_array($label, ['MonthDate', 'YearDate', 'DateDate'], true)) {
                 $labels[] = $label;
             }
         }
@@ -96,7 +94,7 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
 
         $labels = [];
         foreach ($labelsAux as $label) {
-            if (!in_array($label, ['MonthDate', 'YearDate', 'DateDate'])) {
+            if (!in_array($label, ['MonthDate', 'YearDate', 'DateDate'], true)) {
                 $labels[] = preg_replace('/(?!^)[A-Z]{2,}(?=[A-Z][a-z])|[A-Z][a-z]/', ' $0', (string)$label);
             }
         }
@@ -105,20 +103,13 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
         return $data;
     }
 
-    /**
-     * @param array  $configuration
-     * @param string $interval
-     * @param string $periodFormat
-     * @param string $presentationFormat
-     * @param array  $groupBy
-     */
     protected function setExtraConfiguration(
         array &$configuration,
-        $interval,
-        $periodFormat,
-        $presentationFormat,
+        string $interval,
+        string $periodFormat,
+        string $presentationFormat,
         array $groupBy
-    ) {
+    ): void {
         $configuration['timePeriod']['interval'] = $interval;
         $configuration['timePeriod']['periodFormat'] = $periodFormat;
         $configuration['timePeriod']['presentationFormat'] = $presentationFormat;
@@ -126,13 +117,7 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
         $configuration['empty_records'] = false;
     }
 
-    /**
-     * @param array $fetched
-     * @param array $configuration
-     *
-     * @return array
-     */
-    private function fillEmptyRecords(array $fetched, array $configuration)
+    private function fillEmptyRecords(array $fetched, array $configuration): array
     {
         /** @var DateTime $startDate */
         $startDate = $configuration['start'];
