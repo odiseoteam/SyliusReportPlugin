@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusReportPlugin\Form\EventListener;
 
 use InvalidArgumentException;
@@ -19,18 +21,13 @@ use Symfony\Component\Form\FormInterface;
  *
  * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
  * @author Diego D'amico <diego@odiseo.com.ar>
+ * @author Rimas Kudelis <rimas.kudelis@adeoweb.biz>
  */
 class BuildReportDataFetcherFormSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var ServiceRegistryInterface
-     */
-    private $dataFetcherRegistry;
+    private ServiceRegistryInterface $dataFetcherRegistry;
 
-    /**
-     * @var FormFactoryInterface
-     */
-    private $factory;
+    private FormFactoryInterface $factory;
 
     public function __construct(ServiceRegistryInterface $dataFetcherRegistry, FormFactoryInterface $factory)
     {
@@ -38,10 +35,7 @@ class BuildReportDataFetcherFormSubscriber implements EventSubscriberInterface
         $this->factory = $factory;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             FormEvents::PRE_SET_DATA => 'preSetData',
@@ -49,10 +43,7 @@ class BuildReportDataFetcherFormSubscriber implements EventSubscriberInterface
         ];
     }
 
-    /**
-     * @param FormEvent $event
-     */
-    public function preSetData(FormEvent $event)
+    public function preSetData(FormEvent $event): void
     {
         $report = $event->getData();
 
@@ -67,10 +58,7 @@ class BuildReportDataFetcherFormSubscriber implements EventSubscriberInterface
         $this->addConfigurationFields($event->getForm(), $report->getDataFetcher(), $report->getDataFetcherConfiguration());
     }
 
-    /**
-     * @param FormEvent $event
-     */
-    public function preBind(FormEvent $event)
+    public function preBind(FormEvent $event): void
     {
         $data = $event->getData();
 
@@ -81,14 +69,7 @@ class BuildReportDataFetcherFormSubscriber implements EventSubscriberInterface
         $this->addConfigurationFields($event->getForm(), $data['dataFetcher']);
     }
 
-    /**
-     * Add configuration fields to the form.
-     *
-     * @param FormInterface $form
-     * @param string        $dataFetcherType
-     * @param array         $config
-     */
-    protected function addConfigurationFields(FormInterface $form, $dataFetcherType, array $config = [])
+    protected function addConfigurationFields(FormInterface $form, string $dataFetcherType, array $config = []): void
     {
         /** @var DataFetcherInterface $dataFetcher */
         $dataFetcher = $this->dataFetcherRegistry->get($dataFetcherType);

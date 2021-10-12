@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusReportPlugin\Renderer;
 
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;
@@ -11,28 +13,20 @@ use Twig\Environment;
  * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
  * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
  * @author Diego D'amico <diego@odiseo.com.ar>
+ * @author Rimas Kudelis <rimas.kudelis@adeoweb.biz>
  */
 class TableRenderer implements RendererInterface
 {
-    /**
-     * @var Environment
-     */
-    private $templating;
+    private Environment $templating;
 
-    /**
-     * @param Environment $templating
-     */
     public function __construct(Environment $templating)
     {
         $this->templating = $templating;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function render(ReportInterface $report, Data $data)
+    public function render(ReportInterface $report, Data $data): string
     {
-        if (null !== $data->getData()) {
+        if ([] !== $data->getData()) {
             $data = [
                 'report' => $report,
                 'values' => $data->getData(),
@@ -52,10 +46,7 @@ class TableRenderer implements RendererInterface
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getType()
+    public function getType(): string
     {
         return TableConfigurationType::class;
     }

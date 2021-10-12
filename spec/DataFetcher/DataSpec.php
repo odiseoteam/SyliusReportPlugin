@@ -17,7 +17,7 @@ class DataSpec extends ObjectBehavior
 
     function its_labels_is_mutable(): void
     {
-        $this->getLabels()->shouldReturn(null);
+        $this->getLabels()->shouldReturn([]);
 
         $this->setLabels(['labelA', 'labelB']);
         $this->getLabels()->shouldReturn(['labelA', 'labelB']);
@@ -25,7 +25,7 @@ class DataSpec extends ObjectBehavior
 
     function its_data_is_mutable(): void
     {
-        $this->getData()->shouldReturn(null);
+        $this->getData()->shouldReturn([]);
 
         $this->setData(['14', '10']);
         $this->getData()->shouldReturn(['14', '10']);

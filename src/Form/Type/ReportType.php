@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusReportPlugin\Form\Type;
 
 use InvalidArgumentException;
@@ -25,36 +27,16 @@ use Symfony\Component\Form\FormView;
  */
 class ReportType extends AbstractResourceType
 {
-    /**
-     * @var ServiceRegistryInterface
-     */
-    protected $rendererRegistry;
+    protected ServiceRegistryInterface $rendererRegistry;
 
-    /**
-     * @var ServiceRegistryInterface
-     */
-    protected $dataFetcherRegistry;
+    protected ServiceRegistryInterface $dataFetcherRegistry;
 
-    /**
-     * @var string
-     */
-    protected $rendererConfigurationTemplate;
+    protected string $rendererConfigurationTemplate;
 
-    /**
-     * @var string
-     */
-    protected $dataFetcherConfigurationTemplate;
+    protected string $dataFetcherConfigurationTemplate;
 
-    /**
-     * @param string $dataClass FQCN
-     * @param string[] $validationGroups
-     * @param ServiceRegistryInterface $rendererRegistry
-     * @param ServiceRegistryInterface $dataFetcherRegistry
-     * @param string $rendererConfigurationTemplate
-     * @param string $dataFetcherConfigurationTemplate
-     */
     public function __construct(
-        $dataClass,
+        string $dataClass,
         array $validationGroups,
         ServiceRegistryInterface $rendererRegistry,
         ServiceRegistryInterface $dataFetcherRegistry,
@@ -69,10 +51,7 @@ class ReportType extends AbstractResourceType
         $this->dataFetcherConfigurationTemplate = $dataFetcherConfigurationTemplate;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->addEventSubscriber(new AddCodeFormSubscriber())
@@ -128,10 +107,7 @@ class ReportType extends AbstractResourceType
         $builder->setAttribute('prototypes', $prototypes);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['prototypes'] = [];
         $view->vars['rendererConfigurationTemplate'] = $this->rendererConfigurationTemplate;
@@ -145,10 +121,7 @@ class ReportType extends AbstractResourceType
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'odiseo_sylius_report';
     }

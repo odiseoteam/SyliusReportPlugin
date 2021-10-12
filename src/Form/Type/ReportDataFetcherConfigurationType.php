@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusReportPlugin\Form\Type;
 
 use Odiseo\SyliusReportPlugin\DataFetcher\DelegatingDataFetcherInterface;
@@ -12,15 +14,9 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class ReportDataFetcherConfigurationType extends AbstractResourceType
 {
-    /**
-     * @var DelegatingDataFetcherInterface
-     */
-    protected $delegatingDataFetcher;
+    protected DelegatingDataFetcherInterface $delegatingDataFetcher;
 
-    /**
-     * @var string
-     */
-    protected $dataFetcherConfigurationTemplate;
+    protected string $dataFetcherConfigurationTemplate;
 
     public function __construct(
         string $dataClass,
@@ -33,10 +29,7 @@ class ReportDataFetcherConfigurationType extends AbstractResourceType
         $this->delegatingDataFetcher = $delegatingDataFetcher;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var ReportInterface $report */
         $report = $builder->getData();
@@ -45,10 +38,7 @@ class ReportDataFetcherConfigurationType extends AbstractResourceType
         $builder->add('dataFetcherConfiguration', $dataFetcher->getType());
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'odiseo_sylius_report';
     }

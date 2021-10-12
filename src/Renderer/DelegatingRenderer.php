@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusReportPlugin\Renderer;
 
 use InvalidArgumentException;
@@ -10,47 +12,31 @@ use Sylius\Component\Registry\ServiceRegistryInterface;
 /**
  * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
  * @author Diego D'amico <diego@odiseo.com.ar>
+ * @author Rimas Kudelis <rimas.kudelis@adeoweb.biz>
  */
 class DelegatingRenderer implements DelegatingRendererInterface
 {
     /**
      * Renderer registry.
-     *
-     * @var ServiceRegistryInterface
      */
-    protected $registry;
+    protected ServiceRegistryInterface $registry;
 
-    /**
-     * @param ServiceRegistryInterface $registry
-     */
     public function __construct(ServiceRegistryInterface $registry)
     {
         $this->registry = $registry;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function render(ReportInterface $report, Data $data)
+    public function render(ReportInterface $report, Data $data): string
     {
         $renderer = $this->getRenderer($report);
 
         return $renderer->render($report, $data);
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @throws InvalidArgumentException If the report subject does not have a renderer.
-     */
-    public function getRenderer(ReportInterface $report)
+    public function getRenderer(ReportInterface $report): RendererInterface
     {
-        if (null === $type = $report->getRenderer()) {
-            throw new InvalidArgumentException('Cannot render data for ReportInterface instance without renderer defined.');
-        }
-
         /** @var RendererInterface $renderer */
-        $renderer = $this->registry->get($type);
+        $renderer = $this->registry->get($report->getRenderer());
 
         return $renderer;
     }

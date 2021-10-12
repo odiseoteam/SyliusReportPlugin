@@ -39,17 +39,6 @@ class DelegatingDataFetcherSpec extends ObjectBehavior
         $this->getDataFetcher($report)->shouldReturn($userRegistrationDataFetcher);
     }
 
-    function it_throws_an_exception_if_report_has_not_data_fetcher(ReportInterface $report, ServiceRegistryInterface $registry)
-    {
-        $report->getDataFetcher()->willReturn(null);
-        $registry->get(DefaultDataFetchers::USER_REGISTRATION)->willReturn(UserRegistrationDataFetcher::class);
-
-        $this
-            ->shouldThrow(new \InvalidArgumentException('Cannot fetch data for ReportInterface instance without DataFetcher defined.'))
-            ->during('getDataFetcher', [$report])
-        ;
-    }
-
     function it_fetch_the_data_with_given_report_configuration(ReportInterface $report, DataFetcherInterface $dataFetcher, ServiceRegistryInterface $registry)
     {
         $reportConfiguration = [

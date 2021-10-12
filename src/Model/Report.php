@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusReportPlugin\Model;
 
 use DateTime;
@@ -22,44 +24,25 @@ class Report implements ReportInterface
      */
     protected $id;
 
-    /**
-     * @var string|null
-     */
-    protected $code;
+    protected ?string $code = null;
 
-    /**
-     * @var string
-     */
-    protected $name;
+    protected ?string $name = null;
 
-    /**
-     * @var string
-     */
-    protected $description;
+    protected ?string $description = null;
 
     /**
      * Renderer name.
-     *
-     * @var string
      */
-    protected $renderer = DefaultRenderers::TABLE;
+    protected string $renderer = DefaultRenderers::TABLE;
 
-    /**
-     * @var array
-     */
-    protected $rendererConfiguration = [];
+    protected array $rendererConfiguration = [];
 
     /**
      * Data fetcher name.
-     *
-     * @var string
      */
-    protected $dataFetcher = DefaultDataFetchers::USER_REGISTRATION;
+    protected string $dataFetcher = DefaultDataFetchers::USER_REGISTRATION;
 
-    /**
-     * @var array
-     */
-    protected $dataFetcherConfiguration = [];
+    protected array $dataFetcherConfiguration = [];
 
     public function __construct()
     {
@@ -81,114 +64,72 @@ class Report implements ReportInterface
         return $this->id;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCode(): ?string
     {
         return $this->code;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setCode(?string $code): void
     {
         $this->code = $code;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setName($name)
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setDescription($description)
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getDataFetcher()
+    public function getDataFetcher(): string
     {
         return $this->dataFetcher;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setDataFetcher(string $dataFetcher)
+    public function setDataFetcher(string $dataFetcher): void
     {
         $this->dataFetcher = $dataFetcher;
     }
 
-    /**
-     * @return string
-     */
-    public function getRenderer()
+    public function getRenderer(): string
     {
         return $this->renderer;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setRenderer(string $renderer)
+    public function setRenderer(string $renderer): void
     {
         $this->renderer = $renderer;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getDataFetcherConfiguration()
+    public function getDataFetcherConfiguration(): array
     {
         return $this->dataFetcherConfiguration;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setDataFetcherConfiguration(array $dataFetcherConfiguration)
+    public function setDataFetcherConfiguration(array $dataFetcherConfiguration): void
     {
         $this->dataFetcherConfiguration = $dataFetcherConfiguration;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getRendererConfiguration()
+    public function getRendererConfiguration(): array
     {
         return $this->rendererConfiguration;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setRendererConfiguration(array $rendererConfiguration)
+    public function setRendererConfiguration(array $rendererConfiguration): void
     {
         $this->rendererConfiguration = $rendererConfiguration;
     }

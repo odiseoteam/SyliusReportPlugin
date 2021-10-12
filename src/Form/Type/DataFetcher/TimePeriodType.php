@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusReportPlugin\Form\Type\DataFetcher;
 
 use DateTime;
@@ -15,10 +17,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 final class TimePeriodType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('start', DateType::class, [
@@ -42,10 +41,7 @@ final class TimePeriodType extends AbstractType
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'odiseo_sylius_report_data_fetcher_time_period';
     }

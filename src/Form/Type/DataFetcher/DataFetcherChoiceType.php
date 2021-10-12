@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Odiseo\SyliusReportPlugin\Form\Type\DataFetcher;
 
 use Symfony\Component\Form\AbstractType;
@@ -12,23 +14,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class DataFetcherChoiceType extends AbstractType
 {
-    /**
-     * @var array|false
-     */
-    protected $dataFetchers;
+    protected array $dataFetchers;
 
-    /**
-     * @param array $dataFetchers
-     */
-    public function __construct($dataFetchers)
+    public function __construct(array $dataFetchers)
     {
-        $this->dataFetchers = array_combine(array_values($dataFetchers), array_keys($dataFetchers));
+        $this->dataFetchers = array_combine(array_values($dataFetchers), array_keys($dataFetchers)) ?: [];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -37,18 +30,12 @@ class DataFetcherChoiceType extends AbstractType
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getParent()
+    public function getParent(): string
     {
         return ChoiceType::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'odiseo_sylius_report_data_fetcher_choice';
     }
