@@ -9,11 +9,20 @@
     <a href="https://packagist.org/packages/odiseoteam/sylius-report-plugin" title="Version" target="_blank">
         <img src="https://img.shields.io/packagist/v/odiseoteam/sylius-report-plugin.svg" />
     </a>
+    <a href="https://github.com/odiseoteam/SyliusReportPlugin/actions" title="Build Status" target="_blank">
+        <img src="https://img.shields.io/github/workflow/status/odiseoteam/SyliusReportPlugin/Build" />
+    </a>
     <a href="https://scrutinizer-ci.com/g/odiseoteam/SyliusReportPlugin/" title="Scrutinizer" target="_blank">
         <img src="https://img.shields.io/scrutinizer/g/odiseoteam/SyliusReportPlugin.svg" />
     </a>
     <a href="https://packagist.org/packages/odiseoteam/sylius-report-plugin" title="Total Downloads" target="_blank">
         <img src="https://poser.pugx.org/odiseoteam/sylius-report-plugin/downloads" />
+    </a>
+    <a href="https://sylius-devs.slack.com" title="Slack" target="_blank">
+        <img src="https://img.shields.io/badge/community%20chat-slack-FF1493.svg" />
+    </a>
+    <a href="https://odiseo.io/contact?utm_source=github&utm_medium=referral&utm_campaign=plugins_vendor" title="Support" target="_blank">
+        <img src="https://img.shields.io/badge/support-contact%20author-blue" />
     </a>
 </p>
 <p align="center"><a href="https://sylius.com/partners/odiseo/" target="_blank"><img src="https://github.com/odiseoteam/SyliusReportPlugin/blob/master/badge-partner-by-sylius.png" width="140"></a></p>
@@ -24,10 +33,10 @@ This plugin adds data reports to the Sylius administration interface.
 It's highly inspired on the old [SyliusReportBundle](https://github.com/Sylius/SyliusReportBundle) and 
 [Report](https://github.com/Sylius/Report) component using its good architecture.
 
-Support Sylius version 1.6+.
+Support Sylius version 1.7+.
 
 #### Premium features!
-Do you want advanced features? Take a look at our [Report Pro Plugin](https://odiseo.com.ar/plugins-and-bundles/premium/sylius-report-pro-plugin), an extended version of this one.
+Do you want advanced features? Take a look at our [Report Pro Plugin](https://odiseo.io/plugins-and-bundles/premium/sylius-report-pro-plugin), an extended version of this one.
 
 ### Architecture
 

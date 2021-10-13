@@ -8,7 +8,7 @@ use Odiseo\SyliusReportPlugin\DataFetcher\DefaultDataFetchers;
 use Odiseo\SyliusReportPlugin\DataFetcher\DelegatingDataFetcher;
 use Odiseo\SyliusReportPlugin\DataFetcher\DelegatingDataFetcherInterface;
 use Odiseo\SyliusReportPlugin\DataFetcher\UserRegistrationDataFetcher;
-use Odiseo\SyliusReportPlugin\Model\ReportInterface;
+use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 

@@ -6,7 +6,7 @@ namespace Odiseo\SyliusReportPlugin\Renderer;
 
 use InvalidArgumentException;
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;
-use Odiseo\SyliusReportPlugin\Model\ReportInterface;
+use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 
 /**

@@ -3,7 +3,7 @@
 namespace spec\Odiseo\SyliusReportPlugin\Form\EventListener;
 
 use Odiseo\SyliusReportPlugin\Form\EventListener\BuildReportRendererFormSubscriber;
-use Odiseo\SyliusReportPlugin\Model\ReportInterface;
+use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 use Odiseo\SyliusReportPlugin\Renderer\RendererInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;

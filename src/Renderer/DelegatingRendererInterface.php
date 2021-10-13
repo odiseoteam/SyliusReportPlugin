@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Odiseo\SyliusReportPlugin\Renderer;
 
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;
-use Odiseo\SyliusReportPlugin\Model\ReportInterface;
+use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 
 /**
  * @author Mateusz Zalewski <zaleslaw@.gmail.com>

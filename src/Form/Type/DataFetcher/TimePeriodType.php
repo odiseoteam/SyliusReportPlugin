@@ -21,21 +21,21 @@ final class TimePeriodType extends AbstractType
     {
         $builder
             ->add('start', DateType::class, [
-                'label' => 'odiseo_sylius_report.form.time_period.start',
+                'label' => 'odiseo_sylius_report_plugin.form.time_period.start',
                 'years' => range((new DateTime('-100 years'))->format('Y'), (new DateTime())->format('Y')),
             ])
             ->add('end', DateType::class, [
-                'label' => 'odiseo_sylius_report.form.time_period.end',
+                'label' => 'odiseo_sylius_report_plugin.form.time_period.end',
                 'years' => range((new DateTime('-100 years'))->format('Y'), (new DateTime())->format('Y')),
                 'required' => false,
             ])
             ->add('period', ChoiceType::class, [
                 'choices' => TimePeriodDataFetcher::getPeriodChoices(),
                 'multiple' => false,
-                'label' => 'odiseo_sylius_report.form.time_period.period',
+                'label' => 'odiseo_sylius_report_plugin.form.time_period.period',
             ])
             ->add('empty_records', CheckboxType::class, [
-                'label' => 'odiseo_sylius_report.form.time_period.empty_records',
+                'label' => 'odiseo_sylius_report_plugin.form.time_period.empty_records',
                 'required' => false,
             ])
         ;

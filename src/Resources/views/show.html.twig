@@ -8,7 +8,7 @@
 
 {% set breadcrumbs = [
     { label: 'sylius.ui.administration'|trans, url: path('sylius_admin_dashboard') },
-    { label: (metadata.applicationName~'.ui.'~metadata.pluralName)|trans, url: path('odiseo_sylius_report_admin_report_index', configuration.vars.route.parameters|default({})) },
+    { label: (metadata.applicationName~'.ui.'~metadata.pluralName)|trans, url: path('odiseo_sylius_report_plugin_admin_report_index', configuration.vars.route.parameters|default({})) },
     { label: resource.name }
 ] %}
 
@@ -31,8 +31,8 @@
             {% block show_header_buttons %}
                 <div class="middle aligned column">
                     <div class="ui right floated buttons">
-                        {{ buttons.default(path('odiseo_sylius_report_admin_report_update', {'id': resource.id}), 'sylius.ui.edit', null, 'pencil') }}
-                        {{ buttons.default(path('odiseo_sylius_report_admin_report_export', {'id': resource.id}), 'odiseo_sylius_report.ui.export', null, 'download',  'brown') }}
+                        {{ buttons.default(path('odiseo_sylius_report_plugin_admin_report_update', {'id': resource.id}), 'sylius.ui.edit', null, 'pencil') }}
+                        {{ buttons.default(path('odiseo_sylius_report_plugin_admin_report_export', {'id': resource.id}), 'odiseo_sylius_report_plugin.ui.export', null, 'download',  'brown') }}
                     </div>
                 </div>
             {% endblock %}
@@ -61,7 +61,7 @@
 
     {% block show_results %}
         <div id="report-results">
-            {{ render(controller('odiseo_sylius_report.controller.report:embedAction', {'report': report, 'configuration' : report.dataFetcherConfiguration})) }}
+            {{ render(controller('odiseo_sylius_report_plugin.controller.report:embedAction', {'report': report, 'configuration' : report.dataFetcherConfiguration})) }}
         </div>
     {% endblock %}
 

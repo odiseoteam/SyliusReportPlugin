@@ -1,0 +1,3 @@
+odiseo_sylius_report_plugin_admin_ajax_report:
+    resource: ajax/report.yaml
+    prefix: /report

@@ -1,15 +1,13 @@
 {% extends '@SyliusUi/Form/theme.html.twig' %}
 
 {% block date_widget %}
-    {% spaceless %}
-        {% if widget == 'single_text' %}
-            {{ block('form_widget_simple') }}
-        {% else %}
-            {{ '{{ year }} / {{ month }} / {{ day }}'|replace({
-                '{{ year }}':  form_widget(form.year, {'attr': {'style': 'display: inline; width: 100px;'}}),
-                '{{ month }}': form_widget(form.month, {'attr': {'style': 'display: inline; width: 100px;'}}),
-                '{{ day }}':   form_widget(form.day, {'attr': {'style': 'display: inline; width: 100px;'}}),
-            })|raw }}
-        {% endif %}
-    {% endspaceless %}
+    {% if widget == 'single_text' %}
+        {{ block('form_widget_simple') }}
+    {% else %}
+        {{ '{{ year }} / {{ month }} / {{ day }}'|replace({
+            '{{ year }}':  form_widget(form.year, {'attr': {'style': 'display: inline; width: 100px;'}}),
+            '{{ month }}': form_widget(form.month, {'attr': {'style': 'display: inline; width: 100px;'}}),
+            '{{ day }}':   form_widget(form.day, {'attr': {'style': 'display: inline; width: 100px;'}}),
+        })|raw }}
+    {% endif %}
 {% endblock date_widget %}

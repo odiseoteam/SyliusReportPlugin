@@ -1,0 +1,2 @@
+imports:
+    - { resource: grids/admin/report.yaml }

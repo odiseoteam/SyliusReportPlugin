@@ -1,0 +1,15 @@
+odiseo_sylius_report_plugin:
+    report:
+        code:
+            unique: Il existe déjà un rapport avec ce code.
+            not_blank: Le code ne doit pas être vide.
+            min_length: Le code doit contenir au minimum {{ limit }} caractères.
+            max_length: Le code ne doit pas être plus long que {{ limit }} caractères.
+        name:
+            not_blank: Le nom de doit pas être vide.
+            min_length: Le nom doit contenir au minimum {{ limit }} caractères.
+            max_length: Le nom ne doit pas être plus long que {{ limit }} caractères.
+        description:
+            not_blank: La description ne doit pas être vide.
+            min_length: La description doit contenir au minimum {{ limit }} caractères.
+            max_length: La description ne doit pas être plus long que {{ limit }} caractères.

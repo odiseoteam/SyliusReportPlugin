@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
-use Odiseo\SyliusReportPlugin\Model\ReportInterface;
+use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 
 /**
  * Delegating data fetcher.

@@ -1,0 +1,8 @@
+imports:
+    - { resource: services/controller.yaml }
+    - { resource: services/data_fetcher.yaml }
+    - { resource: services/event_listener.yaml }
+    - { resource: services/filter.yaml }
+    - { resource: services/form.yaml }
+    - { resource: services/registry.yaml }
+    - { resource: services/renderer.yaml }

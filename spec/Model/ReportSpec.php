@@ -3,8 +3,8 @@
 namespace spec\Odiseo\SyliusReportPlugin\Model;
 
 use Odiseo\SyliusReportPlugin\DataFetcher\DefaultDataFetchers;
-use Odiseo\SyliusReportPlugin\Model\Report;
-use Odiseo\SyliusReportPlugin\Model\ReportInterface;
+use Odiseo\SyliusReportPlugin\Entity\Report;
+use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 use Odiseo\SyliusReportPlugin\Renderer\DefaultRenderers;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;

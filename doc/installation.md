@@ -2,7 +2,7 @@
 
 1. Run `composer require odiseoteam/sylius-report-plugin --no-scripts`
 
-2. Enable the plugin in bundles.php but add it before SyliusResourceBundle like follows
+2. Enable the plugin in bundles.php
 
 ```php
 <?php
@@ -11,8 +11,6 @@
 return [
     // ...
     Odiseo\SyliusReportPlugin\OdiseoSyliusReportPlugin::class => ['all' => true],
-    Sylius\Bundle\ResourceBundle\SyliusResourceBundle::class => ['all' => true],
-    // ...
 ];
 ```
 
@@ -23,7 +21,7 @@ return [
 imports:
     ...
 
-    - { resource: "@OdiseoSyliusReportPlugin/Resources/config/config.yml" }
+    - { resource: "@OdiseoSyliusReportPlugin/Resources/config/config.yaml" }
 ```
 
 This plugin use [DoctrineExtensions](https://github.com/beberlei/DoctrineExtensions) to create the different DataFetcher's queries.
@@ -45,12 +43,41 @@ doctrine:
 4. Add the admin routes
 
 ```yml
+# config/routes.yaml
 odiseo_sylius_report_plugin_admin:
-    resource: "@OdiseoSyliusReportPlugin/Resources/config/routing/admin.yml"
+    resource: "@OdiseoSyliusReportPlugin/Resources/config/routing/admin.yaml"
     prefix: /admin
 ```
 
-5. Finish the installation updating the database schema and installing assets
+5. Include traits
+
+```php
+<?php
+// src/Repository/AddressRepository.php
+
+// ...
+use Odiseo\SyliusReportPlugin\Repository\AddressRepositoryInterface;
+use Odiseo\SyliusReportPlugin\Repository\AddressRepositoryTrait;
+use Sylius\Bundle\CoreBundle\Doctrine\ORM\AddressRepository as BaseAddressRepository;
+
+class AddressRepository extends BaseAddressRepository implements AddressRepositoryInterface
+{
+    use AddressRepositoryTrait;
+
+    // ...
+}
+```
+
+```yml
+# config/packages/_sylius.yaml
+sylius_address:
+    resources:
+        address:
+            classes:
+                repository: App\Repository\AddressRepository
+```
+
+6. Finish the installation updating the database schema and installing assets
 
 ```
 php bin/console doctrine:schema:update --force

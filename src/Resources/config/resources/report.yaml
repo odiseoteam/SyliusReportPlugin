@@ -1,0 +1,11 @@
+sylius_resource:
+    resources:
+        odiseo_sylius_report_plugin.report:
+            driver: doctrine/orm
+            classes:
+                model: Odiseo\SyliusReportPlugin\Entity\Report
+                interface: Odiseo\SyliusReportPlugin\Entity\ReportInterface
+                form: Odiseo\SyliusReportPlugin\Form\Type\ReportType
+                repository: Odiseo\SyliusReportPlugin\Repository\ReportRepository
+                controller: Odiseo\SyliusReportPlugin\Controller\ReportController
+                factory: Sylius\Component\Resource\Factory\Factory

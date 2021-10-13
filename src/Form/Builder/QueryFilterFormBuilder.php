@@ -52,13 +52,13 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
         $builder
             ->add('userGender', ChoiceType::class, [
                 'choices'  => [
-                    'odiseo_sylius_report.form.user_gender.male' => 'm',
-                    'odiseo_sylius_report.form.user_gender.female' => 'f',
+                    'odiseo_sylius_report_plugin.form.user_gender.male' => 'm',
+                    'odiseo_sylius_report_plugin.form.user_gender.female' => 'f',
                 ],
                 'multiple' => true,
                 'expanded' => true,
                 'required' => false,
-                'label' => 'odiseo_sylius_report.form.user_gender.label',
+                'label' => 'odiseo_sylius_report_plugin.form.user_gender.label',
             ])
         ;
     }
@@ -67,7 +67,7 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
     {
         $builder
             ->add('user'.ucfirst($addressType).'Country', CountryType::class, [
-                'label' => 'odiseo_sylius_report.form.'.$addressType.'_country',
+                'label' => 'odiseo_sylius_report_plugin.form.'.$addressType.'_country',
                 'multiple' => true,
                 'required' => false,
                 'attr' => [
@@ -81,10 +81,10 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
     {
         $builder
             ->add('user'.ucfirst($addressType).'City', AddressAutocompleteChoiceType::class, [
-                'label' => 'odiseo_sylius_report.form.'.$addressType.'_city',
+                'label' => 'odiseo_sylius_report_plugin.form.'.$addressType.'_city',
                 'multiple' => true,
                 'required' => false,
-                'remote_url' => $this->generator->generate('odiseo_sylius_report_plugin_admin_ajax_cities'),
+                'remote_url' => $this->generator->generate('odiseo_sylius_report_plugin_admin_ajax_report_cities'),
                 'choice_name' => 'city',
             ])
         ;
@@ -94,10 +94,10 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
     {
         $builder
             ->add('user'.ucfirst($addressType).'Province', AddressAutocompleteChoiceType::class, [
-                'label' => 'odiseo_sylius_report.form.'.$addressType.'_province',
+                'label' => 'odiseo_sylius_report_plugin.form.'.$addressType.'_province',
                 'multiple' => true,
                 'required' => false,
-                'remote_url' => $this->generator->generate('odiseo_sylius_report_plugin_admin_ajax_provinces'),
+                'remote_url' => $this->generator->generate('odiseo_sylius_report_plugin_admin_ajax_report_provinces'),
                 'choice_name' => 'province',
             ])
         ;
@@ -107,10 +107,10 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
     {
         $builder
             ->add('user'.ucfirst($addressType).'Postcode', AddressAutocompleteChoiceType::class, [
-                'label' => 'odiseo_sylius_report.form.'.$addressType.'_postcode',
+                'label' => 'odiseo_sylius_report_plugin.form.'.$addressType.'_postcode',
                 'multiple' => true,
                 'required' => false,
-                'remote_url' => $this->generator->generate('odiseo_sylius_report_plugin_admin_ajax_postcodes'),
+                'remote_url' => $this->generator->generate('odiseo_sylius_report_plugin_admin_ajax_report_postcodes'),
                 'choice_name' => 'postcode',
             ])
         ;
@@ -145,7 +145,7 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
                 'label' => 'sylius.ui.product',
                 'multiple' => true,
                 'required' => false,
-                'remote_url' => $this->generator->generate('odiseo_sylius_report_plugin_admin_ajax_products'),
+                'remote_url' => $this->generator->generate('odiseo_sylius_report_plugin_admin_ajax_report_products'),
                 'choice_name' => 'name',
             ])
         ;
@@ -160,7 +160,7 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
                     'class' => 'fluid search selection',
                 ],
                 'multiple' => true,
-                'label' => 'odiseo_sylius_report.form.category',
+                'label' => 'odiseo_sylius_report_plugin.form.category',
                 'choices' => $this->buildCategoriesChoices()
             ])
         ;
@@ -171,7 +171,7 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
         $choices = [];
         $channels = $this->channelRepository->findAll();
 
-        $choices['odiseo_sylius_report.form.all_channels'] = 0;
+        $choices['odiseo_sylius_report_plugin.form.all_channels'] = 0;
 
         /** @var ChannelInterface $channel */
         foreach ($channels as $channel) {

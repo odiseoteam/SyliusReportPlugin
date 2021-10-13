@@ -4,43 +4,37 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusReportPlugin\DependencyInjection;
 
-use Exception;
-use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * @author Diego D'amico <diego@odiseo.com.ar>
  */
-final class OdiseoSyliusReportExtension extends AbstractResourceExtension
+final class OdiseoSyliusReportExtension extends Extension
 {
-    /**
-     * {@inheritdoc}
-     * @throws Exception
-     */
-    public function load(array $config, ContainerBuilder $container): void
+    public function load(array $configs, ContainerBuilder $container): void
     {
-        $config = $this->processConfiguration($this->getConfiguration([], $container), $config);
-        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $config = $this->processConfiguration($this->getConfiguration([], $container), $configs);
 
-        $this->registerResources('odiseo_sylius_report', $config['driver'], $config['resources'], $container);
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 
-        $configFiles = [
-            'services.yml',
-        ];
-
-        foreach ($configFiles as $configFile) {
-            $loader->load($configFile);
-        }
+        $loader->load('services.yaml');
 
         $container
-            ->getDefinition('odiseo_sylius_report.form.type.report')
-            ->addArgument(new Reference('odiseo_sylius_report.registry.renderer'))
-            ->addArgument(new Reference('odiseo_sylius_report.registry.data_fetcher'))
+            ->getDefinition('odiseo_sylius_report_plugin.form.type.report')
+            ->addArgument(new Reference('odiseo_sylius_report_plugin.registry.renderer'))
+            ->addArgument(new Reference('odiseo_sylius_report_plugin.registry.data_fetcher'))
             ->addArgument($config['renderer_configuration_template'])
             ->addArgument($config['data_fetcher_configuration_template'])
         ;
+    }
+
+    public function getConfiguration(array $config, ContainerBuilder $container): ConfigurationInterface
+    {
+        return new Configuration();
     }
 }

@@ -8,7 +8,7 @@
 
             <div class="ui checkbox">
                 <input id="timePeriod_end_today" type="checkbox" tabindex="0" class="hidden" {{ field.vars.data is same as(null)?'checked':'' }}>
-                <label for="timePeriod_end_today">{{ 'odiseo_sylius_report.ui.today'|trans }}</label>
+                <label for="timePeriod_end_today">{{ 'odiseo_sylius_report_plugin.ui.today'|trans }}</label>
             </div>
         </div>
         {% else %}
@@ -26,7 +26,7 @@
 <div class="ui accordion">
     <div class="title">
         <i class="dropdown icon"></i>
-        {{ 'odiseo_sylius_report.ui.more_filters'|trans }}
+        {{ 'odiseo_sylius_report_plugin.ui.more_filters'|trans }}
     </div>
     <div class="content">
         {% set index = 1 %}

@@ -1,0 +1,27 @@
+odiseo_sylius_report_plugin_admin_ajax_report_cities:
+    path: /cities
+    methods: [GET]
+    defaults:
+        _controller: odiseo_sylius_report_plugin.controller.action.city_search
+        _format: json
+
+odiseo_sylius_report_plugin_admin_ajax_report_provinces:
+    path: /provinces
+    methods: [GET]
+    defaults:
+        _controller: odiseo_sylius_report_plugin.controller.action.province_search
+        _format: json
+
+odiseo_sylius_report_plugin_admin_ajax_report_postcodes:
+    path: /postcodes
+    methods: [GET]
+    defaults:
+        _controller: odiseo_sylius_report_plugin.controller.action.postcode_search
+        _format: json
+
+odiseo_sylius_report_plugin_admin_ajax_report_products:
+    path: /products-search
+    methods: [GET]
+    defaults:
+        _controller: odiseo_sylius_report_plugin.controller.action.product_search
+        _format: json

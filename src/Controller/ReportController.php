@@ -6,7 +6,7 @@ namespace Odiseo\SyliusReportPlugin\Controller;
 
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;
 use Odiseo\SyliusReportPlugin\DataFetcher\DelegatingDataFetcherInterface;
-use Odiseo\SyliusReportPlugin\Model\ReportInterface;
+use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 use Odiseo\SyliusReportPlugin\Renderer\DelegatingRendererInterface;
 use Odiseo\SyliusReportPlugin\Response\CsvResponse;
 use Odiseo\SyliusReportPlugin\Form\Type\ReportDataFetcherConfigurationType;
@@ -95,7 +95,7 @@ class ReportController extends ResourceController
     private function getReportRenderer(): DelegatingRendererInterface
     {
         /** @var DelegatingRendererInterface $renderer */
-        $renderer = $this->container->get('odiseo_sylius_report.renderer');
+        $renderer = $this->container->get('odiseo_sylius_report_plugin.renderer');
 
         return $renderer;
     }
@@ -103,7 +103,7 @@ class ReportController extends ResourceController
     private function getReportDataFetcher(): DelegatingDataFetcherInterface
     {
         /** @var DelegatingDataFetcherInterface $dataFetcher */
-        $dataFetcher = $this->container->get('odiseo_sylius_report.data_fetcher');
+        $dataFetcher = $this->container->get('odiseo_sylius_report_plugin.data_fetcher');
 
         return $dataFetcher;
     }

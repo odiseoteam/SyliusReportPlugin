@@ -3,7 +3,7 @@
 namespace spec\Odiseo\SyliusReportPlugin\Renderer;
 
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;
-use Odiseo\SyliusReportPlugin\Model\ReportInterface;
+use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 use Odiseo\SyliusReportPlugin\Renderer\DefaultRenderers;
 use Odiseo\SyliusReportPlugin\Renderer\DelegatingRenderer;
 use Odiseo\SyliusReportPlugin\Renderer\DelegatingRendererInterface;

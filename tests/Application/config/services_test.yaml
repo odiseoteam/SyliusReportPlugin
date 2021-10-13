@@ -1,5 +1,5 @@
 imports:
-    - { resource: "../../Behat/Resources/services.yml" }
+    - { resource: "../../Behat/Resources/services.yaml" }
     - { resource: "../../../vendor/sylius/sylius/src/Sylius/Behat/Resources/config/services.xml" }
 
 # workaround needed for strange "test.client.history" problem

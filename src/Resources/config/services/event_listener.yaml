@@ -1,0 +1,5 @@
+services:
+    odiseo_sylius_report_plugin.event_listener.admin.menu_builder:
+        class: Odiseo\SyliusReportPlugin\Menu\AdminMenuListener
+        tags:
+            - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addAdminMenuItems }

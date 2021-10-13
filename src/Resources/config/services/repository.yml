@@ -1,4 +1,0 @@
-services:
-    odiseo_sylius_report.repository.address:
-        class: Odiseo\SyliusReportPlugin\Repository\AddressRepository
-        parent: sylius.repository.address

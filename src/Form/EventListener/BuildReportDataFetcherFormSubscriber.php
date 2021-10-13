@@ -6,7 +6,7 @@ namespace Odiseo\SyliusReportPlugin\Form\EventListener;
 
 use InvalidArgumentException;
 use Odiseo\SyliusReportPlugin\DataFetcher\DataFetcherInterface;
-use Odiseo\SyliusReportPlugin\Model\ReportInterface;
+use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 use Sylius\Component\Resource\Exception\UnexpectedTypeException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

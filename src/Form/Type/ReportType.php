@@ -58,18 +58,18 @@ class ReportType extends AbstractResourceType
             ->addEventSubscriber(new BuildReportDataFetcherFormSubscriber($this->dataFetcherRegistry, $builder->getFormFactory()))
             ->addEventSubscriber(new BuildReportRendererFormSubscriber($this->rendererRegistry, $builder->getFormFactory()))
             ->add('name', TextType::class, [
-                'label' => 'odiseo_sylius_report.form.report.name',
+                'label' => 'odiseo_sylius_report_plugin.form.report.name',
                 'required' => true,
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'odiseo_sylius_report.form.report.description',
+                'label' => 'odiseo_sylius_report_plugin.form.report.description',
                 'required' => false,
             ])
             ->add('dataFetcher', DataFetcherChoiceType::class, [
-                'label' => 'odiseo_sylius_report.form.data_fetcher',
+                'label' => 'odiseo_sylius_report_plugin.form.data_fetcher',
             ])
             ->add('renderer', RendererChoiceType::class, [
-                'label' => 'odiseo_sylius_report.form.renderer.label',
+                'label' => 'odiseo_sylius_report_plugin.form.renderer.label',
             ])
         ;
 

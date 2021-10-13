@@ -1,0 +1,2 @@
+imports:
+    - suites/ui/managing_reports.yaml

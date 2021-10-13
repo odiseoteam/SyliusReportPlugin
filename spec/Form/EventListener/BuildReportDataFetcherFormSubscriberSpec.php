@@ -4,7 +4,7 @@ namespace spec\Odiseo\SyliusReportPlugin\Form\EventListener;
 
 use Odiseo\SyliusReportPlugin\DataFetcher\DataFetcherInterface;
 use Odiseo\SyliusReportPlugin\Form\EventListener\BuildReportDataFetcherFormSubscriber;
-use Odiseo\SyliusReportPlugin\Model\ReportInterface;
+use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Sylius\Component\Registry\ServiceRegistryInterface;

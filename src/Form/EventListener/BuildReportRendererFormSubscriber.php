@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Odiseo\SyliusReportPlugin\Form\EventListener;
 
 use InvalidArgumentException;
-use Odiseo\SyliusReportPlugin\Model\ReportInterface;
+use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 use Odiseo\SyliusReportPlugin\Renderer\RendererInterface;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 use Sylius\Component\Resource\Exception\UnexpectedTypeException;

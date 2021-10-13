@@ -1,0 +1,31 @@
+services:
+    odiseo_sylius_report_plugin.context.setup.report:
+        class: Tests\Odiseo\SyliusReportPlugin\Behat\Context\Setup\ReportContext
+        public: true
+        arguments:
+            - '@odiseo_sylius_report_plugin.factory.report'
+            - '@odiseo_sylius_report_plugin.repository.report'
+            - '@odiseo_sylius_report_plugin.manager.report'
+        tags:
+            - { name: 'fob.context_service' }
+
+    odiseo_sylius_report_plugin.context.transform.report:
+        class: Tests\Odiseo\SyliusReportPlugin\Behat\Context\Transform\ReportContext
+        public: true
+        arguments:
+            - '@odiseo_sylius_report_plugin.repository.report'
+        tags:
+            - { name: 'fob.context_service' }
+
+    odiseo_sylius_report_plugin.context.ui.admin.managing_reports:
+        class: Tests\Odiseo\SyliusReportPlugin\Behat\Context\Ui\Admin\ManagingReportsContext
+        public: true
+        arguments:
+            - "@sylius.behat.current_page_resolver"
+            - "@sylius.behat.notification_checker"
+            - '@odiseo_sylius_report_plugin.page.admin.report.index_page'
+            - '@odiseo_sylius_report_plugin.page.admin.report.create_page'
+            - '@odiseo_sylius_report_plugin.page.admin.report.update_page'
+            - '@odiseo_sylius_report_plugin.page.admin.report.show_page'
+        tags:
+            - { name: 'fob.context_service' }

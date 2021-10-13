@@ -4,7 +4,7 @@ namespace spec\Odiseo\SyliusReportPlugin\Renderer;
 
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;
 use Odiseo\SyliusReportPlugin\Form\Type\Renderer\TableConfigurationType;
-use Odiseo\SyliusReportPlugin\Model\ReportInterface;
+use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 use Odiseo\SyliusReportPlugin\Renderer\RendererInterface;
 use Odiseo\SyliusReportPlugin\Renderer\TableRenderer;
 use PhpSpec\ObjectBehavior;

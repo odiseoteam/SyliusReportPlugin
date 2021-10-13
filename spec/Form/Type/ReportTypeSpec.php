@@ -5,7 +5,7 @@ namespace spec\Odiseo\SyliusReportPlugin\Form\Type;
 use Odiseo\SyliusReportPlugin\DataFetcher\DataFetcherInterface;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\DataFetcherChoiceType;
 use Odiseo\SyliusReportPlugin\Form\Type\Renderer\RendererChoiceType;
-use Odiseo\SyliusReportPlugin\Model\Report;
+use Odiseo\SyliusReportPlugin\Entity\Report;
 use Odiseo\SyliusReportPlugin\Renderer\RendererInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;

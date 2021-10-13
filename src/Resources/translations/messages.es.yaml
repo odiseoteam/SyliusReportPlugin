@@ -1,0 +1,69 @@
+odiseo_sylius_report_plugin:
+    ui:
+        reports: Reportes
+        manage_reports: Administrar reportes
+        renderers: Renderizadores
+        data_fetchers: Obtención de datos
+        no_data: Sin datos
+        new_report: Nuevo reporte
+        edit_report: Editar reporte
+        there_are_no_reports_results: No se encontraron resultados para este reporte
+        export: Exportar
+        today: Hoy
+        daily: Diario
+        monthly: Mensual
+        yearly: Anual
+        more_filters: Más filtros
+        table:
+            date: Fecha
+            orders_quantity: Cantidad de ordenes
+            products_quantity: Cantidad de productos
+            users_quantity: Cantidad de usuarios
+            carts_quantity: Cantidad de carritos
+            products_total_money: Total productos
+            net_total_money: Total neto
+            adjustment_total_money: Total ajustes
+            gross_total_money: Total bruto
+    form:
+        report:
+            name: Nombre
+            description: Descripción
+        data_fetcher: Data Fetcher
+        renderer:
+            label:  Renderer
+            template: Template
+            chart:
+                type: Tipo
+        time_period:
+            start: Fecha desde
+            end: Fecha hasta
+            period: Período de fecha
+            empty_records: Imprimir resultados vacios?
+        user_gender:
+            label: Genero del usuario
+            male: Masculino
+            female: Femenino
+        shipping_country: País de envío
+        shipping_city: Ciudad de envío
+        shipping_province: Provincia de envío
+        shipping_postcode: Código postal de envío
+        billing_country: País de facturación
+        billing_city: Ciudad de facturación
+        billing_province: Provincia de facturación
+        billing_postcode: Código postal de facturación
+        orders: Órdenes
+        all_channels: Todos los canales
+        category: Categoría
+    renderer:
+        chart: Renderizador por gráfico
+        table: Renderizador por tabla
+    data_fetcher:
+        user_registration: Registración de usuario
+        sales_total: Total de ventas
+        number_of_orders: Cantidad de órdenes
+
+odiseo_sylius_report_plugin_renderer_table: Renderizador por tabla
+odiseo_sylius_report_plugin_renderer_chart: Renderizador por gráfico
+odiseo_sylius_report_plugin_data_fetcher_user_registration: Registración de usuario
+odiseo_sylius_report_plugin_data_fetcher_sales_total: Total de ventas
+odiseo_sylius_report_plugin_data_fetcher_number_of_orders: Cantidad de órdenes

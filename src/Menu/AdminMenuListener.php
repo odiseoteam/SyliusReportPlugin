@@ -21,8 +21,8 @@ final class AdminMenuListener
         }
 
         $menuItem
-            ->addChild('reports', ['route' => 'odiseo_sylius_report_admin_report_index'])
-            ->setLabel('odiseo_sylius_report.ui.reports')
+            ->addChild('reports', ['route' => 'odiseo_sylius_report_plugin_admin_report_index'])
+            ->setLabel('odiseo_sylius_report_plugin.ui.reports')
             ->setLabelAttribute('icon', 'bar chart')
         ;
     }

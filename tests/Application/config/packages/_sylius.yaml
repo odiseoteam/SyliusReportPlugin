@@ -7,7 +7,7 @@ imports:
 
     - { resource: "@SyliusApiBundle/Resources/config/app/config.yaml" }
 
-    - { resource: "@OdiseoSyliusReportPlugin/Resources/config/config.yml" }
+    - { resource: "@OdiseoSyliusReportPlugin/Resources/config/config.yaml" }
 
 parameters:
     sylius_core.public_dir: '%kernel.project_dir%/public'
@@ -15,3 +15,9 @@ parameters:
 sylius_shop:
     product_grid:
         include_all_descendants: true
+
+sylius_addressing:
+    resources:
+        address:
+            classes:
+                repository: Tests\Odiseo\SyliusReportPlugin\Application\Repository\AddressRepository

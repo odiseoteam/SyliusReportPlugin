@@ -11,21 +11,9 @@ use Sylius\Component\Core\Repository\AddressRepositoryInterface as BaseAddressRe
  */
 interface AddressRepositoryInterface extends BaseAddressRepositoryInterface
 {
-    /**
-     * @param string $cityName
-     * @return array
-     */
     public function findByCityName(string $cityName): array;
 
-    /**
-     * @param string $provinceName
-     * @return array
-     */
     public function findByProvinceName(string $provinceName): array;
 
-    /**
-     * @param string $postcode
-     * @return array
-     */
     public function findByPostcode(string $postcode): array;
 }

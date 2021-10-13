@@ -7,7 +7,7 @@ namespace Tests\Odiseo\SyliusReportPlugin\Behat\Context\Setup;
 use Behat\Behat\Context\Context;
 use Doctrine\ORM\EntityManagerInterface;
 use Odiseo\SyliusReportPlugin\DataFetcher\DefaultDataFetchers;
-use Odiseo\SyliusReportPlugin\Model\ReportInterface;
+use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 use Odiseo\SyliusReportPlugin\Repository\ReportRepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 

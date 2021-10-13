@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Odiseo\SyliusReportPlugin\Form\Type;
 
 use Odiseo\SyliusReportPlugin\DataFetcher\DelegatingDataFetcherInterface;
-use Odiseo\SyliusReportPlugin\Model\ReportInterface;
+use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Symfony\Component\Form\FormBuilderInterface;
 

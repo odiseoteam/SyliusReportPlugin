@@ -8,7 +8,7 @@
         <tr>
             <th>{{ '#' }}</th>
             {% for label in labels %}
-                <th>{{ ('odiseo_sylius_report.ui.table.'~label)|trans }}</th>
+                <th>{{ ('odiseo_sylius_report_plugin.ui.table.'~label)|trans }}</th>
             {% endfor %}
         </tr>
         </thead>
@@ -24,7 +24,7 @@
         </tbody>
     </table>
 {% else %}
-    <span>{{ 'odiseo_sylius_report.ui.there_are_no_reports_results'|trans }}</span>
+    <span>{{ 'odiseo_sylius_report_plugin.ui.there_are_no_reports_results'|trans }}</span>
 {% endif %}
 
 {% endmacro %}
