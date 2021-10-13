@@ -80,7 +80,6 @@ sylius_address:
 6. Finish the installation updating the database schema and installing assets
 
 ```
-php bin/console doctrine:schema:update --force
 php bin/console sylius:theme:assets:install
 php bin/console cache:clear
 ```
