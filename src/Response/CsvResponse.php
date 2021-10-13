@@ -9,19 +9,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CsvResponse extends Response
 {
-
     protected ?string $data = null;
     protected string $filename = 'export.csv';
 
     public function __construct(?Data $data = null, int $status = 200, array $headers = [])
     {
         parent::__construct('', $status, $headers);
-        $this->setData($data);
-    }
 
-    public static function create(?Data $data = null, int $status = 200, array $headers = [])
-    {
-        return new static($labels, $data, $status, $headers);
+        $this->setData($data);
     }
 
     public function setData(Data $data): self
@@ -32,13 +27,16 @@ class CsvResponse extends Response
             throw new \RuntimeException('Could not create a buffer for CSV output.');
         }
 
-        foreach ($data->getData() as $row) {
+        $columns = [$data->getLabels()];
+        $rows = array_merge($columns, $data->getData());
+
+        foreach ($rows as $row) {
             fputcsv($output, $row);
         }
 
         rewind($output);
-        $this->data = '';
 
+        $this->data = '';
         while ($line = fgets($output)) {
             $this->data .= $line;
         }
