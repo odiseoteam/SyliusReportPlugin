@@ -6,7 +6,6 @@ namespace Odiseo\SyliusReportPlugin\Filter;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
-use Exception;
 
 /**
  * @author Odiseo Team <team@odiseo.com.ar>
@@ -22,9 +21,6 @@ interface QueryFilterInterface
 
     public function addLeftJoin(string $join, string $alias): string;
 
-    /**
-     * @throws Exception
-     */
     public function addTimePeriod(
         array $configuration = [],
         string $dateField = 'checkoutCompletedAt',

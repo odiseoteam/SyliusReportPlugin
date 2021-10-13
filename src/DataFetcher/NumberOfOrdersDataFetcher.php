@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
-use Exception;
 use Odiseo\SyliusReportPlugin\Filter\QueryFilterInterface;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\NumberOfOrdersType;
 use Sylius\Component\Core\Model\PaymentInterface;
@@ -27,9 +26,6 @@ class NumberOfOrdersDataFetcher extends TimePeriodDataFetcher
         $this->orderClass = $orderClass;
     }
 
-    /**
-     * @throws Exception
-     */
     protected function setupQueryFilter(array $configuration = []): void
     {
         $qb = $this->queryFilter->getQueryBuilder();

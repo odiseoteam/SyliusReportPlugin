@@ -18,9 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 final class ProductSearchAction
 {
     private ProductRepositoryInterface$productRepository;
-
     private LocaleContextInterface $localeContext;
-
     private ConfigurableViewHandlerInterface $viewHandler;
 
     public function __construct(

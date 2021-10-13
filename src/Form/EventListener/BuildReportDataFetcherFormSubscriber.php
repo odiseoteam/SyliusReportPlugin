@@ -26,7 +26,6 @@ use Symfony\Component\Form\FormInterface;
 class BuildReportDataFetcherFormSubscriber implements EventSubscriberInterface
 {
     private ServiceRegistryInterface $dataFetcherRegistry;
-
     private FormFactoryInterface $factory;
 
     public function __construct(ServiceRegistryInterface $dataFetcherRegistry, FormFactoryInterface $factory)

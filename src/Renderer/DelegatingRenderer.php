@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusReportPlugin\Renderer;
 
-use InvalidArgumentException;
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;
 use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 use Sylius\Component\Registry\ServiceRegistryInterface;
@@ -16,9 +15,6 @@ use Sylius\Component\Registry\ServiceRegistryInterface;
  */
 class DelegatingRenderer implements DelegatingRendererInterface
 {
-    /**
-     * Renderer registry.
-     */
     protected ServiceRegistryInterface $registry;
 
     public function __construct(ServiceRegistryInterface $registry)

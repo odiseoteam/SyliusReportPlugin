@@ -19,9 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 final class PostcodeSearchAction
 {
     private AddressRepositoryInterface $addressRepository;
-
     private RepositoryInterface $countryRepository;
-
     private ConfigurableViewHandlerInterface $viewHandler;
 
     public function __construct(

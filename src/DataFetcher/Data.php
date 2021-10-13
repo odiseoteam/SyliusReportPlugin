@@ -11,7 +11,6 @@ namespace Odiseo\SyliusReportPlugin\DataFetcher;
 class Data
 {
     private iterable $labels = [];
-
     private iterable $data = [];
 
     public function getLabels(): iterable

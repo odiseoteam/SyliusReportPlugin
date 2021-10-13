@@ -7,7 +7,6 @@ namespace Odiseo\SyliusReportPlugin\Filter;
 use DateTime;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
-use Exception;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\Customer;
@@ -20,9 +19,7 @@ use Sylius\Component\Core\Model\ProductInterface;
 class QueryFilter implements QueryFilterInterface
 {
     protected EntityManager $em;
-
     protected QueryBuilder $qb;
-
     protected array $joins = [];
 
     public function __construct(EntityManager $entityManager)

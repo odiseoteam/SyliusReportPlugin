@@ -19,29 +19,13 @@ class Report implements ReportInterface
 {
     use TimestampableTrait;
 
-    /**
-     * @var mixed
-     */
-    protected $id;
-
+    protected ?int $id;
     protected ?string $code = null;
-
     protected ?string $name = null;
-
     protected ?string $description = null;
-
-    /**
-     * Renderer name.
-     */
     protected string $renderer = DefaultRenderers::TABLE;
-
     protected array $rendererConfiguration = [];
-
-    /**
-     * Data fetcher name.
-     */
     protected string $dataFetcher = DefaultDataFetchers::USER_REGISTRATION;
-
     protected array $dataFetcherConfiguration = [];
 
     public function __construct()
@@ -56,10 +40,7 @@ class Report implements ReportInterface
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }

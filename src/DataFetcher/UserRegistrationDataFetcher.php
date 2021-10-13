@@ -14,25 +14,22 @@ use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\UserRegistrationType;
  */
 class UserRegistrationDataFetcher extends TimePeriodDataFetcher
 {
-    private string $orderClass;
+    private string $userClass;
 
     public function __construct(
         QueryFilterInterface $queryFilter,
-        string $orderClass
+        string $userClass
     ) {
         parent::__construct($queryFilter);
 
-        $this->orderClass = $orderClass;
+        $this->userClass = $userClass;
     }
 
-    /**
-     * @throws Exception
-     */
     protected function setupQueryFilter(array $configuration = []): void
     {
         $qb = $this->queryFilter->getQueryBuilder();
 
-        $from = $this->orderClass;
+        $from = $this->userClass;
         $qb
             ->select('DATE(u.createdAt) as date', 'count(u.id) as users_quantity')
             ->from($from, 'u')

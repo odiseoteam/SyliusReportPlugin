@@ -24,13 +24,9 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
 {
     protected RepositoryInterface $addressRepository;
-
     protected TaxonRepositoryInterface $taxonRepository;
-
     protected ProductRepositoryInterface $productRepository;
-
     protected ChannelRepositoryInterface $channelRepository;
-
     protected UrlGeneratorInterface $generator;
 
     public function __construct(

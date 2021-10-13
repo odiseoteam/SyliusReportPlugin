@@ -20,11 +20,8 @@ use Symfony\Component\HttpFoundation\Response;
 final class ProvinceSearchAction
 {
     private AddressRepositoryInterface $addressRepository;
-
     private RepositoryInterface $provinceRepository;
-
     private RepositoryInterface $countryRepository;
-
     private ConfigurableViewHandlerInterface $viewHandler;
 
     public function __construct(

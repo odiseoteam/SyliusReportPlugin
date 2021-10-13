@@ -94,18 +94,12 @@ class ReportController extends ResourceController
 
     private function getReportRenderer(): DelegatingRendererInterface
     {
-        /** @var DelegatingRendererInterface $renderer */
-        $renderer = $this->container->get('odiseo_sylius_report_plugin.renderer');
-
-        return $renderer;
+        return $this->container->get('odiseo_sylius_report_plugin.renderer');
     }
 
     private function getReportDataFetcher(): DelegatingDataFetcherInterface
     {
-        /** @var DelegatingDataFetcherInterface $dataFetcher */
-        $dataFetcher = $this->container->get('odiseo_sylius_report_plugin.data_fetcher');
-
-        return $dataFetcher;
+        return $this->container->get('odiseo_sylius_report_plugin.data_fetcher');
     }
 
     protected function createJsonResponse(string $filename, Data $data): Response
@@ -115,7 +109,7 @@ class ReportController extends ResourceController
             $responseData[] = [$key, $value];
         }
 
-        $response = JsonResponse::create($responseData);
+        $response = new JsonResponse($responseData);
 
         $response->headers->set('Content-Disposition', sprintf('attachment; filename="%s"', $filename.'.json'));
 
@@ -129,6 +123,7 @@ class ReportController extends ResourceController
     protected function createCsvResponse(string $filename, Data $data): Response
     {
         $response = new CsvResponse($data);
+
         $response->setFilename($filename.'.csv');
 
         return $response;
@@ -139,7 +134,6 @@ class ReportController extends ResourceController
         /** @var FormFactoryInterface $formFactory */
         $formFactory = $this->container->get('form.factory');
 
-        /** @var FormInterface $configurationForm */
         $configurationForm = $formFactory->create(ReportDataFetcherConfigurationType::class, $report);
 
         if ($request->query->has($configurationForm->getName())) {

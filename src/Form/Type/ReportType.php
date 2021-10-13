@@ -28,11 +28,8 @@ use Symfony\Component\Form\FormView;
 class ReportType extends AbstractResourceType
 {
     protected ServiceRegistryInterface $rendererRegistry;
-
     protected ServiceRegistryInterface $dataFetcherRegistry;
-
     protected string $rendererConfigurationTemplate;
-
     protected string $dataFetcherConfigurationTemplate;
 
     public function __construct(

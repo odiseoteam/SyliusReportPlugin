@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
-use InvalidArgumentException;
 use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 
