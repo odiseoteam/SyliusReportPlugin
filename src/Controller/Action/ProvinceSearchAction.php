@@ -59,10 +59,11 @@ final class ProvinceSearchAction
                 'code' => $address->getCountryCode()
             ]);
 
+            /** @var string $countryName */
             $countryName = $country !== null ? $country->getName() : $address->getCountryCode();
 
             $provinceName = $this->getProvinceName($address);
-            $provinceLabel = ucfirst(strtolower($provinceName ?? '')).', '.$countryName;
+            $provinceLabel = ucfirst(strtolower($provinceName ?? '')) . ', ' . $countryName;
             $isNew = count(array_filter($addresses, function ($address) use ($provinceLabel): bool {
                 return $address['province'] === $provinceLabel;
             })) === 0;
@@ -82,7 +83,7 @@ final class ProvinceSearchAction
     {
         $provinceName = $address->getProvinceName();
 
-        if (!$provinceName) {
+        if (null !== $provinceName) {
             /** @var ProvinceInterface $province */
             $province = $this->provinceRepository->findOneBy([
                 'code' => $address->getProvinceCode(),

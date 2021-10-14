@@ -52,8 +52,12 @@ class ReportType extends AbstractResourceType
     {
         $builder
             ->addEventSubscriber(new AddCodeFormSubscriber())
-            ->addEventSubscriber(new BuildReportDataFetcherFormSubscriber($this->dataFetcherRegistry, $builder->getFormFactory()))
-            ->addEventSubscriber(new BuildReportRendererFormSubscriber($this->rendererRegistry, $builder->getFormFactory()))
+            ->addEventSubscriber(
+                new BuildReportDataFetcherFormSubscriber($this->dataFetcherRegistry, $builder->getFormFactory())
+            )
+            ->addEventSubscriber(
+                new BuildReportRendererFormSubscriber($this->rendererRegistry, $builder->getFormFactory())
+            )
             ->add('name', TextType::class, [
                 'label' => 'odiseo_sylius_report_plugin.form.report.name',
                 'required' => true,
@@ -79,10 +83,6 @@ class ReportType extends AbstractResourceType
         foreach ($this->rendererRegistry->all() as $type => $renderer) {
             $formType = $renderer->getType();
 
-            if (!$formType) {
-                continue;
-            }
-
             try {
                 $prototypes['renderers'][$type] = $builder->create('rendererConfiguration', $formType)->getForm();
             } catch (InvalidArgumentException $e) {
@@ -93,10 +93,6 @@ class ReportType extends AbstractResourceType
         /** @var DataFetcherInterface $dataFetcher */
         foreach ($this->dataFetcherRegistry->all() as $type => $dataFetcher) {
             $formType = $dataFetcher->getType();
-
-            if (!$formType) {
-                continue;
-            }
 
             $prototypes['dataFetchers'][$type] = $builder->create('dataFetcherConfiguration', $formType)->getForm();
         }
@@ -110,10 +106,14 @@ class ReportType extends AbstractResourceType
         $view->vars['rendererConfigurationTemplate'] = $this->rendererConfigurationTemplate;
         $view->vars['dataFetcherConfigurationTemplate'] = $this->dataFetcherConfigurationTemplate;
 
+        /**
+         * @var string $group
+         * @var FormView $prototypes
+         */
         foreach ($form->getConfig()->getAttribute('prototypes') as $group => $prototypes) {
-            /** @var FormView $prototypes */
+            /** @var FormInterface $prototype */
             foreach ($prototypes as $type => $prototype) {
-                $view->vars['prototypes'][$group][$group.'_'.$type] = $prototype->createView($view);
+                $view->vars['prototypes'][$group][$group . '_' . $type] = $prototype->createView($view);
             }
         }
     }

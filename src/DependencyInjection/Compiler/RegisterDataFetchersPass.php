@@ -34,6 +34,7 @@ class RegisterDataFetchersPass implements CompilerPassInterface
                 );
             }
 
+            /** @var string $name */
             $name = $attributes[0]['fetcher'];
             $dataFetchers[$name] = $attributes[0]['label'];
 

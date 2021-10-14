@@ -35,14 +35,6 @@ final class ManagingReportsContext implements Context
     /** @var ShowPageInterface */
     private $showPage;
 
-    /**
-     * @param CurrentPageResolverInterface $currentPageResolver
-     * @param NotificationCheckerInterface $notificationChecker
-     * @param IndexPageInterface $indexPage
-     * @param CreatePageInterface $createPage
-     * @param UpdatePageInterface $updatePage
-     * @param ShowPageInterface $showPage
-     */
     public function __construct(
         CurrentPageResolverInterface $currentPageResolver,
         NotificationCheckerInterface $notificationChecker,
@@ -63,7 +55,7 @@ final class ManagingReportsContext implements Context
      * @Given I want to add a new report
      * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
-    public function iWantToAddNewReport()
+    public function iWantToAddNewReport(): void
     {
         $this->createPage->open(); // This method will send request.
     }
@@ -73,7 +65,7 @@ final class ManagingReportsContext implements Context
      * @param $reportCode
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function iFillTheCodeWith($reportCode)
+    public function iFillTheCodeWith($reportCode): void
     {
         $this->createPage->fillCode($reportCode);
     }
@@ -81,40 +73,40 @@ final class ManagingReportsContext implements Context
     /**
      * @When I fill the name with :reportName
      * @When I rename it to :reportName
-     * @param $reportName
+     * @param string $reportName
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function iFillTheNameWith($reportName)
+    public function iFillTheNameWith(string $reportName): void
     {
         $this->createPage->fillName($reportName);
     }
 
     /**
      * @When I fill the description with :reportDescription
-     * @param $reportDescription
+     * @param string $reportDescription
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function iFillTheDescriptionWith($reportDescription)
+    public function iFillTheDescriptionWith(string $reportDescription): void
     {
         $this->createPage->fillDescription($reportDescription);
     }
 
     /**
      * @When I select :reportDataFetcher as data fetcher
-     * @param $reportDataFetcher
+     * @param string $reportDataFetcher
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function iSelectTheDataFetcher($reportDataFetcher)
+    public function iSelectTheDataFetcher(string $reportDataFetcher): void
     {
         $this->createPage->selectDataFetcher($reportDataFetcher);
     }
 
     /**
      * @When I select :reportStartDate as start date
-     * @param $reportStartDate
+     * @param string $reportStartDate
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function iSelectTheStartDate($reportStartDate)
+    public function iSelectTheStartDate(string $reportStartDate): void
     {
         $this->createPage->selectStartDate(new \DateTime($reportStartDate));
     }
@@ -123,17 +115,17 @@ final class ManagingReportsContext implements Context
      * @When I select today as end date
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function iSelectTheEndDate()
+    public function iSelectTheEndDate(): void
     {
         $this->createPage->selectEndDate(new \DateTime());
     }
 
     /**
      * @When I select :reportTimePeriod as time period
-     * @param $reportTimePeriod
+     * @param string $reportTimePeriod
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function iSelectTheTimePeriod($reportTimePeriod)
+    public function iSelectTheTimePeriod(string  $reportTimePeriod): void
     {
         $this->createPage->selectTimePeriod($reportTimePeriod);
     }
@@ -142,7 +134,7 @@ final class ManagingReportsContext implements Context
      * @When I add it
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function iAddIt()
+    public function iAddIt(): void
     {
         $this->createPage->create();
     }
@@ -152,7 +144,7 @@ final class ManagingReportsContext implements Context
      * @param ReportInterface $report
      * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
-    public function iWantToModifyReport(ReportInterface $report)
+    public function iWantToModifyReport(ReportInterface $report): void
     {
         $this->updatePage->open(['id' => $report->getId()]);
     }
@@ -160,7 +152,7 @@ final class ManagingReportsContext implements Context
     /**
      * @When I save my changes
      */
-    public function iSaveMyChanges()
+    public function iSaveMyChanges(): void
     {
         $this->updatePage->saveChanges();
     }
@@ -169,14 +161,14 @@ final class ManagingReportsContext implements Context
      * @When I want to browse reports
      * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
-    public function iWantToBrowseReports()
+    public function iWantToBrowseReports(): void
     {
         $this->indexPage->open();
     }
 
     /**
      * @Then I should see :numberOfReports reports in the list
-     * @param $numberOfReports
+     * @param int $numberOfReports
      */
     public function iShouldSeeReportsInTheList(int $numberOfReports = 1): void
     {
@@ -188,7 +180,7 @@ final class ManagingReportsContext implements Context
      * @param ReportInterface $report
      * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
-    public function iViewDetailsOfTheReport(ReportInterface $report)
+    public function iViewDetailsOfTheReport(ReportInterface $report): void
     {
         $this->showPage->open(['id' => $report->getId()]);
     }
@@ -197,7 +189,7 @@ final class ManagingReportsContext implements Context
      * @Then I should see the "Show report :reportName" header title
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function iShouldSeeTheShowReportHeaderTitle($reportName)
+    public function iShouldSeeTheShowReportHeaderTitle(string $reportName): void
     {
         Assert::contains($this->showPage->getHeaderTitle(), $reportName);
     }
@@ -207,7 +199,7 @@ final class ManagingReportsContext implements Context
      * @param ReportInterface $report
      * @throws \FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException
      */
-    public function reportShouldAppearInTheAdmin(ReportInterface $report) // This step use Report transformer to get Report object.
+    public function reportShouldAppearInTheAdmin(ReportInterface $report): void
     {
         $this->indexPage->open();
 

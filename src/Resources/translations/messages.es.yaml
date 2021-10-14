@@ -24,6 +24,9 @@ odiseo_sylius_report_plugin:
             net_total_money: Total neto
             adjustment_total_money: Total ajustes
             gross_total_money: Total bruto
+    menu:
+        admin:
+            reports: Reportes
     form:
         report:
             name: Nombre

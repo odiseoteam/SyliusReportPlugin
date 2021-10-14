@@ -62,8 +62,8 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
     public function addUserCountry(FormBuilderInterface &$builder, string $addressType = 'shipping'): void
     {
         $builder
-            ->add('user'.ucfirst($addressType).'Country', CountryType::class, [
-                'label' => 'odiseo_sylius_report_plugin.form.'.$addressType.'_country',
+            ->add('user' . ucfirst($addressType) . 'Country', CountryType::class, [
+                'label' => 'odiseo_sylius_report_plugin.form.' . $addressType . '_country',
                 'multiple' => true,
                 'required' => false,
                 'attr' => [
@@ -76,8 +76,8 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
     public function addUserCity(FormBuilderInterface $builder, string $addressType = 'shipping'): void
     {
         $builder
-            ->add('user'.ucfirst($addressType).'City', AddressAutocompleteChoiceType::class, [
-                'label' => 'odiseo_sylius_report_plugin.form.'.$addressType.'_city',
+            ->add('user' . ucfirst($addressType) . 'City', AddressAutocompleteChoiceType::class, [
+                'label' => 'odiseo_sylius_report_plugin.form.' . $addressType . '_city',
                 'multiple' => true,
                 'required' => false,
                 'remote_url' => $this->generator->generate('odiseo_sylius_report_plugin_admin_ajax_report_cities'),
@@ -89,8 +89,8 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
     public function addUserProvince(FormBuilderInterface $builder, string $addressType = 'shipping'): void
     {
         $builder
-            ->add('user'.ucfirst($addressType).'Province', AddressAutocompleteChoiceType::class, [
-                'label' => 'odiseo_sylius_report_plugin.form.'.$addressType.'_province',
+            ->add('user' . ucfirst($addressType) . 'Province', AddressAutocompleteChoiceType::class, [
+                'label' => 'odiseo_sylius_report_plugin.form.' . $addressType . '_province',
                 'multiple' => true,
                 'required' => false,
                 'remote_url' => $this->generator->generate('odiseo_sylius_report_plugin_admin_ajax_report_provinces'),
@@ -102,8 +102,8 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
     public function addUserPostcode(FormBuilderInterface $builder, string $addressType = 'shipping'): void
     {
         $builder
-            ->add('user'.ucfirst($addressType).'Postcode', AddressAutocompleteChoiceType::class, [
-                'label' => 'odiseo_sylius_report_plugin.form.'.$addressType.'_postcode',
+            ->add('user' . ucfirst($addressType) . 'Postcode', AddressAutocompleteChoiceType::class, [
+                'label' => 'odiseo_sylius_report_plugin.form.' . $addressType . '_postcode',
                 'multiple' => true,
                 'required' => false,
                 'remote_url' => $this->generator->generate('odiseo_sylius_report_plugin_admin_ajax_report_postcodes'),

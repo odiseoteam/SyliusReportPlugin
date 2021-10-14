@@ -7,14 +7,14 @@ namespace Tests\Odiseo\SyliusReportPlugin\Behat\Page\Admin\Report;
 use Sylius\Behat\Page\Admin\Crud\CreatePage as BaseCreatePage;
 use Tests\Odiseo\SyliusReportPlugin\Behat\Behaviour\ContainsErrorTrait;
 
-class CreatePage extends BaseCreatePage implements CreatePageInterface
+final class CreatePage extends BaseCreatePage implements CreatePageInterface
 {
     use ContainsErrorTrait;
 
     /**
      * @inheritdoc
      */
-    public function fillCode($code)
+    public function fillCode(string $code): void
     {
         $this->getDocument()->fillField('Code', $code);
     }
@@ -22,7 +22,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
     /**
      * @inheritdoc
      */
-    public function fillName($name)
+    public function fillName(string $name): void
     {
         $this->getDocument()->fillField('Name', $name);
     }
@@ -30,7 +30,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
     /**
      * @inheritdoc
      */
-    public function fillDescription($description)
+    public function fillDescription(string $description): void
     {
         $this->getDocument()->fillField('Description', $description);
     }
@@ -38,7 +38,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
     /**
      * {@inheritdoc}
      */
-    public function selectDataFetcher($dataFetcher)
+    public function selectDataFetcher(string $dataFetcher): void
     {
         $this->getElement('data_fetcher')->selectOption($dataFetcher);
     }
@@ -46,7 +46,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
     /**
      * {@inheritdoc}
      */
-    public function selectStartDate(\DateTime $startDate)
+    public function selectStartDate(\DateTime $startDate): void
     {
         $this->getElement('day_start_date')->selectOption($startDate->format('j'));
         $this->getElement('month_start_date')->selectOption($startDate->format('M'));
@@ -56,7 +56,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
     /**
      * {@inheritdoc}
      */
-    public function selectEndDate(\DateTime $endDate)
+    public function selectEndDate(\DateTime $endDate): void
     {
         $this->getElement('day_end_date')->selectOption($endDate->format('j'));
         $this->getElement('month_end_date')->selectOption($endDate->format('M'));
@@ -66,7 +66,7 @@ class CreatePage extends BaseCreatePage implements CreatePageInterface
     /**
      * {@inheritdoc}
      */
-    public function selectTimePeriod($timePeriod)
+    public function selectTimePeriod(string $timePeriod): void
     {
         $this->getElement('time_period')->selectOption($timePeriod);
     }

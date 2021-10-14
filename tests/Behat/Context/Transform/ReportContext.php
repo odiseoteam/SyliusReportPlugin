@@ -5,19 +5,15 @@ declare(strict_types=1);
 namespace Tests\Odiseo\SyliusReportPlugin\Behat\Context\Transform;
 
 use Behat\Behat\Context\Context;
+use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Webmozart\Assert\Assert;
 
 final class ReportContext implements Context
 {
-    /**
-     * @var RepositoryInterface
-     */
+    /** @var RepositoryInterface */
     private $reportRepository;
 
-    /**
-     * @param RepositoryInterface $reportRepository
-     */
     public function __construct(
         RepositoryInterface $reportRepository
     ) {
@@ -28,7 +24,7 @@ final class ReportContext implements Context
      * @Transform /^report "([^"]+)"$/
      * @Transform /^"([^"]+)" report$/
      */
-    public function getReportByCode($reportCode)
+    public function getReportByCode($reportCode): ReportInterface
     {
         $report = $this->reportRepository->findOneBy(['code' => $reportCode]);
 

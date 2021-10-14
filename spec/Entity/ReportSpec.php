@@ -1,13 +1,14 @@
 <?php
 
-namespace spec\Odiseo\SyliusReportPlugin\Model;
+declare(strict_types=1);
+
+namespace spec\Odiseo\SyliusReportPlugin\Entity;
 
 use Odiseo\SyliusReportPlugin\DataFetcher\DefaultDataFetchers;
 use Odiseo\SyliusReportPlugin\Entity\Report;
 use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 use Odiseo\SyliusReportPlugin\Renderer\DefaultRenderers;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Sylius\Component\Resource\Model\CodeAwareInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Resource\Model\TimestampableInterface;
@@ -15,7 +16,7 @@ use Sylius\Component\Resource\Model\TimestampableInterface;
 /**
  * @author Diego D'amico <diego@odiseo.com.ar>
  */
-class ReportSpec extends ObjectBehavior
+final class ReportSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {

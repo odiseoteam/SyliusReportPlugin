@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Odiseo\SyliusReportPlugin\Renderer;
 
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;
@@ -15,7 +17,7 @@ use Sylius\Component\Registry\ServiceRegistryInterface;
 /**
  * @author Diego D'amico <diego@odiseo.com.ar>
  */
-class DelegatingRendererSpec extends ObjectBehavior
+final class DelegatingRendererSpec extends ObjectBehavior
 {
     function let(ServiceRegistryInterface $registry)
     {

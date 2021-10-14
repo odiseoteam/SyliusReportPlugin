@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Odiseo\SyliusReportPlugin\DependencyInjection\Compiler;
 
 use PhpSpec\ObjectBehavior;
@@ -21,42 +23,42 @@ final class RegisterRenderersPassSpec extends ObjectBehavior
 
     function it_processes_with_given_container(ContainerBuilder $container, Definition $rendererDefinition)
     {
-        $container->hasDefinition('odiseo_sylius_report.registry.renderer')->willReturn(true);
-        $container->getDefinition('odiseo_sylius_report.registry.renderer')->willReturn($rendererDefinition);
+        $container->hasDefinition('odiseo_sylius_report_plugin.registry.renderer')->willReturn(true);
+        $container->getDefinition('odiseo_sylius_report_plugin.registry.renderer')->willReturn($rendererDefinition);
 
         $rendererServices = [
-            'odiseo_sylius_report.form.type.renderer.test' => [
+            'odiseo_sylius_report_plugin.form.type.renderer.test' => [
                 ['renderer' => 'test', 'label' => 'Test renderer'],
             ],
         ];
-        $container->findTaggedServiceIds('odiseo_sylius_report.renderer')->willReturn($rendererServices);
+        $container->findTaggedServiceIds('odiseo_sylius_report_plugin.renderer')->willReturn($rendererServices);
 
-        $rendererDefinition->addMethodCall('register', ['test', new Reference('odiseo_sylius_report.form.type.renderer.test')])->shouldBeCalled();
-        $container->setParameter('odiseo_sylius_report.renderers', ['test' => 'Test renderer'])->shouldBeCalled();
+        $rendererDefinition->addMethodCall('register', ['test', new Reference('odiseo_sylius_report_plugin.form.type.renderer.test')])->shouldBeCalled();
+        $container->setParameter('odiseo_sylius_report_plugin.renderers', ['test' => 'Test renderer'])->shouldBeCalled();
 
         $this->process($container);
     }
 
     function it_does_not_process_if_container_has_not_proper_definition(ContainerBuilder $container)
     {
-        $container->hasDefinition('odiseo_sylius_report.registry.renderer')->willReturn(false);
-        $container->getDefinition('odiseo_sylius_report.registry.renderer')->shouldNotBeCalled();
+        $container->hasDefinition('odiseo_sylius_report_plugin.registry.renderer')->willReturn(false);
+        $container->getDefinition('odiseo_sylius_report_plugin.registry.renderer')->shouldNotBeCalled();
 
         $this->process($container);
     }
 
     function it_throws_exception_if_any_renderer_has_improper_attributes(ContainerBuilder $container, Definition $rendererDefinition)
     {
-        $container->hasDefinition('odiseo_sylius_report.registry.renderer')->willReturn(true);
-        $container->getDefinition('odiseo_sylius_report.registry.renderer')->willReturn($rendererDefinition);
+        $container->hasDefinition('odiseo_sylius_report_plugin.registry.renderer')->willReturn(true);
+        $container->getDefinition('odiseo_sylius_report_plugin.registry.renderer')->willReturn($rendererDefinition);
 
         $rendererServices = [
-            'odiseo_sylius_report.form.type.renderer.test' => [
+            'odiseo_sylius_report_plugin.form.type.renderer.test' => [
                 ['renderer' => 'test'],
             ],
         ];
-        $container->findTaggedServiceIds('odiseo_sylius_report.renderer')->willReturn($rendererServices);
-        $rendererDefinition->addMethodCall('register', ['test', new Reference('odiseo_sylius_report.form.type.renderer.test')])->shouldNotBeCalled();
+        $container->findTaggedServiceIds('odiseo_sylius_report_plugin.renderer')->willReturn($rendererServices);
+        $rendererDefinition->addMethodCall('register', ['test', new Reference('odiseo_sylius_report_plugin.form.type.renderer.test')])->shouldNotBeCalled();
 
         $this->shouldThrow(new \InvalidArgumentException('Tagged renderers needs to have `renderer` and `label` attributes.'))
             ->during('process', [$container]);

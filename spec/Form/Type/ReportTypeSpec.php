@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Odiseo\SyliusReportPlugin\Form\Type;
 
 use Odiseo\SyliusReportPlugin\DataFetcher\DataFetcherInterface;
+use Odiseo\SyliusReportPlugin\Entity\Report;
+use Odiseo\SyliusReportPlugin\Form\EventListener\BuildReportDataFetcherFormSubscriber;
+use Odiseo\SyliusReportPlugin\Form\EventListener\BuildReportRendererFormSubscriber;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\DataFetcherChoiceType;
 use Odiseo\SyliusReportPlugin\Form\Type\Renderer\RendererChoiceType;
-use Odiseo\SyliusReportPlugin\Entity\Report;
 use Odiseo\SyliusReportPlugin\Renderer\RendererInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Odiseo\SyliusReportPlugin\Form\EventListener\BuildReportDataFetcherFormSubscriber;
-use Odiseo\SyliusReportPlugin\Form\EventListener\BuildReportRendererFormSubscriber;
 use Sylius\Bundle\ResourceBundle\Form\EventSubscriber\AddCodeFormSubscriber;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Sylius\Component\Registry\ServiceRegistryInterface;

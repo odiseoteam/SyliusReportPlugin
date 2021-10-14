@@ -59,9 +59,10 @@ class BuildReportRendererFormSubscriber implements EventSubscriberInterface
 
     public function preBind(FormEvent $event): void
     {
+        /** @var array $data */
         $data = $event->getData();
 
-        if (empty($data) || !array_key_exists('renderer', $data)) {
+        if (count($data) === 0 || !array_key_exists('renderer', $data)) {
             return;
         }
 

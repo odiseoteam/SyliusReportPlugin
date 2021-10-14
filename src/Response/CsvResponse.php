@@ -9,10 +9,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CsvResponse extends Response
 {
-    protected ?string $data = null;
+    protected string $data;
     protected string $filename = 'export.csv';
 
-    public function __construct(?Data $data = null, int $status = 200, array $headers = [])
+    public function __construct(Data $data, int $status = 200, array $headers = [])
     {
         parent::__construct('', $status, $headers);
 
@@ -28,7 +28,10 @@ class CsvResponse extends Response
         }
 
         $columns = [$data->getLabels()];
-        $rows = array_merge($columns, $data->getData());
+        /** @var array $values */
+        $values = $data->getData();
+
+        $rows = array_merge($columns, $values);
 
         foreach ($rows as $row) {
             fputcsv($output, $row);

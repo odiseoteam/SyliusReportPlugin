@@ -1,2 +1,2 @@
 imports:
-    - { resource: "admin/report.yaml" }
+    - { resource: admin/report.yaml }

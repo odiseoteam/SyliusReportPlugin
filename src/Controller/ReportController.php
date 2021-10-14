@@ -65,13 +65,11 @@ class ReportController extends ResourceController
 
         $dataFetcherConfiguration = $report->getDataFetcherConfiguration();
 
-        /** @var Data $data */
         $data = $this->getReportDataFetcher()->fetch($report, $dataFetcherConfiguration);
 
         $filename = $this->slugify($report->getName());
 
         $format = $request->get('_format');
-        $response = null;
         switch ($format) {
             case 'json':
                 $response = $this->createJsonResponse($filename, $data);
@@ -111,7 +109,7 @@ class ReportController extends ResourceController
 
         $response = new JsonResponse($responseData);
 
-        $response->headers->set('Content-Disposition', sprintf('attachment; filename="%s"', $filename.'.json'));
+        $response->headers->set('Content-Disposition', sprintf('attachment; filename="%s"', $filename . '.json'));
 
         if (!$response->headers->has('Content-Type')) {
             $response->headers->set('Content-Type', 'text/json');
@@ -124,7 +122,7 @@ class ReportController extends ResourceController
     {
         $response = new CsvResponse($data);
 
-        $response->setFilename($filename.'.csv');
+        $response->setFilename($filename . '.csv');
 
         return $response;
     }
@@ -145,6 +143,9 @@ class ReportController extends ResourceController
 
     private function slugify(string $string): string
     {
-        return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string)));
+        /** @var string $string */
+        $string = preg_replace('/[^A-Za-z0-9-]+/', '-', $string);
+
+        return strtolower(trim($string));
     }
 }

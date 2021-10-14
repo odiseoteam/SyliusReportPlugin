@@ -26,8 +26,10 @@ final class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('renderer_configuration_template')->defaultValue('@OdiseoSyliusReportPlugin/_rendererConfiguration.html.twig')->end()
-                ->scalarNode('data_fetcher_configuration_template')->defaultValue('@OdiseoSyliusReportPlugin/_dataFetcherConfiguration.html.twig')->end()
+                ->scalarNode('renderer_configuration_template')
+                    ->defaultValue('@OdiseoSyliusReportPlugin/_rendererConfiguration.html.twig')->end()
+                ->scalarNode('data_fetcher_configuration_template')
+                    ->defaultValue('@OdiseoSyliusReportPlugin/_dataFetcherConfiguration.html.twig')->end()
             ->end()
         ;
 

@@ -19,7 +19,7 @@ class Report implements ReportInterface
 {
     use TimestampableTrait;
 
-    protected ?int $id;
+    protected ?int $id = null;
     protected ?string $code = null;
     protected ?string $name = null;
     protected ?string $description = null;

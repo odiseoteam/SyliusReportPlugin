@@ -54,14 +54,19 @@ class BuildReportDataFetcherFormSubscriber implements EventSubscriberInterface
             throw new UnexpectedTypeException($report, ReportInterface::class);
         }
 
-        $this->addConfigurationFields($event->getForm(), $report->getDataFetcher(), $report->getDataFetcherConfiguration());
+        $this->addConfigurationFields(
+            $event->getForm(),
+            $report->getDataFetcher(),
+            $report->getDataFetcherConfiguration()
+        );
     }
 
     public function preBind(FormEvent $event): void
     {
+        /** @var array $data */
         $data = $event->getData();
 
-        if (empty($data) || !array_key_exists('dataFetcher', $data)) {
+        if (count($data) === 0 || !array_key_exists('dataFetcher', $data)) {
             return;
         }
 

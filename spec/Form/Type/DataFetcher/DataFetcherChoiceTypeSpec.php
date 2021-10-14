@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Odiseo\SyliusReportPlugin\Form\Type\DataFetcher;
 
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\DataFetcherChoiceType;
@@ -8,7 +10,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class DataFetcherChoiceTypeSpec extends ObjectBehavior
+final class DataFetcherChoiceTypeSpec extends ObjectBehavior
 {
     function let()
     {

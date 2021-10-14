@@ -18,7 +18,12 @@ class DataFetcherChoiceType extends AbstractType
 
     public function __construct(array $dataFetchers)
     {
-        $this->dataFetchers = array_combine(array_values($dataFetchers), array_keys($dataFetchers)) ?: [];
+        $this->dataFetchers = array_combine(
+            array_values($dataFetchers),
+            array_keys($dataFetchers)
+        ) !== false ?
+            array_combine(array_values($dataFetchers), array_keys($dataFetchers)) : []
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

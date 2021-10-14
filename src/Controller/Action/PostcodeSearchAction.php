@@ -55,9 +55,12 @@ final class PostcodeSearchAction
                 'code' => $address->getCountryCode()
             ]);
 
+            /** @var string $countryName */
             $countryName = $country !== null ? $country->getName() : $address->getCountryCode();
+            /** @var string $postcode */
+            $postcode = $address->getPostcode();
 
-            $postcodeLabel = $address->getPostcode().', '.$countryName;
+            $postcodeLabel = $postcode . ', ' . $countryName;
             $isNew = count(array_filter($addresses, function ($address) use ($postcodeLabel): bool {
                 return $address['postcode'] === $postcodeLabel;
             })) === 0;

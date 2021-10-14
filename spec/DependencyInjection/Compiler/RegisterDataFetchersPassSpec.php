@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Odiseo\SyliusReportPlugin\DependencyInjection\Compiler;
 
 use PhpSpec\ObjectBehavior;
@@ -21,42 +23,42 @@ final class RegisterDataFetchersPassSpec extends ObjectBehavior
 
     function it_processes_with_given_container(ContainerBuilder $container, Definition $dataFetcherDefinition)
     {
-        $container->hasDefinition('odiseo_sylius_report.registry.data_fetcher')->willReturn(true);
-        $container->getDefinition('odiseo_sylius_report.registry.data_fetcher')->willReturn($dataFetcherDefinition);
+        $container->hasDefinition('odiseo_sylius_report_plugin.registry.data_fetcher')->willReturn(true);
+        $container->getDefinition('odiseo_sylius_report_plugin.registry.data_fetcher')->willReturn($dataFetcherDefinition);
 
         $dataFetcherServices = [
-            'odiseo_sylius_report.form.type.data_fetcher.test' => [
+            'odiseo_sylius_report_plugin.form.type.data_fetcher.test' => [
                 ['fetcher' => 'test', 'label' => 'Test data fetcher'],
             ],
         ];
-        $container->findTaggedServiceIds('odiseo_sylius_report.data_fetcher')->willReturn($dataFetcherServices);
+        $container->findTaggedServiceIds('odiseo_sylius_report_plugin.data_fetcher')->willReturn($dataFetcherServices);
 
-        $dataFetcherDefinition->addMethodCall('register', ['test', new Reference('odiseo_sylius_report.form.type.data_fetcher.test')])->shouldBeCalled();
-        $container->setParameter('odiseo_sylius_report.data_fetchers', ['test' => 'Test data fetcher'])->shouldBeCalled();
+        $dataFetcherDefinition->addMethodCall('register', ['test', new Reference('odiseo_sylius_report_plugin.form.type.data_fetcher.test')])->shouldBeCalled();
+        $container->setParameter('odiseo_sylius_report_plugin.data_fetchers', ['test' => 'Test data fetcher'])->shouldBeCalled();
 
         $this->process($container);
     }
 
     function it_does_not_process_if_container_has_not_proper_definition(ContainerBuilder $container)
     {
-        $container->hasDefinition('odiseo_sylius_report.registry.data_fetcher')->willReturn(false);
-        $container->getDefinition('odiseo_sylius_report.registry.data_fetcher')->shouldNotBeCalled();
+        $container->hasDefinition('odiseo_sylius_report_plugin.registry.data_fetcher')->willReturn(false);
+        $container->getDefinition('odiseo_sylius_report_plugin.registry.data_fetcher')->shouldNotBeCalled();
 
         $this->process($container);
     }
 
     function it_throws_exception_if_any_data_fetcher_has_improper_attributes(ContainerBuilder $container, Definition $dataFetcherDefinition)
     {
-        $container->hasDefinition('odiseo_sylius_report.registry.data_fetcher')->willReturn(true);
-        $container->getDefinition('odiseo_sylius_report.registry.data_fetcher')->willReturn($dataFetcherDefinition);
+        $container->hasDefinition('odiseo_sylius_report_plugin.registry.data_fetcher')->willReturn(true);
+        $container->getDefinition('odiseo_sylius_report_plugin.registry.data_fetcher')->willReturn($dataFetcherDefinition);
 
         $dataFetcherServices = [
-            'odiseo_sylius_report.form.type.data_fetcher.test' => [
+            'odiseo_sylius_report_plugin.form.type.data_fetcher.test' => [
                 ['data_fetcher' => 'test'],
             ],
         ];
-        $container->findTaggedServiceIds('odiseo_sylius_report.data_fetcher')->willReturn($dataFetcherServices);
-        $dataFetcherDefinition->addMethodCall('register', ['test', new Reference('odiseo_sylius_report.form.type.data_fetcher.test')])->shouldNotBeCalled();
+        $container->findTaggedServiceIds('odiseo_sylius_report_plugin.data_fetcher')->willReturn($dataFetcherServices);
+        $dataFetcherDefinition->addMethodCall('register', ['test', new Reference('odiseo_sylius_report_plugin.form.type.data_fetcher.test')])->shouldNotBeCalled();
 
         $this->shouldThrow(new \InvalidArgumentException('Tagged report data fetchers needs to have `fetcher` and `label` attributes.'))
             ->during('process', [$container]);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Odiseo\SyliusReportPlugin\Renderer;
 
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;

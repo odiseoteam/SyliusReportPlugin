@@ -17,12 +17,12 @@ use Twig\Environment;
  */
 class ChartRenderer implements RendererInterface
 {
-    const BAR_CHART = 'bar';
-    const LINE_CHART = 'line';
-    const RADAR_CHART = 'radar';
-    const POLAR_CHART = 'polar';
-    const PIE_CHART = 'pie';
-    const DOUGHNUT_CHART = 'doughnut';
+    public const BAR_CHART = 'bar';
+    public const LINE_CHART = 'line';
+    public const RADAR_CHART = 'radar';
+    public const POLAR_CHART = 'polar';
+    public const PIE_CHART = 'pie';
+    public const DOUGHNUT_CHART = 'doughnut';
 
     private Environment $templating;
 
@@ -33,11 +33,16 @@ class ChartRenderer implements RendererInterface
 
     public function render(ReportInterface $report, Data $data): string
     {
-        if (null !== $data->getData()) {
+        /** @var array $labels */
+        $labels = $data->getLabels();
+        /** @var array $values */
+        $values = $data->getData();
+
+        if (count($values) > 0) {
             $rendererData = [
                 'report' => $report,
-                'values' => $data->getData(),
-                'labels' => $data->getLabels(),
+                'values' => $values,
+                'labels' => $labels,
             ];
 
             $rendererConfiguration = $report->getRendererConfiguration();

@@ -14,6 +14,9 @@ odiseo_sylius_report_plugin:
         monthly: Mensuel
         yearly: Annuel
         more_filters: Plus de filtres
+    menu:
+        admin:
+            reports: Rapports
     form:
         report:
             name: Nom

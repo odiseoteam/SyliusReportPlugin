@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Odiseo\SyliusReportPlugin\Renderer;
 
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;
@@ -8,7 +10,6 @@ use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 use Odiseo\SyliusReportPlugin\Renderer\ChartRenderer;
 use Odiseo\SyliusReportPlugin\Renderer\RendererInterface;
 use PhpSpec\ObjectBehavior;
-use Symfony\Component\Templating\EngineInterface;
 use Twig\Environment;
 
 /**

@@ -15,10 +15,10 @@ final class DefaultRenderers
     /**
      * Table renderer
      */
-    const TABLE = 'odiseo_sylius_report_plugin_renderer_table';
+    public const TABLE = 'odiseo_sylius_report_plugin_renderer_table';
 
     /**
      * Chart renderer
      */
-    const CHART = 'odiseo_sylius_report_renderer_chart';
+    public const CHART = 'odiseo_sylius_report_renderer_chart';
 }

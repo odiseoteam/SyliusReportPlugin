@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusReportPlugin\Menu;
 
+use Knp\Menu\ItemInterface;
 use Sylius\Bundle\UiBundle\Menu\Event\MenuBuilderEvent;
 
 /**
@@ -15,14 +16,15 @@ final class AdminMenuListener
     {
         $menu = $event->getMenu();
 
-        $menuItem = $menu->getChild('marketing');
-        if (!$menuItem) {
-            $menuItem = $menu;
+        /** @var ItemInterface $item */
+        $item = $menu->getChild('marketing');
+        if (null == $item) {
+            $item = $menu;
         }
 
-        $menuItem
+        $item
             ->addChild('reports', ['route' => 'odiseo_sylius_report_plugin_admin_report_index'])
-            ->setLabel('odiseo_sylius_report_plugin.ui.reports')
+            ->setLabel('odiseo_sylius_report_plugin.menu.admin.reports')
             ->setLabelAttribute('icon', 'bar chart')
         ;
     }

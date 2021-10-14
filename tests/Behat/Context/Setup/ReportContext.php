@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Odiseo\SyliusReportPlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
-use Doctrine\ORM\EntityManagerInterface;
 use Odiseo\SyliusReportPlugin\DataFetcher\DefaultDataFetchers;
 use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 use Odiseo\SyliusReportPlugin\Repository\ReportRepositoryInterface;
@@ -19,17 +18,12 @@ final class ReportContext implements Context
     /** @var ReportRepositoryInterface */
     private $reportRepository;
 
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
     public function __construct(
         FactoryInterface $reportFactory,
-        ReportRepositoryInterface $reportRepository,
-        EntityManagerInterface $entityManager
+        ReportRepositoryInterface $reportRepository
     ) {
         $this->reportFactory = $reportFactory;
         $this->reportRepository = $reportRepository;
-        $this->entityManager = $entityManager;
     }
 
     /**
@@ -46,7 +40,7 @@ final class ReportContext implements Context
     /**
      * @Given the store has( also) :firstReportCode and :secondReportCode reports
      */
-    public function theStoreHasReports(...$reportsCodes)
+    public function theStoreHasReports(...$reportsCodes): void
     {
         foreach ($reportsCodes as $key => $reportCode) {
             $this->saveReport($this->createReport($reportCode, 'Sales 200'.$key, 'Sales statistics for year 200'.$key));

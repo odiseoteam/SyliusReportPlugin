@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Odiseo\SyliusReportPlugin\Form\Type\DataFetcher;
 
 use Odiseo\SyliusReportPlugin\Form\Builder\QueryFilterFormBuilderInterface;
@@ -12,7 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilder;
 
-class UserRegistrationTypeSpec extends ObjectBehavior
+final class UserRegistrationTypeSpec extends ObjectBehavior
 {
     function let(QueryFilterFormBuilderInterface $queryFilterFormBuilder)
     {

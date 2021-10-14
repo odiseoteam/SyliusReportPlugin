@@ -55,9 +55,10 @@ final class CitySearchAction
                 'code' => $address->getCountryCode()
             ]);
 
+            /** @var string $countryName */
             $countryName = $country !== null ? $country->getName() : $address->getCountryCode();
 
-            $cityLabel = ucfirst(strtolower($address->getCity() ?? '')).', '.$countryName;
+            $cityLabel = ucfirst(strtolower($address->getCity() ?? '')) . ', ' . $countryName;
             $isNew = count(array_filter($addresses, function ($address) use ($cityLabel): bool {
                 return $address['city'] === $cityLabel;
             })) === 0;

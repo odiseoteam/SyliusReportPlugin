@@ -17,9 +17,9 @@ use InvalidArgumentException;
  */
 abstract class TimePeriodDataFetcher extends BaseDataFetcher
 {
-    const PERIOD_DAY = 'day';
-    const PERIOD_MONTH = 'month';
-    const PERIOD_YEAR = 'year';
+    public const PERIOD_DAY = 'day';
+    public const PERIOD_MONTH = 'month';
+    public const PERIOD_YEAR = 'year';
 
     public static function getPeriodChoices(): array
     {
@@ -118,7 +118,7 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
     {
         /** @var DateTime $startDate */
         $startDate = $configuration['start'];
-        /** @var DateTime $startDate */
+        /** @var DateTime $endDate */
         $endDate = $configuration['end'];
 
         try {

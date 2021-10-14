@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Odiseo\SyliusReportPlugin\Controller;
 
 use Doctrine\Persistence\ObjectManager;
@@ -35,7 +37,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 /**
  * @author Diego D'amico <diego@odiseo.com.ar>
  */
-class ReportControllerSpec extends ObjectBehavior
+final class ReportControllerSpec extends ObjectBehavior
 {
     function let(
         MetadataInterface $metadata,
