@@ -10,7 +10,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.4 || ^8.0",
-        "sylius/sylius": ~1.9.0 || ~1.10.0",
+        "sylius/sylius": "~1.9.0 || ~1.10.0",
         "beberlei/doctrineextensions": "^1.2"
     },
     "require-dev": {
