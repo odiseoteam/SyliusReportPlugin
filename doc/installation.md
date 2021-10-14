@@ -25,9 +25,10 @@ imports:
 ```
 
 This plugin use [DoctrineExtensions](https://github.com/beberlei/DoctrineExtensions) to create the different DataFetcher's queries.
-For example, you will need to add the Doctrine DQL functions as follows if you are using Mysql:
+For example you will need to add the Doctrine DQL functions as follows if you are using Mysql:
 
 ```yml
+# config/packages/doctrine.yaml
 doctrine:
     orm:
         # ...
