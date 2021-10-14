@@ -26,11 +26,16 @@ class TableRenderer implements RendererInterface
 
     public function render(ReportInterface $report, Data $data): string
     {
-        if ([] !== $data->getData()) {
+        /** @var array $labels */
+        $labels = $data->getLabels();
+        /** @var array $values */
+        $values = $data->getData();
+
+        if (count($values) > 0) {
             $data = [
                 'report' => $report,
-                'values' => $data->getData(),
-                'labels' => $data->getLabels(),
+                'values' => $values,
+                'labels' => $labels,
             ];
 
             $rendererConfiguration = $report->getRendererConfiguration();
