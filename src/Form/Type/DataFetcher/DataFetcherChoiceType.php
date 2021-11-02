@@ -18,10 +18,13 @@ class DataFetcherChoiceType extends AbstractType
 
     public function __construct(array $dataFetchers)
     {
-        $this->dataFetchers = is_array(array_combine(
+        /**
+         * @phpstan-ignore-next-line
+         */
+        $this->dataFetchers = array_combine(
             array_values($dataFetchers),
             array_keys($dataFetchers)
-        )) ?
+        ) !== false ?
             array_combine(array_values($dataFetchers), array_keys($dataFetchers)) : []
         ;
     }

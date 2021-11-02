@@ -21,10 +21,13 @@ class RendererChoiceType extends AbstractType
 
     public function __construct(array $renderers)
     {
-        $this->renderers = is_array(array_combine(
+        /**
+         * @phpstan-ignore-next-line
+         */
+        $this->renderers = array_combine(
             array_values($renderers),
             array_keys($renderers)
-        )) ?
+        ) !== false ?
             array_combine(array_values($renderers), array_keys($renderers)) : []
         ;
     }
