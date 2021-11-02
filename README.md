@@ -33,7 +33,7 @@ This plugin adds data reports to the Sylius administration interface.
 It's highly inspired on the old [SyliusReportBundle](https://github.com/Sylius/SyliusReportBundle) and 
 [Report](https://github.com/Sylius/Report) component using its good architecture.
 
-Support Sylius version 1.7+.
+Support Sylius version 1.9+.
 
 #### Premium features!
 Do you want advanced features? Take a look at our [Report Pro Plugin](https://odiseo.io/plugins-and-bundles/premium/sylius-report-pro-plugin), an extended version of this one.

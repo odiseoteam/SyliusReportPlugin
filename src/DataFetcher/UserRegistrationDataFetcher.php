@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
-use Exception;
 use Odiseo\SyliusReportPlugin\Filter\QueryFilterInterface;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\UserRegistrationType;
 
