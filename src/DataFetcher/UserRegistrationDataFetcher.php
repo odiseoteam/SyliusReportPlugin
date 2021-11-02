@@ -32,6 +32,7 @@ class UserRegistrationDataFetcher extends TimePeriodDataFetcher
         $qb
             ->select('DATE(u.createdAt) as date', 'count(u.id) as users_quantity')
             ->from($from, 'u')
+            ->groupBy('date')
         ;
 
         $this->queryFilter->addTimePeriod($configuration, 'createdAt');

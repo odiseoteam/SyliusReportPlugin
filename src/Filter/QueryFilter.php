@@ -115,7 +115,7 @@ class QueryFilter implements QueryFilterInterface
                 ->andWhere($this->qb->expr()->lte($dateF, ':to'))
                 ->setParameter('from', $startDateTime->format('Y-m-d H:i:s'))
                 ->setParameter('to', $endDateTime->format('Y-m-d H:i:s'))
-                ->groupBy($groupByParts[1])
+                ->addGroupBy($groupByParts[1])
                 ->orderBy('date,' . $groupByParts[1])
             ;
         } else {

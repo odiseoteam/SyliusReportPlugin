@@ -38,6 +38,7 @@ class SalesTotalDataFetcher extends TimePeriodDataFetcher
                 'ROUND(SUM(o.total/100), 2) as gross_total_money'
             )
             ->from($from, 'o')
+            ->groupBy('date')
         ;
 
         $this->queryFilter->addLeftJoin('o.customer', 'c');

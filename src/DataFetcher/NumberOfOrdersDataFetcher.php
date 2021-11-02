@@ -6,8 +6,8 @@ namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
 use Odiseo\SyliusReportPlugin\Filter\QueryFilterInterface;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\NumberOfOrdersType;
-use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\OrderPaymentStates;
+use Sylius\Component\Payment\Model\PaymentInterface;
 
 /**
  * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
@@ -34,6 +34,7 @@ class NumberOfOrdersDataFetcher extends TimePeriodDataFetcher
         $qb
             ->select('DATE(payment.updatedAt) as date', 'COUNT(o.id) as orders_quantity')
             ->from($from, 'o')
+            ->groupBy('date')
         ;
 
         $this->queryFilter->addLeftJoin('o.customer', 'c');
