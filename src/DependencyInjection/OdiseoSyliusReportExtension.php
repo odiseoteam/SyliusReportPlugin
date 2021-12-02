@@ -59,6 +59,8 @@ final class OdiseoSyliusReportExtension extends Extension implements PrependExte
 
     protected function getNamespacesOfMigrationsExecutedBefore(): array
     {
-        return [];
+        return [
+            'Sylius\Bundle\CoreBundle\Migrations',
+        ];
     }
 }
