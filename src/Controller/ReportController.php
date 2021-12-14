@@ -69,7 +69,7 @@ class ReportController extends ResourceController
 
         $filename = $this->slugify($report->getName());
 
-        $format = $request->get('_format');
+        $format = $request->query->get('_format');
         switch ($format) {
             case 'json':
                 $response = $this->createJsonResponse($filename, $data);

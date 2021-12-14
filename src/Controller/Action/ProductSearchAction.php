@@ -35,7 +35,10 @@ final class ProductSearchAction
     {
         $locale = $this->localeContext->getLocaleCode();
 
-        $products = $this->getProducts($request->get('name', ''), $locale);
+        /** @var string $query */
+        $query = $request->query->get('name', '');
+
+        $products = $this->getProducts($query, $locale);
         $view = View::create($products);
 
         $this->viewHandler->setExclusionStrategyGroups(['Autocomplete']);

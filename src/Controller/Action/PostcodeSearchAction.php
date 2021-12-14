@@ -34,7 +34,10 @@ final class PostcodeSearchAction
 
     public function __invoke(Request $request): Response
     {
-        $addresses = $this->getAddresses($request->get('postcode', ''));
+        /** @var string $query */
+        $query = $request->query->get('postcode', '');
+
+        $addresses = $this->getAddresses($query);
         $view = View::create($addresses);
 
         $this->viewHandler->setExclusionStrategyGroups(['Autocomplete']);

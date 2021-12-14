@@ -34,7 +34,10 @@ final class CitySearchAction
 
     public function __invoke(Request $request): Response
     {
-        $addresses = $this->getAddresses($request->get('city', ''));
+        /** @var string $query */
+        $query = $request->query->get('city', '');
+
+        $addresses = $this->getAddresses($query);
         $view = View::create($addresses);
 
         $this->viewHandler->setExclusionStrategyGroups(['Autocomplete']);
