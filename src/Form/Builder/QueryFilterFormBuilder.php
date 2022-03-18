@@ -180,7 +180,7 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
     protected function buildCategoriesChoices(): array
     {
         $choices = [];
-        $categories = $this->taxonRepository->findChildren('category');
+        $categories = $this->taxonRepository->findAll();
 
         /** @var TaxonInterface $category */
         foreach ($categories as $category) {
@@ -192,13 +192,24 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
 
     protected function addCategoryToChoices(array $choices, TaxonInterface $category): array
     {
-        $choices[$category->getName()] = $category->getId();
+        $name = $category->getName() ?? '';
 
-        /** @var TaxonInterface $subcategory */
-        foreach ($category->getChildren() as $subcategory) {
-            $choices = $this->addCategoryToChoices($choices, $subcategory);
-        }
+        $name = $this->createTaxonName($category, $name);
+
+        $choices[$name] = $category->getId();
 
         return $choices;
+    }
+
+    private function createTaxonName(TaxonInterface $category, string $name): string
+    {
+        if (null !== $category->getParent()) {
+            /** @var TaxonInterface $parentCategory */
+            $parentCategory = $category->getParent();
+            $parentName = $parentCategory->getName() ?? '';
+            $name = $parentName . '/' . $name;
+            $name = $this->createTaxonName($parentCategory, $name);
+        }
+        return $name;
     }
 }
