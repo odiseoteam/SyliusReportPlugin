@@ -38,7 +38,7 @@ Support Sylius version 1.9+.
 #### Premium features!
 Do you want advanced features? Take a look at our [Report Pro Plugin](https://odiseo.io/plugins-and-bundles/premium/sylius-report-pro-plugin), an extended version of this one.
 
-### Architecture
+## Architecture
 
 Basically you have a **DataFetcherInterface** and **RendererInterface** interfaces. The first one defines how to fetch the **Data**
 according to a configuration provided. And the second one uses the **Data** returned by the fetcher and returns a rendered view.

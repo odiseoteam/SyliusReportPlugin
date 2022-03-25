@@ -19,8 +19,7 @@ return [
 ```yml
 # config/packages/_sylius.yaml
 imports:
-    ...
-
+    # ...
     - { resource: "@OdiseoSyliusReportPlugin/Resources/config/config.yaml" }
 ```
 
@@ -50,7 +49,7 @@ odiseo_sylius_report_plugin_admin:
     prefix: /admin
 ```
 
-5. Include traits
+5. Include traits and override the models
 
 ```php
 <?php
