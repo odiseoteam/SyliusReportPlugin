@@ -210,6 +210,7 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
             $name = $parentName . '/' . $name;
             $name = $this->createTaxonName($parentCategory, $name);
         }
+        
         return $name;
     }
 }
