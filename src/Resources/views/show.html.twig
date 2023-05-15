@@ -61,7 +61,7 @@
 
     {% block show_results %}
         <div id="report-results">
-            {{ render(controller('odiseo_sylius_report_plugin.controller.report:embedAction', {'report': report, 'configuration' : report.dataFetcherConfiguration})) }}
+            {{ render(controller('odiseo_sylius_report_plugin.controller.report::embedAction', {'report': report, 'configuration' : report.dataFetcherConfiguration})) }}
         </div>
     {% endblock %}
 

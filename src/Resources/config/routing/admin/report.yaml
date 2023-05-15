@@ -20,7 +20,7 @@ odiseo_sylius_report_plugin_admin_report_show:
     path: /reports/{id}
     methods: [GET]
     defaults:
-        _controller: odiseo_sylius_report_plugin.controller.report:renderAction
+        _controller: odiseo_sylius_report_plugin.controller.report::renderAction
         _sylius:
             template: '@OdiseoSyliusReportPlugin/show.html.twig'
     requirements:
@@ -30,7 +30,7 @@ odiseo_sylius_report_plugin_admin_report_export:
     path: /reports/{id}/export.{_format}
     methods: [GET]
     defaults:
-        _controller: odiseo_sylius_report_plugin.controller.report:exportAction
+        _controller: odiseo_sylius_report_plugin.controller.report::exportAction
         _format: csv
     requirements:
         id: '\d+'
