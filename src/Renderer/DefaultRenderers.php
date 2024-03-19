@@ -4,12 +4,6 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusReportPlugin\Renderer;
 
-/**
- * Default renderers.
- *
- * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 final class DefaultRenderers
 {
     /**

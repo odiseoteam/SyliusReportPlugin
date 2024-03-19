@@ -9,10 +9,6 @@ use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\SalesTotalType;
 use Sylius\Component\Payment\Model\PaymentInterface;
 use Sylius\Component\Core\OrderPaymentStates;
 
-/**
- * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 class SalesTotalDataFetcher extends TimePeriodDataFetcher
 {
     private string $orderClass;

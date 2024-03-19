@@ -9,12 +9,6 @@ use Odiseo\SyliusReportPlugin\Form\Type\Renderer\ChartConfigurationType;
 use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 use Twig\Environment;
 
-/**
- * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
- * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- * @author Rimas Kudelis <rimas.kudelis@adeoweb.biz>
- */
 class ChartRenderer implements RendererInterface
 {
     public const BAR_CHART = 'bar';

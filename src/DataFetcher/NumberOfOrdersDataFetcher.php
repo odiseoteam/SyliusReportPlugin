@@ -9,10 +9,6 @@ use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\NumberOfOrdersType;
 use Sylius\Component\Core\OrderPaymentStates;
 use Sylius\Component\Payment\Model\PaymentInterface;
 
-/**
- * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 class NumberOfOrdersDataFetcher extends TimePeriodDataFetcher
 {
     private string $orderClass;

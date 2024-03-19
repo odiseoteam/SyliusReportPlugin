@@ -7,10 +7,6 @@ namespace Odiseo\SyliusReportPlugin\Filter;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 
-/**
- * @author Odiseo Team <team@odiseo.com.ar>
- * @author Rimas Kudelis <rimas.kudelis@adeoweb.biz>
- */
 interface QueryFilterInterface
 {
     public function getQueryBuilder(): QueryBuilder;

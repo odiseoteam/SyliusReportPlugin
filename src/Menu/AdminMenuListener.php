@@ -7,9 +7,6 @@ namespace Odiseo\SyliusReportPlugin\Menu;
 use Knp\Menu\ItemInterface;
 use Sylius\Bundle\UiBundle\Menu\Event\MenuBuilderEvent;
 
-/**
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 final class AdminMenuListener
 {
     public function addAdminMenuItems(MenuBuilderEvent $event): void

@@ -18,9 +18,6 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-/**
- * @author Odiseo Team <team@odiseo.com.ar>
- */
 class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
 {
     protected RepositoryInterface $addressRepository;

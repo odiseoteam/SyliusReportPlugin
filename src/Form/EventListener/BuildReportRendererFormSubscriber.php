@@ -15,14 +15,6 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 
-/**
- * This listener adds configuration form to the report object
- * if selected renderer requires one.
- *
- * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- * @author Rimas Kudelis <rimas.kudelis@adeoweb.biz>
- */
 class BuildReportRendererFormSubscriber implements EventSubscriberInterface
 {
     private ServiceRegistryInterface $rendererRegistry;

@@ -10,9 +10,6 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * @author Odiseo Team <team@odiseo.com.ar>
- */
 final class ProductAutocompleteChoiceType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void

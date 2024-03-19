@@ -9,12 +9,6 @@ use DateTime;
 use Exception;
 use InvalidArgumentException;
 
-/**
- * Abstract class to provide time periods logic.
- *
- * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 abstract class TimePeriodDataFetcher extends BaseDataFetcher
 {
     public const PERIOD_DAY = 'day';

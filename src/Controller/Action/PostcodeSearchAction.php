@@ -13,9 +13,6 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @author Odiseo Team <team@odiseo.com.ar>
- */
 final class PostcodeSearchAction
 {
     private AddressRepositoryInterface $addressRepository;

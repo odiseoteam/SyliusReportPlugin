@@ -6,9 +6,6 @@ namespace Odiseo\SyliusReportPlugin\Form\Type\DataFetcher;
 
 use Symfony\Component\Form\FormBuilderInterface;
 
-/**
- * @author Odiseo Team <team@odiseo.com.ar>
- */
 class TimePeriodChannelType extends BaseDataFetcherType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

@@ -12,10 +12,6 @@ use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\Customer;
 use Sylius\Component\Core\Model\ProductInterface;
 
-/**
- * @author Odiseo Team <team@odiseo.com.ar>
- * @author Rimas Kudelis <rimas.kudelis@adeoweb.biz>
- */
 class QueryFilter implements QueryFilterInterface
 {
     protected EntityManager $em;

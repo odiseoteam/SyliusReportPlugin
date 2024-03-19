@@ -12,9 +12,6 @@ use Sylius\Component\Locale\Context\LocaleContextInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @author Odiseo Team <team@odiseo.com.ar>
- */
 final class ProductSearchAction
 {
     private ProductRepositoryInterface $productRepository;

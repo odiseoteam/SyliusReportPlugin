@@ -8,12 +8,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-/**
- * Renderer configuration form type.
- *
- * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 class TableConfigurationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

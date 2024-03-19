@@ -6,9 +6,6 @@ namespace Odiseo\SyliusReportPlugin\Form\Builder;
 
 use Symfony\Component\Form\FormBuilderInterface;
 
-/**
- * @author Odiseo Team <team@odiseo.com.ar>
- */
 interface QueryFilterFormBuilderInterface
 {
     public function addUserGender(FormBuilderInterface &$builder): void;

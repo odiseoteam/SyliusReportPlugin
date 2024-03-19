@@ -6,12 +6,6 @@ namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
 use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 
-/**
- * Delegating data fetcher.
- *
- * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 interface DelegatingDataFetcherInterface
 {
     /**
