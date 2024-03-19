@@ -13,11 +13,6 @@ use PhpSpec\ObjectBehavior;
 use Symfony\Component\Templating\EngineInterface;
 use Twig\Environment;
 
-/**
- * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
- * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 final class TableRendererSpec extends ObjectBehavior
 {
     function let(Environment $templating)

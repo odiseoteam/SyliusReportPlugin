@@ -9,10 +9,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 final class RendererChoiceTypeSpec extends ObjectBehavior
 {
     function let()
@@ -42,7 +38,7 @@ final class RendererChoiceTypeSpec extends ObjectBehavior
             'Chart renderer' =>'chart',
         ];
 
-        $resolver->setDefaults(['choices' => $choices])->shouldBeCalled();
+        $resolver->setDefaults(['choices' => $choices])->willReturn($resolver);
 
         $this->configureOptions($resolver);
     }

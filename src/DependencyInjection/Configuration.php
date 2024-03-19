@@ -7,17 +7,11 @@ namespace Odiseo\SyliusReportPlugin\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-/**
- * This class contains the configuration information for the bundle.
- *
- * This information is solely responsible for how the different configuration
- * sections are normalized, and merged.
- *
- * @author Paweł Jędrzejewski <pawel@sylius.org>
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 final class Configuration implements ConfigurationInterface
 {
+    /**
+     * @psalm-suppress UndefinedMethod
+     */
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('odiseo_sylius_report_plugin');

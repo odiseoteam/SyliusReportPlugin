@@ -5,23 +5,15 @@ declare(strict_types=1);
 namespace Odiseo\SyliusReportPlugin\Renderer;
 
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;
-use Odiseo\SyliusReportPlugin\Form\Type\Renderer\TableConfigurationType;
 use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
+use Odiseo\SyliusReportPlugin\Form\Type\Renderer\TableConfigurationType;
 use Twig\Environment;
 
-/**
- * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
- * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- * @author Rimas Kudelis <rimas.kudelis@adeoweb.biz>
- */
 class TableRenderer implements RendererInterface
 {
-    private Environment $templating;
-
-    public function __construct(Environment $templating)
-    {
-        $this->templating = $templating;
+    public function __construct(
+        private Environment $templating,
+    ) {
     }
 
     public function render(ReportInterface $report, Data $data): string

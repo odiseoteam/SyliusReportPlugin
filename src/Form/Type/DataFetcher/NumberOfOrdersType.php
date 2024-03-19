@@ -6,10 +6,6 @@ namespace Odiseo\SyliusReportPlugin\Form\Type\DataFetcher;
 
 use Symfony\Component\Form\FormBuilderInterface;
 
-/**
- * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 class NumberOfOrdersType extends TimePeriodChannelType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

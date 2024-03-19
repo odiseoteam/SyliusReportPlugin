@@ -14,9 +14,6 @@ use Odiseo\SyliusReportPlugin\Renderer\TableRenderer;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 
-/**
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 final class DelegatingRendererSpec extends ObjectBehavior
 {
     function let(ServiceRegistryInterface $registry)

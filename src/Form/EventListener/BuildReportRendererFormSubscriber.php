@@ -15,23 +15,12 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 
-/**
- * This listener adds configuration form to the report object
- * if selected renderer requires one.
- *
- * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- * @author Rimas Kudelis <rimas.kudelis@adeoweb.biz>
- */
 class BuildReportRendererFormSubscriber implements EventSubscriberInterface
 {
-    private ServiceRegistryInterface $rendererRegistry;
-    private FormFactoryInterface $factory;
-
-    public function __construct(ServiceRegistryInterface $rendererRegistry, FormFactoryInterface $factory)
-    {
-        $this->rendererRegistry = $rendererRegistry;
-        $this->factory = $factory;
+    public function __construct(
+        private ServiceRegistryInterface $rendererRegistry,
+        private FormFactoryInterface $factory,
+    ) {
     }
 
     public static function getSubscribedEvents(): array
@@ -80,7 +69,7 @@ class BuildReportRendererFormSubscriber implements EventSubscriberInterface
                 'rendererConfiguration',
                 $formType,
                 $data,
-                ['auto_initialize' => false]
+                ['auto_initialize' => false],
             );
         } catch (InvalidArgumentException $e) {
             return;

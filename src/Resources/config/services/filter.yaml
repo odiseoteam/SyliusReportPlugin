@@ -1,4 +1,5 @@
 services:
     odiseo_sylius_report_plugin.filter.query_filter:
         class: Odiseo\SyliusReportPlugin\Filter\QueryFilter
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments:
+            - "@doctrine.orm.entity_manager"

@@ -6,24 +6,16 @@ namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
 use Odiseo\SyliusReportPlugin\Filter\QueryFilterInterface;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\SalesTotalType;
-use Sylius\Component\Payment\Model\PaymentInterface;
 use Sylius\Component\Core\OrderPaymentStates;
+use Sylius\Component\Payment\Model\PaymentInterface;
 
-/**
- * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 class SalesTotalDataFetcher extends TimePeriodDataFetcher
 {
-    private string $orderClass;
-
     public function __construct(
+        private string $orderClass,
         QueryFilterInterface $queryFilter,
-        string $orderClass
     ) {
         parent::__construct($queryFilter);
-
-        $this->orderClass = $orderClass;
     }
 
     protected function setupQueryFilter(array $configuration = []): void
@@ -35,7 +27,7 @@ class SalesTotalDataFetcher extends TimePeriodDataFetcher
             ->select(
                 'DATE(payment.updatedAt) as date',
                 'COUNT(DATE(payment.updatedAt)) as orders_quantity',
-                'ROUND(SUM(o.total/100), 2) as gross_total_money'
+                'ROUND(SUM(o.total/100), 2) as gross_total_money',
             )
             ->from($from, 'o')
             ->groupBy('date')

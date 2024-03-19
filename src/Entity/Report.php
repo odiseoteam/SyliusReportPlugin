@@ -10,22 +10,24 @@ use Odiseo\SyliusReportPlugin\DataFetcher\TimePeriodDataFetcher;
 use Odiseo\SyliusReportPlugin\Renderer\DefaultRenderers;
 use Sylius\Component\Resource\Model\TimestampableTrait;
 
-/**
- * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
- * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 class Report implements ReportInterface
 {
     use TimestampableTrait;
 
     protected ?int $id = null;
+
     protected ?string $code = null;
+
     protected ?string $name = null;
+
     protected ?string $description = null;
+
     protected string $renderer = DefaultRenderers::TABLE;
+
     protected array $rendererConfiguration = [];
+
     protected string $dataFetcher = DefaultDataFetchers::USER_REGISTRATION;
+
     protected array $dataFetcherConfiguration = [];
 
     public function __construct()
@@ -35,8 +37,8 @@ class Report implements ReportInterface
             'timePeriod' => [
                 'start' => new DateTime('10 years'),
                 'end' => new DateTime(),
-                'period' => TimePeriodDataFetcher::PERIOD_MONTH
-            ]
+                'period' => TimePeriodDataFetcher::PERIOD_MONTH,
+            ],
         ];
     }
 

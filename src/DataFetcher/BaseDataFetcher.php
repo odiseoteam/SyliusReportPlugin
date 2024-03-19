@@ -6,16 +6,11 @@ namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
 use Odiseo\SyliusReportPlugin\Filter\QueryFilterInterface;
 
-/**
- * @author Odiseo Team <team@odiseo.com.ar>
- */
 abstract class BaseDataFetcher implements DataFetcherInterface
 {
-    protected QueryFilterInterface $queryFilter;
-
-    public function __construct(QueryFilterInterface $queryFilter)
-    {
-        $this->queryFilter = $queryFilter;
+    public function __construct(
+        protected QueryFilterInterface $queryFilter,
+    ) {
     }
 
     /**
@@ -31,6 +26,9 @@ abstract class BaseDataFetcher implements DataFetcherInterface
     {
         $this->setupQueryFilter($configuration);
 
-        return $this->queryFilter->getQueryBuilder()->getQuery()->getResult();
+        /** @var array $result */
+        $result = $this->queryFilter->getQueryBuilder()->getQuery()->getResult();
+
+        return $result;
     }
 }

@@ -13,9 +13,6 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 final class OdiseoSyliusReportExtension extends Extension implements PrependExtensionInterface
 {
     use PrependDoctrineMigrationsTrait;

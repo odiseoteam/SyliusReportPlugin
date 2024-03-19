@@ -8,19 +8,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 class DataFetcherChoiceType extends AbstractType
 {
-    protected array $dataFetchers;
-
-    public function __construct(array $dataFetchers)
-    {
-        /**
-         * @phpstan-ignore-next-line
-         */
+    public function __construct(
+        protected array $dataFetchers,
+    ) {
         $this->dataFetchers = array_combine(array_values($dataFetchers), array_keys($dataFetchers));
     }
 

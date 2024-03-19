@@ -7,9 +7,6 @@ namespace spec\Odiseo\SyliusReportPlugin\DataFetcher;
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;
 use PhpSpec\ObjectBehavior;
 
-/**
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 class DataSpec extends ObjectBehavior
 {
     function it_is_initializable()

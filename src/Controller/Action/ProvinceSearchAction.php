@@ -14,26 +14,14 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @author Odiseo Team <team@odiseo.com.ar>
- */
 final class ProvinceSearchAction
 {
-    private AddressRepositoryInterface $addressRepository;
-    private RepositoryInterface $provinceRepository;
-    private RepositoryInterface $countryRepository;
-    private ConfigurableViewHandlerInterface $viewHandler;
-
     public function __construct(
-        AddressRepositoryInterface $addressRepository,
-        RepositoryInterface $provinceRepository,
-        RepositoryInterface $countryRepository,
-        ConfigurableViewHandlerInterface $viewHandler
+        private AddressRepositoryInterface $addressRepository,
+        private RepositoryInterface $provinceRepository,
+        private RepositoryInterface $countryRepository,
+        private ConfigurableViewHandlerInterface $viewHandler,
     ) {
-        $this->addressRepository = $addressRepository;
-        $this->provinceRepository = $provinceRepository;
-        $this->countryRepository = $countryRepository;
-        $this->viewHandler = $viewHandler;
     }
 
     public function __invoke(Request $request): Response
@@ -59,7 +47,7 @@ final class ProvinceSearchAction
         foreach ($searchAddresses as $address) {
             /** @var CountryInterface|null $country */
             $country = $this->countryRepository->findOneBy([
-                'code' => $address->getCountryCode()
+                'code' => $address->getCountryCode(),
             ]);
 
             /** @var string $countryName */

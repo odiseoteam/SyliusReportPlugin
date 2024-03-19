@@ -16,10 +16,6 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormFactoryInterface;
 
-/**
- * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 final class BuildReportDataFetcherFormSubscriberSpec extends ObjectBehavior
 {
     function it_is_initializable()
@@ -59,7 +55,7 @@ final class BuildReportDataFetcherFormSubscriberSpec extends ObjectBehavior
             Argument::cetera()
         )->willReturn($field);
 
-        $form->add($field)->shouldBeCalled();
+        $form->add($field)->willReturn($form);
 
         $this->preSetData($event);
     }
@@ -81,7 +77,7 @@ final class BuildReportDataFetcherFormSubscriberSpec extends ObjectBehavior
             Argument::cetera()
         )->willReturn($field);
 
-        $form->add($field)->shouldBeCalled();
+        $form->add($field)->willReturn($form);
 
         $this->preBind($event);
     }

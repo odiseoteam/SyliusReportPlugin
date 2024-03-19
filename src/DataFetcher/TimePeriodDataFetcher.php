@@ -9,16 +9,12 @@ use DateTime;
 use Exception;
 use InvalidArgumentException;
 
-/**
- * Abstract class to provide time periods logic.
- *
- * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 abstract class TimePeriodDataFetcher extends BaseDataFetcher
 {
     public const PERIOD_DAY = 'day';
+
     public const PERIOD_MONTH = 'month';
+
     public const PERIOD_YEAR = 'year';
 
     public static function getPeriodChoices(): array
@@ -38,17 +34,20 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
         $endDate = $configuration['timePeriod']['end'] ?? null;
 
         //There is added 23 hours 59 minutes 59 seconds to the end date to provide records for whole end date
-        $configuration['timePeriod']['end'] = $endDate !== null ? $endDate->add(new DateInterval('PT23H59M59S')) : null;
+        $configuration['timePeriod']['end'] = $endDate?->add(new DateInterval('PT23H59M59S'));
 
         switch ($configuration['timePeriod']['period']) {
             case self::PERIOD_DAY:
                 $this->setExtraConfiguration($configuration, 'P1D', '%a', 'Y-m-d', ['date']);
+
                 break;
             case self::PERIOD_MONTH:
                 $this->setExtraConfiguration($configuration, 'P1M', '%m', 'F Y', ['month', 'year']);
+
                 break;
             case self::PERIOD_YEAR:
                 $this->setExtraConfiguration($configuration, 'P1Y', '%y', 'Y', ['year']);
+
                 break;
             default:
                 throw new InvalidArgumentException('Wrong data fetcher period');
@@ -62,6 +61,8 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
 
         $labelsAux = array_keys($rawData[0]);
         $labels = [];
+
+        /** @var string $label */
         foreach ($labelsAux as $label) {
             if (!in_array($label, ['MonthDate', 'YearDate', 'DateDate'], true)) {
                 $labels[] = $label;
@@ -90,9 +91,11 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
         $data->setData($fetched);
 
         $labels = [];
+
+        /** @var string $label */
         foreach ($labelsAux as $label) {
             if (!in_array($label, ['MonthDate', 'YearDate', 'DateDate'], true)) {
-                $labels[] = preg_replace('/(?!^)[A-Z]{2,}(?=[A-Z][a-z])|[A-Z][a-z]/', ' $0', (string)$label);
+                $labels[] = preg_replace('/(?!^)[A-Z]{2,}(?=[A-Z][a-z])|[A-Z][a-z]/', ' $0', $label);
             }
         }
         $data->setLabels($labels);
@@ -105,7 +108,7 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
         string $interval,
         string $periodFormat,
         string $presentationFormat,
-        array $groupBy
+        array $groupBy,
     ): void {
         $configuration['timePeriod']['interval'] = $interval;
         $configuration['timePeriod']['periodFormat'] = $periodFormat;

@@ -8,12 +8,6 @@ use Sylius\Component\Resource\Model\CodeAwareInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Resource\Model\TimestampableInterface;
 
-/**
- * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
- * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- * @author Rimas Kudelis <rimas.kudelis@adeoweb.biz>
- */
 interface ReportInterface extends CodeAwareInterface, ResourceInterface, TimestampableInterface
 {
     public function getName(): ?string;

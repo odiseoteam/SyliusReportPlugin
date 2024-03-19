@@ -12,21 +12,16 @@ use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\Customer;
 use Sylius\Component\Core\Model\ProductInterface;
 
-/**
- * @author Odiseo Team <team@odiseo.com.ar>
- * @author Rimas Kudelis <rimas.kudelis@adeoweb.biz>
- */
 class QueryFilter implements QueryFilterInterface
 {
-    protected EntityManager $em;
     protected QueryBuilder $qb;
+
     protected array $joins = [];
 
-    public function __construct(EntityManager $entityManager)
-    {
-        $this->em = $entityManager;
-
-        $this->qb = $this->em->createQueryBuilder();
+    public function __construct(
+        protected EntityManager $em,
+    ) {
+        $this->qb = $em->createQueryBuilder();
     }
 
     public function getQueryBuilder(): QueryBuilder
@@ -48,9 +43,9 @@ class QueryFilter implements QueryFilterInterface
     protected function getGroupByParts(
         QueryBuilder $qb,
         array $configuration = [],
-        string $dateField = 'checkoutCompletedAt'
+        string $dateField = 'checkoutCompletedAt',
     ): array {
-        if (false === strpos($dateField, '.')) {
+        if (!str_contains($dateField, '.')) {
             $rootAlias = $qb->getRootAliases()[0];
             $dateF = $rootAlias . '.' . $dateField;
         } else {
@@ -64,10 +59,10 @@ class QueryFilter implements QueryFilterInterface
                 $selectPeriod .= ', ';
                 $selectGroupBy .= ',';
             }
-            $salias = ucfirst(strtolower($groupByElement)) . 'Date';
-            $selectPeriod .= $groupByElement . '(' . $dateF . ') as ' . $salias;
+            $alias = ucfirst(strtolower($groupByElement)) . 'Date';
+            $selectPeriod .= $groupByElement . '(' . $dateF . ') as ' . $alias;
 
-            $selectGroupBy .= $salias;
+            $selectGroupBy .= $alias;
         }
 
         return [$selectPeriod, $selectGroupBy];
@@ -87,9 +82,9 @@ class QueryFilter implements QueryFilterInterface
     public function addTimePeriod(
         array $configuration = [],
         string $dateField = 'checkoutCompletedAt',
-        ?string $rootAlias = null
+        ?string $rootAlias = null,
     ): void {
-        if (false === strpos($dateField, '.')) {
+        if (!str_contains($dateField, '.')) {
             if (null === $rootAlias) {
                 $rootAlias = $this->qb->getRootAliases()[0];
             }
@@ -132,7 +127,7 @@ class QueryFilter implements QueryFilterInterface
     public function addChannel(
         array $configuration = [],
         ?string $field = null,
-        ?string $rootAlias = null
+        ?string $rootAlias = null,
     ): void {
         if (isset($configuration['channel']) && count($configuration['channel']) > 0) {
             $storeIds = [];
@@ -182,7 +177,7 @@ class QueryFilter implements QueryFilterInterface
     public function addUserCountry(
         array $configuration = [],
         string $addressType = 'shipping',
-        ?string $rootAlias = null
+        ?string $rootAlias = null,
     ): void {
         $type = 'user' . ucfirst($addressType) . 'Country';
 
@@ -207,7 +202,7 @@ class QueryFilter implements QueryFilterInterface
     public function addUserProvince(
         array $configuration = [],
         string $addressType = 'shipping',
-        ?string $rootAlias = null
+        ?string $rootAlias = null,
     ): void {
         $type = 'user' . ucfirst($addressType) . 'Province';
 
@@ -230,7 +225,7 @@ class QueryFilter implements QueryFilterInterface
             $this->qb
                 ->andWhere($this->qb->expr()->orX(
                     $this->qb->expr()->in($caAlias . '.provinceCode', $provinces),
-                    $this->qb->expr()->in($caAlias . '.provinceName', $provinces)
+                    $this->qb->expr()->in($caAlias . '.provinceName', $provinces),
                 ))
             ;
         }
@@ -239,7 +234,7 @@ class QueryFilter implements QueryFilterInterface
     public function addUserCity(
         array $configuration = [],
         string $addressType = 'shipping',
-        ?string $rootAlias = null
+        ?string $rootAlias = null,
     ): void {
         $type = 'user' . ucfirst($addressType) . 'City';
 
@@ -268,7 +263,7 @@ class QueryFilter implements QueryFilterInterface
     public function addUserPostcode(
         array $configuration = [],
         string $addressType = 'shipping',
-        ?string $rootAlias = null
+        ?string $rootAlias = null,
     ): void {
         $type = 'user' . ucfirst($addressType) . 'Postcode';
 

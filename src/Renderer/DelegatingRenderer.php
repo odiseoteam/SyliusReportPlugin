@@ -8,18 +8,11 @@ use Odiseo\SyliusReportPlugin\DataFetcher\Data;
 use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 
-/**
- * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- * @author Rimas Kudelis <rimas.kudelis@adeoweb.biz>
- */
 class DelegatingRenderer implements DelegatingRendererInterface
 {
-    protected ServiceRegistryInterface $registry;
-
-    public function __construct(ServiceRegistryInterface $registry)
-    {
-        $this->registry = $registry;
+    public function __construct(
+        protected ServiceRegistryInterface $registry,
+    ) {
     }
 
     public function render(ReportInterface $report, Data $data): string

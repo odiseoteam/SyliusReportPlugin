@@ -20,32 +20,17 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 
-/**
- * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
- * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 class ReportType extends AbstractResourceType
 {
-    protected ServiceRegistryInterface $rendererRegistry;
-    protected ServiceRegistryInterface $dataFetcherRegistry;
-    protected string $rendererConfigurationTemplate;
-    protected string $dataFetcherConfigurationTemplate;
-
     public function __construct(
         string $dataClass,
         array $validationGroups,
-        ServiceRegistryInterface $rendererRegistry,
-        ServiceRegistryInterface $dataFetcherRegistry,
-        string $rendererConfigurationTemplate,
-        string $dataFetcherConfigurationTemplate
+        protected ServiceRegistryInterface $rendererRegistry,
+        protected ServiceRegistryInterface $dataFetcherRegistry,
+        protected string $rendererConfigurationTemplate,
+        protected string $dataFetcherConfigurationTemplate,
     ) {
         parent::__construct($dataClass, $validationGroups);
-
-        $this->rendererRegistry = $rendererRegistry;
-        $this->dataFetcherRegistry = $dataFetcherRegistry;
-        $this->rendererConfigurationTemplate = $rendererConfigurationTemplate;
-        $this->dataFetcherConfigurationTemplate = $dataFetcherConfigurationTemplate;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -53,10 +38,10 @@ class ReportType extends AbstractResourceType
         $builder
             ->addEventSubscriber(new AddCodeFormSubscriber())
             ->addEventSubscriber(
-                new BuildReportDataFetcherFormSubscriber($this->dataFetcherRegistry, $builder->getFormFactory())
+                new BuildReportDataFetcherFormSubscriber($this->dataFetcherRegistry, $builder->getFormFactory()),
             )
             ->addEventSubscriber(
-                new BuildReportRendererFormSubscriber($this->rendererRegistry, $builder->getFormFactory())
+                new BuildReportRendererFormSubscriber($this->rendererRegistry, $builder->getFormFactory()),
             )
             ->add('name', TextType::class, [
                 'label' => 'odiseo_sylius_report_plugin.form.report.name',
@@ -106,11 +91,14 @@ class ReportType extends AbstractResourceType
         $view->vars['rendererConfigurationTemplate'] = $this->rendererConfigurationTemplate;
         $view->vars['dataFetcherConfigurationTemplate'] = $this->dataFetcherConfigurationTemplate;
 
+        /** @var array $attributePrototypes */
+        $attributePrototypes = $form->getConfig()->getAttribute('prototypes');
+
         /**
          * @var string $group
          * @var FormView $prototypes
          */
-        foreach ($form->getConfig()->getAttribute('prototypes') as $group => $prototypes) {
+        foreach ($attributePrototypes as $group => $prototypes) {
             /** @var FormInterface $prototype */
             foreach ($prototypes as $type => $prototype) {
                 $view->vars['prototypes'][$group][$group . '_' . $type] = $prototype->createView($view);

@@ -10,9 +10,6 @@ use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 final class OdiseoSyliusReportPlugin extends Bundle
 {
     use SyliusPluginTrait;

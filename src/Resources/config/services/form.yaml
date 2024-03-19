@@ -10,44 +10,54 @@ services:
 
     odiseo_sylius_report_plugin.form.type.data_fetcher_choice:
         class: Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\DataFetcherChoiceType
-        arguments: ['%odiseo_sylius_report_plugin.data_fetchers%']
+        arguments:
+            - '%odiseo_sylius_report_plugin.data_fetchers%'
         tags:
             - { name: form.type, alias: odiseo_sylius_report_data_fetcher_choice }
 
     odiseo_sylius_report_plugin.form.type.renderer_choice:
         class: Odiseo\SyliusReportPlugin\Form\Type\Renderer\RendererChoiceType
-        arguments: ['%odiseo_sylius_report_plugin.renderers%']
+        arguments:
+            - '%odiseo_sylius_report_plugin.renderers%'
         tags:
             - { name: form.type, alias: odiseo_sylius_report_renderer_choice }
 
     odiseo_sylius_report_plugin.form.type.report:
         class: Odiseo\SyliusReportPlugin\Form\Type\ReportType
-        arguments: ['%odiseo_sylius_report_plugin.model.report.class%', ['odiseo']]
+        arguments:
+            - '%odiseo_sylius_report_plugin.model.report.class%'
+            - ['odiseo']
         tags:
             - { name: form.type, alias: odiseo_sylius_report }
 
     odiseo_sylius_report_plugin.form.type.report_data_fetcher_configuration:
         class: Odiseo\SyliusReportPlugin\Form\Type\ReportDataFetcherConfigurationType
-        arguments: ['%odiseo_sylius_report_plugin.model.report.class%', ['odiseo'], '@odiseo_sylius_report_plugin.data_fetcher']
+        arguments:
+            - '@odiseo_sylius_report_plugin.data_fetcher'
+            - '%odiseo_sylius_report_plugin.model.report.class%'
+            - ['odiseo']
         tags:
             - { name: form.type, alias: odiseo_sylius_report }
 
     #REPORT DATAFETCHER CONFIGURATION TYPES
     odiseo_sylius_report_plugin.form.type.data_fetcher.user_registration:
         class: Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\UserRegistrationType
-        arguments: ['@odiseo_sylius_report_plugin.form_builder.query_filter']
+        arguments:
+            - '@odiseo_sylius_report_plugin.form_builder.query_filter'
         tags:
             - { name: form.type, alias: odiseo_sylius_report_plugin_data_fetcher_user_registration }
 
     odiseo_sylius_report_plugin.form.type.data_fetcher.sales_total:
         class: Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\SalesTotalType
-        arguments: ['@odiseo_sylius_report_plugin.form_builder.query_filter']
+        arguments:
+            - '@odiseo_sylius_report_plugin.form_builder.query_filter'
         tags:
             - { name: form.type, alias: odiseo_sylius_report_plugin_data_fetcher_sales_total }
 
     odiseo_sylius_report_plugin.form.type.data_fetcher.number_of_orders:
         class: Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\NumberOfOrdersType
-        arguments: ['@odiseo_sylius_report_plugin.form_builder.query_filter']
+        arguments:
+            - '@odiseo_sylius_report_plugin.form_builder.query_filter'
         tags:
             - { name: form.type, alias: odiseo_sylius_report_plugin_data_fetcher_number_of_orders }
 

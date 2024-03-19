@@ -15,23 +15,12 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 
-/**
- * This listener adds configuration form to the report object
- * if selected data fetcher requires one.
- *
- * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- * @author Rimas Kudelis <rimas.kudelis@adeoweb.biz>
- */
 class BuildReportDataFetcherFormSubscriber implements EventSubscriberInterface
 {
-    private ServiceRegistryInterface $dataFetcherRegistry;
-    private FormFactoryInterface $factory;
-
-    public function __construct(ServiceRegistryInterface $dataFetcherRegistry, FormFactoryInterface $factory)
-    {
-        $this->dataFetcherRegistry = $dataFetcherRegistry;
-        $this->factory = $factory;
+    public function __construct(
+        private ServiceRegistryInterface $dataFetcherRegistry,
+        private FormFactoryInterface $factory,
+    ) {
     }
 
     public static function getSubscribedEvents(): array
@@ -57,7 +46,7 @@ class BuildReportDataFetcherFormSubscriber implements EventSubscriberInterface
         $this->addConfigurationFields(
             $event->getForm(),
             $report->getDataFetcher(),
-            $report->getDataFetcherConfiguration()
+            $report->getDataFetcherConfiguration(),
         );
     }
 
@@ -84,7 +73,7 @@ class BuildReportDataFetcherFormSubscriber implements EventSubscriberInterface
                 'dataFetcherConfiguration',
                 $formType,
                 $config,
-                ['auto_initialize' => false]
+                ['auto_initialize' => false],
             );
         } catch (InvalidArgumentException $e) {
             return;

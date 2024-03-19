@@ -34,9 +34,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-/**
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 final class ReportControllerSpec extends ObjectBehavior
 {
     function let(

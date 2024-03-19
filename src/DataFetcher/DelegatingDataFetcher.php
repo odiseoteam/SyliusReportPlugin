@@ -7,22 +7,11 @@ namespace Odiseo\SyliusReportPlugin\DataFetcher;
 use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 
-/**
- * Data fetcher choice type
- *
- * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 class DelegatingDataFetcher implements DelegatingDataFetcherInterface
 {
-    /**
-     * DataFetcher registry.
-     */
-    protected ServiceRegistryInterface $registry;
-
-    public function __construct(ServiceRegistryInterface $registry)
-    {
-        $this->registry = $registry;
+    public function __construct(
+        protected ServiceRegistryInterface $registry,
+    ) {
     }
 
     public function fetch(ReportInterface $report, array $configuration = []): Data

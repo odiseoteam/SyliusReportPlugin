@@ -18,36 +18,22 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-/**
- * @author Odiseo Team <team@odiseo.com.ar>
- */
 class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
 {
-    protected RepositoryInterface $addressRepository;
-    protected TaxonRepositoryInterface $taxonRepository;
-    protected ProductRepositoryInterface $productRepository;
-    protected ChannelRepositoryInterface $channelRepository;
-    protected UrlGeneratorInterface $generator;
-
     public function __construct(
-        RepositoryInterface $addressRepository,
-        TaxonRepositoryInterface $taxonRepository,
-        ProductRepositoryInterface $productRepository,
-        ChannelRepositoryInterface $channelRepository,
-        UrlGeneratorInterface $generator
+        protected RepositoryInterface $addressRepository,
+        protected TaxonRepositoryInterface $taxonRepository,
+        protected ProductRepositoryInterface $productRepository,
+        protected ChannelRepositoryInterface $channelRepository,
+        protected UrlGeneratorInterface $generator,
     ) {
-        $this->addressRepository = $addressRepository;
-        $this->taxonRepository = $taxonRepository;
-        $this->productRepository = $productRepository;
-        $this->channelRepository = $channelRepository;
-        $this->generator = $generator;
     }
 
     public function addUserGender(FormBuilderInterface &$builder): void
     {
         $builder
             ->add('userGender', ChoiceType::class, [
-                'choices'  => [
+                'choices' => [
                     'odiseo_sylius_report_plugin.form.user_gender.male' => 'm',
                     'odiseo_sylius_report_plugin.form.user_gender.female' => 'f',
                 ],
@@ -67,7 +53,7 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
                 'multiple' => true,
                 'required' => false,
                 'attr' => [
-                    'class' => 'fluid search selection'
+                    'class' => 'fluid search selection',
                 ],
             ])
         ;
@@ -124,12 +110,12 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
         $builder
             ->add('channel', ChoiceType::class, [
                 'attr' => [
-                    'class' => 'fluid search selection changeSelects'
+                    'class' => 'fluid search selection changeSelects',
                 ],
                 'label' => 'sylius.ui.channel',
                 'required' => false,
                 'multiple' => true,
-                'choices' => $this->buildChannelsChoices()
+                'choices' => $this->buildChannelsChoices(),
             ])
         ;
     }
@@ -157,7 +143,7 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
                 ],
                 'multiple' => true,
                 'label' => 'odiseo_sylius_report_plugin.form.category',
-                'choices' => $this->buildCategoriesChoices()
+                'choices' => $this->buildCategoriesChoices(),
             ])
         ;
     }

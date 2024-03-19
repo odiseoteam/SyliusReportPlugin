@@ -7,10 +7,11 @@ namespace Odiseo\SyliusReportPlugin\Controller;
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;
 use Odiseo\SyliusReportPlugin\DataFetcher\DelegatingDataFetcherInterface;
 use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
+use Odiseo\SyliusReportPlugin\Form\Type\ReportDataFetcherConfigurationType;
 use Odiseo\SyliusReportPlugin\Renderer\DelegatingRendererInterface;
 use Odiseo\SyliusReportPlugin\Response\CsvResponse;
-use Odiseo\SyliusReportPlugin\Form\Type\ReportDataFetcherConfigurationType;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
+use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Resource\ResourceActions;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -18,12 +19,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
- * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
- * @author Fernando Caraballo Ortiz <caraballo.ortiz@gmail.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 class ReportController extends ResourceController
 {
     public function renderAction(Request $request): Response
@@ -35,12 +30,17 @@ class ReportController extends ResourceController
         /** @var ReportInterface $report */
         $report = $this->findOr404($configuration);
         $reportDataFetcherConfigurationForm = $this->getReportDataFetcherConfigurationForm($report, $request);
+
+        /** @var ResourceInterface $report */
         $report = $reportDataFetcherConfigurationForm->getData();
 
         $this->eventDispatcher->dispatch(ResourceActions::SHOW, $configuration, $report);
 
+        /** @var string $view */
+        $view = $configuration->getTemplate(ResourceActions::SHOW . '.html');
+
         if ($configuration->isHtmlRequest()) {
-            return $this->render($configuration->getTemplate(ResourceActions::SHOW . '.html'), [
+            return $this->render($view, [
                 'configuration' => $configuration,
                 'metadata' => $this->metadata,
                 'resource' => $report,
@@ -61,26 +61,22 @@ class ReportController extends ResourceController
         /** @var ReportInterface $report */
         $report = $this->findOr404($configuration);
         $reportDataFetcherConfigurationForm = $this->getReportDataFetcherConfigurationForm($report, $request);
+
+        /** @var ReportInterface $report */
         $report = $reportDataFetcherConfigurationForm->getData();
 
         $dataFetcherConfiguration = $report->getDataFetcherConfiguration();
 
         $data = $this->getReportDataFetcher()->fetch($report, $dataFetcherConfiguration);
 
-        $filename = $this->slugify($report->getName());
+        $filename = $this->slugify((string) $report->getName());
 
         $format = $request->query->get('_format');
-        switch ($format) {
-            case 'json':
-                $response = $this->createJsonResponse($filename, $data);
-                break;
-            case 'csv':
-            default:
-                $response = $this->createCsvResponse($filename, $data);
-                break;
-        }
 
-        return $response;
+        return match ($format) {
+            'json' => $this->createJsonResponse($filename, $data),
+            default => $this->createCsvResponse($filename, $data),
+        };
     }
 
     public function embedAction(ReportInterface $report, array $dataFetcherConfiguration = []): Response
@@ -92,12 +88,18 @@ class ReportController extends ResourceController
 
     private function getReportRenderer(): DelegatingRendererInterface
     {
-        return $this->container->get('odiseo_sylius_report_plugin.renderer');
+        /** @var DelegatingRendererInterface $renderer */
+        $renderer = $this->container->get('odiseo_sylius_report_plugin.renderer');
+
+        return $renderer;
     }
 
     private function getReportDataFetcher(): DelegatingDataFetcherInterface
     {
-        return $this->container->get('odiseo_sylius_report_plugin.data_fetcher');
+        /** @var DelegatingDataFetcherInterface $dataFetcher */
+        $dataFetcher = $this->container->get('odiseo_sylius_report_plugin.data_fetcher');
+
+        return $dataFetcher;
     }
 
     protected function createJsonResponse(string $filename, Data $data): Response

@@ -1,8 +1,12 @@
 services:
     odiseo_sylius_report_plugin.registry.data_fetcher:
         class: Sylius\Component\Registry\ServiceRegistry
-        arguments: ['Odiseo\SyliusReportPlugin\DataFetcher\DataFetcherInterface', 'data fetcher']
+        arguments:
+            - 'Odiseo\SyliusReportPlugin\DataFetcher\DataFetcherInterface'
+            - 'data fetcher'
 
     odiseo_sylius_report_plugin.registry.renderer:
         class: Sylius\Component\Registry\ServiceRegistry
-        arguments: ['Odiseo\SyliusReportPlugin\Renderer\RendererInterface', 'renderer']
+        arguments:
+            - 'Odiseo\SyliusReportPlugin\Renderer\RendererInterface'
+            - 'renderer'
