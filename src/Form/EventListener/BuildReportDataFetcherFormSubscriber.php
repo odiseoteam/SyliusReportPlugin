@@ -18,6 +18,7 @@ use Symfony\Component\Form\FormInterface;
 class BuildReportDataFetcherFormSubscriber implements EventSubscriberInterface
 {
     private ServiceRegistryInterface $dataFetcherRegistry;
+
     private FormFactoryInterface $factory;
 
     public function __construct(ServiceRegistryInterface $dataFetcherRegistry, FormFactoryInterface $factory)
@@ -49,7 +50,7 @@ class BuildReportDataFetcherFormSubscriber implements EventSubscriberInterface
         $this->addConfigurationFields(
             $event->getForm(),
             $report->getDataFetcher(),
-            $report->getDataFetcherConfiguration()
+            $report->getDataFetcherConfiguration(),
         );
     }
 
@@ -76,7 +77,7 @@ class BuildReportDataFetcherFormSubscriber implements EventSubscriberInterface
                 'dataFetcherConfiguration',
                 $formType,
                 $config,
-                ['auto_initialize' => false]
+                ['auto_initialize' => false],
             );
         } catch (InvalidArgumentException $e) {
             return;

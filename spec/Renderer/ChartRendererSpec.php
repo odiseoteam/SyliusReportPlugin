@@ -12,11 +12,6 @@ use Odiseo\SyliusReportPlugin\Renderer\RendererInterface;
 use PhpSpec\ObjectBehavior;
 use Twig\Environment;
 
-/**
- * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
- * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 final class ChartRendererSpec extends ObjectBehavior
 {
     function let(Environment $templating)

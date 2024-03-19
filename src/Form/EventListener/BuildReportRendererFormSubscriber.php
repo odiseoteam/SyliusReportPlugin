@@ -18,6 +18,7 @@ use Symfony\Component\Form\FormInterface;
 class BuildReportRendererFormSubscriber implements EventSubscriberInterface
 {
     private ServiceRegistryInterface $rendererRegistry;
+
     private FormFactoryInterface $factory;
 
     public function __construct(ServiceRegistryInterface $rendererRegistry, FormFactoryInterface $factory)
@@ -72,7 +73,7 @@ class BuildReportRendererFormSubscriber implements EventSubscriberInterface
                 'rendererConfiguration',
                 $formType,
                 $data,
-                ['auto_initialize' => false]
+                ['auto_initialize' => false],
             );
         } catch (InvalidArgumentException $e) {
             return;

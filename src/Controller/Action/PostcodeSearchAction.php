@@ -16,13 +16,15 @@ use Symfony\Component\HttpFoundation\Response;
 final class PostcodeSearchAction
 {
     private AddressRepositoryInterface $addressRepository;
+
     private RepositoryInterface $countryRepository;
+
     private ConfigurableViewHandlerInterface $viewHandler;
 
     public function __construct(
         AddressRepositoryInterface $addressRepository,
         RepositoryInterface $countryRepository,
-        ConfigurableViewHandlerInterface $viewHandler
+        ConfigurableViewHandlerInterface $viewHandler,
     ) {
         $this->addressRepository = $addressRepository;
         $this->countryRepository = $countryRepository;
@@ -52,7 +54,7 @@ final class PostcodeSearchAction
         foreach ($searchAddresses as $address) {
             /** @var CountryInterface|null $country */
             $country = $this->countryRepository->findOneBy([
-                'code' => $address->getCountryCode()
+                'code' => $address->getCountryCode(),
             ]);
 
             /** @var string $countryName */

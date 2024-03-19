@@ -10,10 +10,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 final class RegisterRenderersPassSpec extends ObjectBehavior
 {
     function it_should_implement_compiler_pass_interface()
@@ -33,7 +29,10 @@ final class RegisterRenderersPassSpec extends ObjectBehavior
         ];
         $container->findTaggedServiceIds('odiseo_sylius_report_plugin.renderer')->willReturn($rendererServices);
 
-        $rendererDefinition->addMethodCall('register', ['test', new Reference('odiseo_sylius_report_plugin.form.type.renderer.test')])->shouldBeCalled();
+        $rendererDefinition->addMethodCall(
+            'register',
+            ['test', new Reference('odiseo_sylius_report_plugin.form.type.renderer.test')]
+        )->willReturn($rendererDefinition);
         $container->setParameter('odiseo_sylius_report_plugin.renderers', ['test' => 'Test renderer'])->shouldBeCalled();
 
         $this->process($container);

@@ -30,7 +30,7 @@ final class ShowPage extends SymfonyPage implements ShowPageInterface
     protected function getDefinedElements(): array
     {
         return array_merge(parent::getDefinedElements(), [
-            'header_title' => '#wrapper .header .content',
+            'header_title' => '.header .content',
         ]);
     }
 }

@@ -25,10 +25,6 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 
-/**
- * @author Mateusz Zalewski <mateusz.zalewski@lakion.com>
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 final class ReportTypeSpec extends ObjectBehavior
 {
     function let(
@@ -61,7 +57,8 @@ final class ReportTypeSpec extends ObjectBehavior
         $dataFetcherRegistry,
         $rendererRegistry,
         RendererInterface $renderer,
-        DataFetcherInterface $dataFetcher
+        DataFetcherInterface $dataFetcher,
+        FormInterface $form
     ) {
         $builder->getFormFactory()->willReturn($factory);
 
@@ -82,22 +79,22 @@ final class ReportTypeSpec extends ObjectBehavior
         $renderer->getType()->willReturn('odiseo_sylius_report_renderer_test');
         $rendererRegistry->all()->willReturn(['test_renderer' => $renderer]);
         $builder->create('rendererConfiguration', 'odiseo_sylius_report_renderer_test')->willReturn($builder);
-        $builder->getForm()->shouldBeCalled()->willReturn(Argument::type(Form::class));
+        $builder->getForm()->willReturn($form);
 
         $dataFetcher->getType()->willReturn('odiseo_sylius_report_data_fetcher_test');
         $dataFetcherRegistry->all()->willReturn(['test_data_fetcher' => $dataFetcher]);
         $builder->create('dataFetcherConfiguration', 'odiseo_sylius_report_data_fetcher_test')->willReturn($builder);
-        $builder->getForm()->shouldBeCalled()->willReturn(Argument::type(Form::class));
+        $builder->getForm()->willReturn($form);
 
         $prototypes = [
             'renderers' => [
-                'test_renderer' => Argument::type(Form::class),
+                'test_renderer' => $form,
                 ],
             'dataFetchers' => [
-                'test_data_fetcher' => Argument::type(Form::class),
+                'test_data_fetcher' => $form,
                 ],
             ];
-        $builder->setAttribute('prototypes', $prototypes)->shouldBeCalled();
+        $builder->setAttribute('prototypes', $prototypes)->willReturn($builder);
 
         $this->buildForm($builder, []);
     }

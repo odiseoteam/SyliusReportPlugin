@@ -12,12 +12,13 @@ use Symfony\Component\Form\FormBuilderInterface;
 class ReportDataFetcherConfigurationType extends AbstractResourceType
 {
     protected DelegatingDataFetcherInterface $delegatingDataFetcher;
+
     protected string $dataFetcherConfigurationTemplate;
 
     public function __construct(
         string $dataClass,
         array $validationGroups,
-        DelegatingDataFetcherInterface $delegatingDataFetcher
+        DelegatingDataFetcherInterface $delegatingDataFetcher,
     ) {
         parent::__construct($dataClass, $validationGroups);
 

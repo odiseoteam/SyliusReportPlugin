@@ -21,9 +21,13 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
 {
     protected RepositoryInterface $addressRepository;
+
     protected TaxonRepositoryInterface $taxonRepository;
+
     protected ProductRepositoryInterface $productRepository;
+
     protected ChannelRepositoryInterface $channelRepository;
+
     protected UrlGeneratorInterface $generator;
 
     public function __construct(
@@ -31,7 +35,7 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
         TaxonRepositoryInterface $taxonRepository,
         ProductRepositoryInterface $productRepository,
         ChannelRepositoryInterface $channelRepository,
-        UrlGeneratorInterface $generator
+        UrlGeneratorInterface $generator,
     ) {
         $this->addressRepository = $addressRepository;
         $this->taxonRepository = $taxonRepository;
@@ -44,7 +48,7 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
     {
         $builder
             ->add('userGender', ChoiceType::class, [
-                'choices'  => [
+                'choices' => [
                     'odiseo_sylius_report_plugin.form.user_gender.male' => 'm',
                     'odiseo_sylius_report_plugin.form.user_gender.female' => 'f',
                 ],
@@ -64,7 +68,7 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
                 'multiple' => true,
                 'required' => false,
                 'attr' => [
-                    'class' => 'fluid search selection'
+                    'class' => 'fluid search selection',
                 ],
             ])
         ;
@@ -121,12 +125,12 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
         $builder
             ->add('channel', ChoiceType::class, [
                 'attr' => [
-                    'class' => 'fluid search selection changeSelects'
+                    'class' => 'fluid search selection changeSelects',
                 ],
                 'label' => 'sylius.ui.channel',
                 'required' => false,
                 'multiple' => true,
-                'choices' => $this->buildChannelsChoices()
+                'choices' => $this->buildChannelsChoices(),
             ])
         ;
     }
@@ -154,7 +158,7 @@ class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
                 ],
                 'multiple' => true,
                 'label' => 'odiseo_sylius_report_plugin.form.category',
-                'choices' => $this->buildCategoriesChoices()
+                'choices' => $this->buildCategoriesChoices(),
             ])
         ;
     }

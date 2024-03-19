@@ -7,7 +7,6 @@ namespace Odiseo\SyliusReportPlugin\Renderer;
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;
 use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 
-
 interface DelegatingRendererInterface
 {
     public function render(ReportInterface $report, Data $data): string;

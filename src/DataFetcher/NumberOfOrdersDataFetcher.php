@@ -15,7 +15,7 @@ class NumberOfOrdersDataFetcher extends TimePeriodDataFetcher
 
     public function __construct(
         QueryFilterInterface $queryFilter,
-        string $orderClass
+        string $orderClass,
     ) {
         parent::__construct($queryFilter);
 

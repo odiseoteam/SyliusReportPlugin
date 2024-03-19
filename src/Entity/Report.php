@@ -15,12 +15,19 @@ class Report implements ReportInterface
     use TimestampableTrait;
 
     protected ?int $id = null;
+
     protected ?string $code = null;
+
     protected ?string $name = null;
+
     protected ?string $description = null;
+
     protected string $renderer = DefaultRenderers::TABLE;
+
     protected array $rendererConfiguration = [];
+
     protected string $dataFetcher = DefaultDataFetchers::USER_REGISTRATION;
+
     protected array $dataFetcherConfiguration = [];
 
     public function __construct()
@@ -30,8 +37,8 @@ class Report implements ReportInterface
             'timePeriod' => [
                 'start' => new DateTime('10 years'),
                 'end' => new DateTime(),
-                'period' => TimePeriodDataFetcher::PERIOD_MONTH
-            ]
+                'period' => TimePeriodDataFetcher::PERIOD_MONTH,
+            ],
         ];
     }
 

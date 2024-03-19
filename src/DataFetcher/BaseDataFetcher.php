@@ -28,6 +28,9 @@ abstract class BaseDataFetcher implements DataFetcherInterface
     {
         $this->setupQueryFilter($configuration);
 
-        return $this->queryFilter->getQueryBuilder()->getQuery()->getResult();
+        /** @var array $result */
+        $result = $this->queryFilter->getQueryBuilder()->getQuery()->getResult();
+
+        return $result;
     }
 }

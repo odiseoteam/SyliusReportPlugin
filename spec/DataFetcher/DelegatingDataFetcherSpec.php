@@ -14,9 +14,6 @@ use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 
-/**
- * @author Diego D'amico <diego@odiseo.com.ar>
- */
 class DelegatingDataFetcherSpec extends ObjectBehavior
 {
     function let(ServiceRegistryInterface $registry)

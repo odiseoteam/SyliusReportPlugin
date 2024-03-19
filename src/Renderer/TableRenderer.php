@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Odiseo\SyliusReportPlugin\Renderer;
 
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;
-use Odiseo\SyliusReportPlugin\Form\Type\Renderer\TableConfigurationType;
 use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
+use Odiseo\SyliusReportPlugin\Form\Type\Renderer\TableConfigurationType;
 use Twig\Environment;
 
 class TableRenderer implements RendererInterface

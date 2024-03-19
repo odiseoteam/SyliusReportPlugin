@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 class CsvResponse extends Response
 {
     protected string $data;
+
     protected string $filename = 'export.csv';
 
     public function __construct(Data $data, int $status = 200, array $headers = [])

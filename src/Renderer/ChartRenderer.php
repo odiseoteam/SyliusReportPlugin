@@ -5,17 +5,22 @@ declare(strict_types=1);
 namespace Odiseo\SyliusReportPlugin\Renderer;
 
 use Odiseo\SyliusReportPlugin\DataFetcher\Data;
-use Odiseo\SyliusReportPlugin\Form\Type\Renderer\ChartConfigurationType;
 use Odiseo\SyliusReportPlugin\Entity\ReportInterface;
+use Odiseo\SyliusReportPlugin\Form\Type\Renderer\ChartConfigurationType;
 use Twig\Environment;
 
 class ChartRenderer implements RendererInterface
 {
     public const BAR_CHART = 'bar';
+
     public const LINE_CHART = 'line';
+
     public const RADAR_CHART = 'radar';
+
     public const POLAR_CHART = 'polar';
+
     public const PIE_CHART = 'pie';
+
     public const DOUGHNUT_CHART = 'doughnut';
 
     private Environment $templating;

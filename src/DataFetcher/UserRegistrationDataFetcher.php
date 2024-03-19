@@ -13,7 +13,7 @@ class UserRegistrationDataFetcher extends TimePeriodDataFetcher
 
     public function __construct(
         QueryFilterInterface $queryFilter,
-        string $userClass
+        string $userClass,
     ) {
         parent::__construct($queryFilter);
 

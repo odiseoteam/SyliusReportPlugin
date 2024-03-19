@@ -17,15 +17,18 @@ use Symfony\Component\HttpFoundation\Response;
 final class ProvinceSearchAction
 {
     private AddressRepositoryInterface $addressRepository;
+
     private RepositoryInterface $provinceRepository;
+
     private RepositoryInterface $countryRepository;
+
     private ConfigurableViewHandlerInterface $viewHandler;
 
     public function __construct(
         AddressRepositoryInterface $addressRepository,
         RepositoryInterface $provinceRepository,
         RepositoryInterface $countryRepository,
-        ConfigurableViewHandlerInterface $viewHandler
+        ConfigurableViewHandlerInterface $viewHandler,
     ) {
         $this->addressRepository = $addressRepository;
         $this->provinceRepository = $provinceRepository;
@@ -56,7 +59,7 @@ final class ProvinceSearchAction
         foreach ($searchAddresses as $address) {
             /** @var CountryInterface|null $country */
             $country = $this->countryRepository->findOneBy([
-                'code' => $address->getCountryCode()
+                'code' => $address->getCountryCode(),
             ]);
 
             /** @var string $countryName */

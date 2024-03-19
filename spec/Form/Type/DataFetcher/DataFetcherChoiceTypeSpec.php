@@ -39,7 +39,7 @@ final class DataFetcherChoiceTypeSpec extends ObjectBehavior
             'DataFetcher 2' => 'dataFetcher2',
         ];
 
-        $resolver->setDefaults(['choices' => $choices])->shouldBeCalled();
+        $resolver->setDefaults(['choices' => $choices])->willReturn($resolver);
 
         $this->configureOptions($resolver);
     }
