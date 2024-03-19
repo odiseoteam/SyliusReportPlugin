@@ -9,14 +9,9 @@ use Sylius\Component\Registry\ServiceRegistryInterface;
 
 class DelegatingDataFetcher implements DelegatingDataFetcherInterface
 {
-    /**
-     * DataFetcher registry.
-     */
-    protected ServiceRegistryInterface $registry;
-
-    public function __construct(ServiceRegistryInterface $registry)
-    {
-        $this->registry = $registry;
+    public function __construct(
+        protected ServiceRegistryInterface $registry,
+    ) {
     }
 
     public function fetch(ReportInterface $report, array $configuration = []): Data

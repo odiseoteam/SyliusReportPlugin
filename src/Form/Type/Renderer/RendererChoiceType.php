@@ -10,13 +10,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RendererChoiceType extends AbstractType
 {
-    protected array $renderers;
-
-    public function __construct(array $renderers)
-    {
-        /**
-         * @phpstan-ignore-next-line
-         */
+    public function __construct(
+        protected array $renderers,
+    ) {
         $this->renderers = array_combine(array_values($renderers), array_keys($renderers));
     }
 

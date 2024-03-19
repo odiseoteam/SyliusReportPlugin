@@ -14,17 +14,14 @@ use Sylius\Component\Core\Model\ProductInterface;
 
 class QueryFilter implements QueryFilterInterface
 {
-    protected EntityManager $em;
-
     protected QueryBuilder $qb;
 
     protected array $joins = [];
 
-    public function __construct(EntityManager $entityManager)
-    {
-        $this->em = $entityManager;
-
-        $this->qb = $this->em->createQueryBuilder();
+    public function __construct(
+        protected EntityManager $em,
+    ) {
+        $this->qb = $em->createQueryBuilder();
     }
 
     public function getQueryBuilder(): QueryBuilder
@@ -48,7 +45,7 @@ class QueryFilter implements QueryFilterInterface
         array $configuration = [],
         string $dateField = 'checkoutCompletedAt',
     ): array {
-        if (false === strpos($dateField, '.')) {
+        if (!str_contains($dateField, '.')) {
             $rootAlias = $qb->getRootAliases()[0];
             $dateF = $rootAlias . '.' . $dateField;
         } else {
@@ -62,10 +59,10 @@ class QueryFilter implements QueryFilterInterface
                 $selectPeriod .= ', ';
                 $selectGroupBy .= ',';
             }
-            $salias = ucfirst(strtolower($groupByElement)) . 'Date';
-            $selectPeriod .= $groupByElement . '(' . $dateF . ') as ' . $salias;
+            $alias = ucfirst(strtolower($groupByElement)) . 'Date';
+            $selectPeriod .= $groupByElement . '(' . $dateF . ') as ' . $alias;
 
-            $selectGroupBy .= $salias;
+            $selectGroupBy .= $alias;
         }
 
         return [$selectPeriod, $selectGroupBy];
@@ -87,7 +84,7 @@ class QueryFilter implements QueryFilterInterface
         string $dateField = 'checkoutCompletedAt',
         ?string $rootAlias = null,
     ): void {
-        if (false === strpos($dateField, '.')) {
+        if (!str_contains($dateField, '.')) {
             if (null === $rootAlias) {
                 $rootAlias = $this->qb->getRootAliases()[0];
             }

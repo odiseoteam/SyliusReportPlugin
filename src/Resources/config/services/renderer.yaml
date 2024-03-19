@@ -2,16 +2,19 @@ services:
     odiseo_sylius_report_plugin.renderer:
         class: Odiseo\SyliusReportPlugin\Renderer\DelegatingRenderer
         public: true
-        arguments: ['@odiseo_sylius_report_plugin.registry.renderer']
+        arguments:
+            - '@odiseo_sylius_report_plugin.registry.renderer'
 
     odiseo_sylius_report_plugin.renderer.chart:
         class: Odiseo\SyliusReportPlugin\Renderer\ChartRenderer
-        arguments: ['@twig']
+        arguments:
+            - '@twig'
         tags:
             - { name: odiseo_sylius_report_plugin.renderer, renderer: odiseo_sylius_report_plugin_renderer_chart, label: "odiseo_sylius_report_plugin.renderer.chart" }
 
     odiseo_sylius_report_plugin.renderer.table:
         class: Odiseo\SyliusReportPlugin\Renderer\TableRenderer
-        arguments: ['@twig']
+        arguments:
+            - '@twig'
         tags:
             - { name: odiseo_sylius_report_plugin.renderer, renderer: odiseo_sylius_report_plugin_renderer_table, label: "odiseo_sylius_report_plugin.renderer.table" }

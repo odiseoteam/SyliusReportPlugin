@@ -11,15 +11,11 @@ use Sylius\Component\Payment\Model\PaymentInterface;
 
 class SalesTotalDataFetcher extends TimePeriodDataFetcher
 {
-    private string $orderClass;
-
     public function __construct(
+        private string $orderClass,
         QueryFilterInterface $queryFilter,
-        string $orderClass,
     ) {
         parent::__construct($queryFilter);
-
-        $this->orderClass = $orderClass;
     }
 
     protected function setupQueryFilter(array $configuration = []): void

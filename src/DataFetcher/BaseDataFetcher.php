@@ -8,11 +8,9 @@ use Odiseo\SyliusReportPlugin\Filter\QueryFilterInterface;
 
 abstract class BaseDataFetcher implements DataFetcherInterface
 {
-    protected QueryFilterInterface $queryFilter;
-
-    public function __construct(QueryFilterInterface $queryFilter)
-    {
-        $this->queryFilter = $queryFilter;
+    public function __construct(
+        protected QueryFilterInterface $queryFilter,
+    ) {
     }
 
     /**

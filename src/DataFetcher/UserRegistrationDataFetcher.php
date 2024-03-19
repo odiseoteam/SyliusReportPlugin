@@ -9,15 +9,11 @@ use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\UserRegistrationType;
 
 class UserRegistrationDataFetcher extends TimePeriodDataFetcher
 {
-    private string $userClass;
-
     public function __construct(
+        private string $userClass,
         QueryFilterInterface $queryFilter,
-        string $userClass,
     ) {
         parent::__construct($queryFilter);
-
-        $this->userClass = $userClass;
     }
 
     protected function setupQueryFilter(array $configuration = []): void

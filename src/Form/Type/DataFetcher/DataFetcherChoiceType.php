@@ -10,13 +10,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DataFetcherChoiceType extends AbstractType
 {
-    protected array $dataFetchers;
-
-    public function __construct(array $dataFetchers)
-    {
-        /**
-         * @phpstan-ignore-next-line
-         */
+    public function __construct(
+        protected array $dataFetchers,
+    ) {
         $this->dataFetchers = array_combine(array_values($dataFetchers), array_keys($dataFetchers));
     }
 

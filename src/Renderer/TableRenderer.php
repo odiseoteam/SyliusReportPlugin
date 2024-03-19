@@ -11,11 +11,9 @@ use Twig\Environment;
 
 class TableRenderer implements RendererInterface
 {
-    private Environment $templating;
-
-    public function __construct(Environment $templating)
-    {
-        $this->templating = $templating;
+    public function __construct(
+        private Environment $templating,
+    ) {
     }
 
     public function render(ReportInterface $report, Data $data): string

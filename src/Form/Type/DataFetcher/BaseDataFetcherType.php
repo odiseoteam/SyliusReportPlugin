@@ -9,10 +9,8 @@ use Symfony\Component\Form\AbstractType;
 
 abstract class BaseDataFetcherType extends AbstractType
 {
-    protected QueryFilterFormBuilderInterface $queryFilterFormBuilder;
-
-    public function __construct(QueryFilterFormBuilderInterface $queryFilterFormBuilder)
-    {
-        $this->queryFilterFormBuilder = $queryFilterFormBuilder;
+    public function __construct(
+        protected QueryFilterFormBuilderInterface $queryFilterFormBuilder,
+    ) {
     }
 }

@@ -23,11 +23,9 @@ class ChartRenderer implements RendererInterface
 
     public const DOUGHNUT_CHART = 'doughnut';
 
-    private Environment $templating;
-
-    public function __construct(Environment $templating)
-    {
-        $this->templating = $templating;
+    public function __construct(
+        private Environment $templating,
+    ) {
     }
 
     public function render(ReportInterface $report, Data $data): string

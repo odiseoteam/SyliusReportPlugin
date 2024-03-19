@@ -10,11 +10,9 @@ use Sylius\Component\Registry\ServiceRegistryInterface;
 
 class DelegatingRenderer implements DelegatingRendererInterface
 {
-    protected ServiceRegistryInterface $registry;
-
-    public function __construct(ServiceRegistryInterface $registry)
-    {
-        $this->registry = $registry;
+    public function __construct(
+        protected ServiceRegistryInterface $registry,
+    ) {
     }
 
     public function render(ReportInterface $report, Data $data): string

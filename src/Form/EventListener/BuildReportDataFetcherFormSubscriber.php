@@ -17,14 +17,10 @@ use Symfony\Component\Form\FormInterface;
 
 class BuildReportDataFetcherFormSubscriber implements EventSubscriberInterface
 {
-    private ServiceRegistryInterface $dataFetcherRegistry;
-
-    private FormFactoryInterface $factory;
-
-    public function __construct(ServiceRegistryInterface $dataFetcherRegistry, FormFactoryInterface $factory)
-    {
-        $this->dataFetcherRegistry = $dataFetcherRegistry;
-        $this->factory = $factory;
+    public function __construct(
+        private ServiceRegistryInterface $dataFetcherRegistry,
+        private FormFactoryInterface $factory,
+    ) {
     }
 
     public static function getSubscribedEvents(): array

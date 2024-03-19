@@ -15,20 +15,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class CitySearchAction
 {
-    private AddressRepositoryInterface $addressRepository;
-
-    private RepositoryInterface $countryRepository;
-
-    private ConfigurableViewHandlerInterface $viewHandler;
-
     public function __construct(
-        AddressRepositoryInterface $addressRepository,
-        RepositoryInterface $countryRepository,
-        ConfigurableViewHandlerInterface $viewHandler,
+        private AddressRepositoryInterface $addressRepository,
+        private RepositoryInterface $countryRepository,
+        private ConfigurableViewHandlerInterface $viewHandler,
     ) {
-        $this->addressRepository = $addressRepository;
-        $this->countryRepository = $countryRepository;
-        $this->viewHandler = $viewHandler;
     }
 
     public function __invoke(Request $request): Response

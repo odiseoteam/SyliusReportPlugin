@@ -22,28 +22,15 @@ use Symfony\Component\Form\FormView;
 
 class ReportType extends AbstractResourceType
 {
-    protected ServiceRegistryInterface $rendererRegistry;
-
-    protected ServiceRegistryInterface $dataFetcherRegistry;
-
-    protected string $rendererConfigurationTemplate;
-
-    protected string $dataFetcherConfigurationTemplate;
-
     public function __construct(
         string $dataClass,
         array $validationGroups,
-        ServiceRegistryInterface $rendererRegistry,
-        ServiceRegistryInterface $dataFetcherRegistry,
-        string $rendererConfigurationTemplate,
-        string $dataFetcherConfigurationTemplate,
+        protected ServiceRegistryInterface $rendererRegistry,
+        protected ServiceRegistryInterface $dataFetcherRegistry,
+        protected string $rendererConfigurationTemplate,
+        protected string $dataFetcherConfigurationTemplate,
     ) {
         parent::__construct($dataClass, $validationGroups);
-
-        $this->rendererRegistry = $rendererRegistry;
-        $this->dataFetcherRegistry = $dataFetcherRegistry;
-        $this->rendererConfigurationTemplate = $rendererConfigurationTemplate;
-        $this->dataFetcherConfigurationTemplate = $dataFetcherConfigurationTemplate;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

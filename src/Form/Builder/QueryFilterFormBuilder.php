@@ -20,28 +20,13 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class QueryFilterFormBuilder implements QueryFilterFormBuilderInterface
 {
-    protected RepositoryInterface $addressRepository;
-
-    protected TaxonRepositoryInterface $taxonRepository;
-
-    protected ProductRepositoryInterface $productRepository;
-
-    protected ChannelRepositoryInterface $channelRepository;
-
-    protected UrlGeneratorInterface $generator;
-
     public function __construct(
-        RepositoryInterface $addressRepository,
-        TaxonRepositoryInterface $taxonRepository,
-        ProductRepositoryInterface $productRepository,
-        ChannelRepositoryInterface $channelRepository,
-        UrlGeneratorInterface $generator,
+        protected RepositoryInterface $addressRepository,
+        protected TaxonRepositoryInterface $taxonRepository,
+        protected ProductRepositoryInterface $productRepository,
+        protected ChannelRepositoryInterface $channelRepository,
+        protected UrlGeneratorInterface $generator,
     ) {
-        $this->addressRepository = $addressRepository;
-        $this->taxonRepository = $taxonRepository;
-        $this->productRepository = $productRepository;
-        $this->channelRepository = $channelRepository;
-        $this->generator = $generator;
     }
 
     public function addUserGender(FormBuilderInterface &$builder): void
