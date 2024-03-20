@@ -48,7 +48,8 @@
     "conflict": {
         "symfony/framework-bundle": "6.2.8",
         "api-platform/core": "2.7.17",
-        "behat/mink-selenium2-driver": ">=1.7.0"
+        "behat/mink-selenium2-driver": ">=1.7.0",
+        "beberlei/doctrineextensions": ">=1.5.0"
     },
     "config": {
         "sort-packages": true,
