@@ -30,6 +30,10 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
     {
         $data = new Data();
 
+        $isDay = false;
+        $isMonth = false;
+        $isYear = false;
+
         /** @var DateTime|null $endDate */
         $endDate = $configuration['timePeriod']['end'] ?? null;
 
@@ -39,14 +43,17 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
         switch ($configuration['timePeriod']['period']) {
             case self::PERIOD_DAY:
                 $this->setExtraConfiguration($configuration, 'P1D', '%a', 'Y-m-d', ['date']);
+                $isDay = true;
 
                 break;
             case self::PERIOD_MONTH:
                 $this->setExtraConfiguration($configuration, 'P1M', '%m', 'F Y', ['month', 'year']);
+                $isMonth = true;
 
                 break;
             case self::PERIOD_YEAR:
                 $this->setExtraConfiguration($configuration, 'P1Y', '%y', 'Y', ['year']);
+                $isYear = true;
 
                 break;
             default:
@@ -78,9 +85,15 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
         foreach ($rawData as $row) {
             $rowFetched = [];
             foreach ($labels as $i => $label) {
-                if ($i === 0) {
-                    $date = new DateTime($row[$labels[0]]);
-                    $rowFetched[] = $date->format($configuration['timePeriod']['presentationFormat']);
+                if ($i === 0 and ($isDay or $isMonth or $isYear)) {
+                    if ($isDay || $isMonth) {
+                        $date = new DateTime($row[$labels[0]]);
+                        $rowFetched[] = $date->format($configuration['timePeriod']['presentationFormat']);
+                    } elseif ($isYear) {
+                        $date = new DateTime();
+                        $date->setDate((int) $row[$labels[0]], 1, 1);
+                        $rowFetched[] = $date->format($configuration['timePeriod']['presentationFormat']);
+                    }
                 } else {
                     $rowFetched[] = $row[$label];
                 }
