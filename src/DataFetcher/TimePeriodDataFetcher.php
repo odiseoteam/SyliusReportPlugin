@@ -85,7 +85,7 @@ abstract class TimePeriodDataFetcher extends BaseDataFetcher
         foreach ($rawData as $row) {
             $rowFetched = [];
             foreach ($labels as $i => $label) {
-                if ($i === 0 and ($isDay or $isMonth or $isYear)) {
+                if ($i === 0 && ($isDay || $isMonth || $isYear)) {
                     if ($isDay || $isMonth) {
                         $date = new DateTime($row[$labels[0]]);
                         $rowFetched[] = $date->format($configuration['timePeriod']['presentationFormat']);
