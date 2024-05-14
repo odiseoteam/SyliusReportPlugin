@@ -6,6 +6,10 @@ namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
 class Data
 {
+    public const DAY_FORMAT = '%Y-%m-%d';
+    public const MONTH_FORMAT = '%Y-%m';
+    public const YEAR_FORMAT = '%Y';
+
     private iterable $labels = [];
 
     private iterable $data = [];
@@ -32,5 +36,18 @@ class Data
         $this->data = $data;
 
         return $this;
+    }
+
+    public function getFormatByGroupBy(array $groups): string
+    {
+        if (in_array('date', $groups, true)) {
+            return self::DAY_FORMAT;
+        }
+
+        if (in_array('month', $groups, true)) {
+            return self::MONTH_FORMAT;
+        }
+
+        return self::YEAR_FORMAT;
     }
 }

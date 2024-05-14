@@ -1,4 +1,7 @@
 services:
+    odiseo_sylius_report_plugin.data_fetcher.data:
+        class: Odiseo\SyliusReportPlugin\DataFetcher\Data
+
     odiseo_sylius_report_plugin.data_fetcher:
         class: Odiseo\SyliusReportPlugin\DataFetcher\DelegatingDataFetcher
         public: true
@@ -10,6 +13,7 @@ services:
         arguments:
             - '%sylius.model.shop_user.class%'
             - '@odiseo_sylius_report_plugin.filter.query_filter'
+            - '@odiseo_sylius_report_plugin.data_fetcher.data'
         tags:
             - { name: odiseo_sylius_report_plugin.data_fetcher, fetcher: odiseo_sylius_report_plugin_data_fetcher_user_registration, label: "odiseo_sylius_report_plugin.data_fetcher.user_registration" }
 
@@ -18,6 +22,7 @@ services:
         arguments:
             - '%sylius.model.order.class%'
             - '@odiseo_sylius_report_plugin.filter.query_filter'
+            - '@odiseo_sylius_report_plugin.data_fetcher.data'
         tags:
             - { name: odiseo_sylius_report_plugin.data_fetcher, fetcher: odiseo_sylius_report_plugin_data_fetcher_sales_total, label: "odiseo_sylius_report_plugin.data_fetcher.sales_total" }
 
@@ -26,5 +31,6 @@ services:
         arguments:
             - '%sylius.model.order.class%'
             - '@odiseo_sylius_report_plugin.filter.query_filter'
+            - '@odiseo_sylius_report_plugin.data_fetcher.data'
         tags:
             - { name: odiseo_sylius_report_plugin.data_fetcher, fetcher: odiseo_sylius_report_plugin_data_fetcher_number_of_orders, label: "odiseo_sylius_report_plugin.data_fetcher.number_of_orders" }

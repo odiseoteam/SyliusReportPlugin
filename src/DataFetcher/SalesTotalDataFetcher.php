@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Odiseo\SyliusReportPlugin\DataFetcher;
 
+use Odiseo\SyliusReportPlugin\DataFetcher\Data as DataHelper;
 use Odiseo\SyliusReportPlugin\Filter\QueryFilterInterface;
 use Odiseo\SyliusReportPlugin\Form\Type\DataFetcher\SalesTotalType;
 use Sylius\Component\Core\OrderPaymentStates;
@@ -14,6 +15,7 @@ class SalesTotalDataFetcher extends TimePeriodDataFetcher
     public function __construct(
         private string $orderClass,
         QueryFilterInterface $queryFilter,
+        private DataHelper $reportHelper,
     ) {
         parent::__construct($queryFilter);
     }
@@ -25,13 +27,14 @@ class SalesTotalDataFetcher extends TimePeriodDataFetcher
         $from = $this->orderClass;
         $qb
             ->select(
-                'DATE(payment.updatedAt) as date',
+                'DATE_FORMAT(payment.updatedAt, :format) as date',
                 'COUNT(DATE(payment.updatedAt)) as orders_quantity',
                 'ROUND(SUM(o.total/100), 2) as gross_total_money',
             )
             ->from($from, 'o')
             ->groupBy('date')
         ;
+        $qb->setParameter('format', $this->reportHelper->getFormatByGroupBy($configuration['groupBy'] ?? []));
 
         $this->queryFilter->addLeftJoin('o.customer', 'c');
         $this->queryFilter->addLeftJoin('c.user', 'user');
