@@ -34,7 +34,7 @@ This plugin adds data reports to the Sylius administration interface.
 Support Sylius version 1.9+.
 
 #### Premium features!
-Do you want advanced features? Take a look at our [Report Pro Plugin](https://odiseo.io/plugins-and-bundles/premium/sylius-report-pro-plugin), an extended version of this one.
+Do you want advanced features? Take a look at our [Report Pro Plugin](https://odiseo.io/en/products/sylius-plugins), an extended version of this one.
 
 ## Architecture
 
@@ -44,13 +44,6 @@ according to a configuration provided. And the second one uses the **Data** retu
 Some DataFetchers and Renderers come with this plugin, but you can create your own by implementing their interfaces.
 
 <img src="https://github.com/odiseoteam/SyliusReportPlugin/blob/master/screenshot_1.png" alt="Reports admin">
-
-## Demo
-
-You can see this plugin in action in our Sylius Demo application.
-
-- Frontend: [sylius-demo.odiseo.com.ar](https://sylius-demo.odiseo.com.ar).
-- Administration: [sylius-demo.odiseo.com.ar/admin](https://sylius-demo.odiseo.com.ar/admin) with `odiseo: odiseo` credentials.
 
 ## Documentation
 
