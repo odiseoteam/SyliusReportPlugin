@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://odiseo.com.ar/" target="_blank" title="Odiseo">
+    <a href="https://odiseo.io/en?utm_source=github&utm_medium=readme&utm_campaign=sylius-report-plugin" target="_blank" title="Odiseo">
         <img src="https://github.com/odiseoteam/SyliusReportPlugin/blob/master/sylius-report-plugin.png" alt="Sylius Report Plugin" />
     </a>
     <br />
@@ -21,9 +21,6 @@
     <a href="https://sylius-devs.slack.com" title="Slack" target="_blank">
         <img src="https://img.shields.io/badge/community%20chat-slack-FF1493.svg" />
     </a>
-    <a href="https://odiseo.io/contact-us" title="Support" target="_blank">
-        <img src="https://img.shields.io/badge/support-contact%20author-blue" />
-    </a>
 </p>
 <p align="center"><a href="https://sylius.com/partners/odiseo/" target="_blank"><img src="https://github.com/odiseoteam/SyliusReportPlugin/blob/master/badge-partner-by-sylius.png" width="140"></a></p>
 
@@ -34,7 +31,7 @@ This plugin adds data reports to the Sylius administration interface.
 Support Sylius version 1.9+.
 
 #### Premium features!
-Do you want advanced features? Take a look at our [Report Pro Plugin](https://odiseo.io/en/products/sylius-plugins), an extended version of this one.
+Do you want advanced features? Take a look at our [Report Pro Plugin](https://odiseo.io/en/products/sylius-plugins?utm_source=github&utm_medium=readme&utm_campaign=sylius-report-plugin), an extended version of this one.
 
 ## Architecture
 
@@ -50,6 +47,10 @@ Some DataFetchers and Renderers come with this plugin, but you can create your o
 - [Installation](doc/installation.md)
 - [Tests](doc/tests.md)
 
+## Demo
+
+Want a live walkthrough of this plugin? [Get in touch](https://odiseo.io/en/contact-us?utm_source=github&utm_medium=readme&utm_campaign=sylius-report-plugin) — or browse all our Sylius plugins at [odiseo.io](https://odiseo.io/en/products/sylius-plugins?utm_source=github&utm_medium=readme&utm_campaign=sylius-report-plugin).
+
 ## Credits
 
-This plugin is maintained by <a href="https://odiseo.io">Odiseo</a>. Want us to help you with this plugin or any Sylius project? Contact us on <a href="mailto:team@odiseo.com.ar">team@odiseo.com.ar</a>.
+This plugin is maintained by [Odiseo](https://odiseo.io/en?utm_source=github&utm_medium=readme&utm_campaign=sylius-report-plugin). Want us to help you with this plugin or any Sylius project? [Get in touch](https://odiseo.io/en/contact-us?utm_source=github&utm_medium=readme&utm_campaign=sylius-report-plugin).
